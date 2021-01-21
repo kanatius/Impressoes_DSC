@@ -1,0 +1,26 @@
+#img_logo{
+    width: 50px;
+    height: 50px;
+    
+    /* margin-left: 15px;
+    /* margin-top: 10px; */
+    margin-right: 20px;
+}
+#brand_logo{
+    height: 100%;
+    padding: 14px;
+    padding-bottom: 20px;
+    font-size: 22px;
+}
+
+.carousel_slides{
+    background-size:cover;
+    color: rgba(0,0,0,0);
+}
+.carousel_slides:hover{
+    /* filter:blur(2px); */
+    filter:grayscale();
+    color: rgba(red, green, blue, 1);
+    font-weight: bolder;
+    text-shadow: 2px 0 0 #fff, -2px 0 0 #fff, 0 2px 0 #fff, 0 -2px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
+}
