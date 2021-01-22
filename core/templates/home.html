@@ -17,31 +17,31 @@
 
 </head>
 
-<body>
+<body style=" font-family: Georgia, serif">
 
 
 <!-- Dropdown Structure -->
 <ul id="dropdown1" class="dropdown-content">
-  <li><a href="#!">one</a></li>
-  <li><a href="#!">two</a></li>
+  <li><a href="#!" class="blue_color">Minhas Impressões</a></li>
+  <li><a href="#!" class="blue_color">Solicitar Impressão de Documento</a></li>
   <li class="divider"></li>
-  <li><a href="#!">three</a></li>
+  <li><a href="#!" class="blue_color">Sair</a></li>
 </ul>
 <ul id="dropdown2" class="dropdown-content">
-  <li><a href="#!">one</a></li>
-  <li><a href="#!">two</a></li>
-  <li class="divider"></li>
-  <li><a href="#!">three</a></li>
+  <li><a href="#!" class="blue_color">Minhas Impressões</a></li>
+  <li><a href="#!" class="blue_color">two</a></li>
+  <li class="divider" ></li>
+  <li><a href="#!" class="blue_color">three</a></li>
 </ul>
 <nav>
   <div class="nav-wrapper blue darken-3">
     {% comment %} <a id="brand_logo" href="/home" class="brand-logo"><img id="img_logo" src="{% static 'images/icons/icons8-impressora-multifuncional-64.png' %}"></a> {% endcomment %}
-    <a href="/home" class="brand-logo" style="margin-left: 15px;">SGIIF</a>
+    <a href="/home" class="brand-logo" style="margin-left: 15px; font-family: Georgia, serif">SGIIF</a>
     {% comment %} link para o navbar versao mobile {% endcomment %}
     <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
     <ul class="right hide-on-med-and-down">
-      <li><a href="sass.html">Sass</a></li>
-      <li><a href="badges.html">Components</a></li>
+      <li><a href="/comofunciona">Como Funciona</a></li>
+      {% comment %} <li><a href="/">Components</a></li> {% endcomment %}
       <!-- Dropdown Trigger -->
       <li><a class="dropdown-trigger" href="#!" data-target="dropdown1"> <img style="width: 25px; height: 25px; margin-bottom: -5px" src="{% static 'images/icons/user.png'%}"> Área do usuário<i class="material-icons right">arrow_drop_down</i></a></li>
     </ul>
@@ -54,7 +54,7 @@
 </ul>
 
   
-<div class="carousel carousel-slider center" style="height: 600px">
+<div class="carousel carousel-slider center" style="height: 500px">
   {% comment %} <div class="carousel-fixed-item center">
     <a class="btn waves-effect white grey-text darken-text-2">button</a>
   </div> {% endcomment %}
@@ -62,13 +62,13 @@
   style="background-image: url({% static 'images/slidebar/slide_home_4.jpg'%})"
   >
     <h2 id="title_carrousel_3" class="titles_carrousel">Sistema de Gerenciamento de Impressões do IFRN</h2>
-    <p >O melhor sistema para dar de conta de toda a papelada!</p>
+    <p >O melhor sistema para dar conta da papelada!</p>
   </div>
   <div class="carousel-item lighten-5 black-text carousel_slides" href="#one!"
     style="background-image: url({% static 'images/slidebar/slide_home_2.jpg'%})"
   >
     <h2 id="title_carrousel_1" class="titles_carrousel">Gerenciamento de Fila de Impressões</h2>
-    <p>Com o nosso sistema, você tem a certeza que seu pedido será recebido!</p>
+    <p>Com o nosso sistema, você tem a certeza que seu pedido será entregue dentro do prazo!</p>
   </div>
   <div class="carousel-item light-blue accent-3 black-text carousel_slides" href="#two!"
   style="background-image: url({% static 'images/slidebar/slide_home_3.jpg'%})"
@@ -124,13 +124,27 @@
   <!--JavaScript at end of body for optimized loading-->
   <script type="text/javascript" src="{% static 'materialize-v1.0.0/js/materialize.min.js' %}"></script>
     <script>
+    
+    carouselTransitionTime = 500;
+
     function autoplay() {
-
-      carrosel = $('.carousel');
-      console.log(carrosel.pressed);
-
-      if(carrosel.pressed);
-        carrosel.carousel('next');
+      $('.carousel').carousel('next').css({
+        "filter" : "grayscale(0)"
+      });
+      /*
+      setTimeout(function(){
+      $('.carousel').css({
+          "filter" : "grayscale(0)"
+      });
+      }, 500);
+      */
+      
+      // Deixa o carrosel colorido após passar a imagem
+      setTimeout(function(){
+        $('.carousel').css({
+          "filter" : "grayscale(100)"
+        });
+      }, 5000);
     }
 
     $( document ).ready(function(){
@@ -138,10 +152,12 @@
           $('.carousel.carousel-slider').carousel({
             fullWidth: true,
             indicators: false,
-            duration: 500
+            duration: carouselTransitionTime
           });
         $(".titles_carrousel").css({"font-size": 40, 'font-weight': 'bold', 'color':'#0277bd'});
         $(".carousel-item p").css({"font-size": 25, 'color':'#0277bd'});
+        $("#dropdown2").css({'color': "#0277bd"});
+        $(".blue_color").css({'color': "#0277bd"})
         setInterval(autoplay, 8000);
         /* Function for dropdown use in mobile or on small screens*/
         $('.sidenav').sidenav();
