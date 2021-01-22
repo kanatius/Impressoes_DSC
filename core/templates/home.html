@@ -30,7 +30,7 @@
 <nav>
   <div class="nav-wrapper blue darken-3">
     {% comment %} <a id="brand_logo" href="/home" class="brand-logo"><img id="img_logo" src="{% static 'images/icons/icons8-impressora-multifuncional-64.png' %}"></a> {% endcomment %}
-    <a href="/home" class="brand-logo"> SGIIF</a>
+    <a href="/home" class="brand-logo">SGIIF</a>
     <ul class="right hide-on-med-and-down">
       <li><a href="sass.html">Sass</a></li>
       <li><a href="badges.html">Components</a></li>
@@ -45,56 +45,62 @@
   {% comment %} <div class="carousel-fixed-item center">
     <a class="btn waves-effect white grey-text darken-text-2">button</a>
   </div> {% endcomment %}
+  <div class="carousel-item light-blue accent-4 black-text carousel_slides" href="#three!"
+  style="background-image: url({% static 'images/slidebar/slide_home_4.jpg'%})"
+  >
+    <h2 id="title_carrousel_3" class="titles_carrousel">Sistema de Gerenciamento de Impressões do IFRN</h2>
+    <p >O melhor sistema para dar de conta de toda a papelada!</p>
+  </div>
   <div class="carousel-item lighten-5 black-text carousel_slides" href="#one!"
     style="background-image: url({% static 'images/slidebar/slide_home_2.jpg'%})"
   >
-    <h2>First Panel</h2>
-    <p>This is your first panel</p>
+    <h2 id="title_carrousel_1" class="titles_carrousel">Gerenciamento de Fila de Impressões</h2>
+    <p>Com o nosso sistema, você tem a certeza que seu pedido será recebido!</p>
   </div>
   <div class="carousel-item light-blue accent-3 black-text carousel_slides" href="#two!"
   style="background-image: url({% static 'images/slidebar/slide_home_3.jpg'%})"
   >
-    <h2>Second Panel</h2>
-    <p>This is your second panel</p>
-  </div>
-  <div class="carousel-item light-blue accent-4 black-text carousel_slides" href="#three!"
-  style="background-image: url({% static 'images/slidebar/slide_home_4.jpg'%})"
-  >
-    <h2>Third Panel</h2>
-    <p >This is your third panel</p>
+    <h2 id="title_carrousel_2" class="titles_carrousel">Facilidade de uso!</h2>
+    <p>Interface amigável, feita para você!</p>
   </div>
   <div class="carousel-item light-blue accent-5 black-text carousel_slides" href="#four!"
-  style="background-image: url({% static 'images/slidebar/slide_home_5.jpg'%})"
+  style="background-image: url({% static 'images/slidebar/slide_home_5.jpg'%});"
   >
-    <h2>Fourth Panel</h2>
-    <p >This is your fourth panel</p>
+    <h2 id="title_carrousel_4" class="titles_carrousel">Economize Tempo...</h2>
+    <p >Nosso sistema te envia um email assim que suas impressões estiverem prontas!</p>
   </div>
 </div>
         
+<div>
 
+</div>
 
 <footer class="page-footer grey darken-2">
   <div class="container">
     <div class="row">
+    <div class="col l4 offset-l2 s12">
+        <h5 class="white-text">Contato</h5>
+      <ul>
+        <li>Desenvolvido por: </li>
+          <li><a class="grey-text text-lighten-3" href="https://github.com/kanatius" target="_blank">Natan Almeida</a></li>
+          <li>Telefone: +55 (84) 99952-0691</li>
+          <li>Email: natanalmeidadelima@gmail.com</li>
+          <li>
+            <a class="grey-text text-lighten-3" target="_blank" href="https://www.linkedin.com/in/natan-almeida-2662a0171/"><img style="width: 30px; height:30px" src="{% static 'images/icons/linkedin2.png'%}"></a>
+            <a class="grey-text text-lighten-3" target="_blank" href="https://github.com/kanatius"><img style="width: 30px; height:30px" src="{% static 'images/icons/github.png'%}"></a>
+          </li>
+      </ul>
+    </div>
       <div class="col l6 s12">
         <h5 class="white-text">Footer Content</h5>
         <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
-      </div>
-      <div class="col l4 offset-l2 s12">
-        <h5 class="white-text">Links</h5>
-        <ul>
-          <li>Desenvolvido por: <a class="grey-text text-lighten-3" href="https://github.com/kanatius" target="_blank">Natan Almeida</a></li>
-          <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
-          <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
-          <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
-        </ul>
       </div>
     </div>
   </div>
   <div class="footer-copyright">
     <div class="container">
-    © 2014 Copyright Text
-    <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+    © 2021 NatanSoft
+    <a class="grey-text text-lighten-4 right" href="#!">Powered by Django</a>
     </div>
   </div>
 </footer>
@@ -106,21 +112,25 @@
   <script type="text/javascript" src="{% static 'materialize-v1.0.0/js/materialize.min.js' %}"></script>
     <script>
     function autoplay() {
-      $('.carousel').carousel('next');
-      setTimeout(autoplay, 4000);
+
+      carrosel = $('.carousel');
+      console.log(carrosel.pressed);
+
+      if(carrosel.pressed);
+        carrosel.carousel('next');
     }
 
-    $( document ).ready(
-    function(){
-        $(".dropdown-trigger").dropdown();
-        $('.carousel.carousel-slider').carousel({
-          fullWidth: true,
-          indicators: false,
-          duration: 400
-        });
-    }, setTimeout(autoplay, 4500));
-
-        
+    $( document ).ready(function(){
+          $(".dropdown-trigger").dropdown();
+          $('.carousel.carousel-slider').carousel({
+            fullWidth: true,
+            indicators: false,
+            duration: 500
+          });
+        $(".titles_carrousel").css({"font-size": 40, 'font-weight': 'bold', 'color':'#0277bd'});
+        $(".carousel-item p").css({"font-size": 25, 'color':'#0277bd'});
+        setInterval(autoplay, 8000);
+      });
     </script>
 </body>
 </html>
