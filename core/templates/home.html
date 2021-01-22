@@ -27,21 +27,34 @@
   <li class="divider"></li>
   <li><a href="#!">three</a></li>
 </ul>
+<ul id="dropdown2" class="dropdown-content">
+  <li><a href="#!">one</a></li>
+  <li><a href="#!">two</a></li>
+  <li class="divider"></li>
+  <li><a href="#!">three</a></li>
+</ul>
 <nav>
   <div class="nav-wrapper blue darken-3">
     {% comment %} <a id="brand_logo" href="/home" class="brand-logo"><img id="img_logo" src="{% static 'images/icons/icons8-impressora-multifuncional-64.png' %}"></a> {% endcomment %}
-    <a href="/home" class="brand-logo">SGIIF</a>
+    <a href="/home" class="brand-logo" style="margin-left: 15px;">SGIIF</a>
+    {% comment %} link para o navbar versao mobile {% endcomment %}
+    <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
     <ul class="right hide-on-med-and-down">
       <li><a href="sass.html">Sass</a></li>
       <li><a href="badges.html">Components</a></li>
       <!-- Dropdown Trigger -->
-      <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Dropdown<i class="material-icons right">arrow_drop_down</i></a></li>
+      <li><a class="dropdown-trigger" href="#!" data-target="dropdown1"> <img style="width: 25px; height: 25px; margin-bottom: -5px" src="{% static 'images/icons/user.png'%}"> Área do usuário<i class="material-icons right">arrow_drop_down</i></a></li>
     </ul>
   </div>
 </nav>
 
+<ul class="sidenav" id="mobile-demo">
+    <!-- Dropdown Trigger -->
+    <li><a class="dropdown-trigger" href="#!" data-target="dropdown2"> <img style="width: 25px; height: 25px; margin-bottom: -5px; filter: invert()" src="{% static 'images/icons/user.png'%}"> Área do usuário<i class="material-icons right">arrow_drop_down</i></a></li>
+</ul>
+
   
-<div class="carousel carousel-slider center">
+<div class="carousel carousel-slider center" style="height: 600px">
   {% comment %} <div class="carousel-fixed-item center">
     <a class="btn waves-effect white grey-text darken-text-2">button</a>
   </div> {% endcomment %}
@@ -130,6 +143,8 @@
         $(".titles_carrousel").css({"font-size": 40, 'font-weight': 'bold', 'color':'#0277bd'});
         $(".carousel-item p").css({"font-size": 25, 'color':'#0277bd'});
         setInterval(autoplay, 8000);
+        /* Function for dropdown use in mobile or on small screens*/
+        $('.sidenav').sidenav();
       });
     </script>
 </body>
