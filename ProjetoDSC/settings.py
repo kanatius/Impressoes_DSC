@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'jw9om*ri809djfv)hrtt4m2$8^*s-=cg7il=ghb5wd_46p_de-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -83,19 +83,6 @@ WSGI_APPLICATION = 'ProjetoDSC.wsgi.application'
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
-
-
-DATABASES = {
-    'default': {
-        'ENGINE' : 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'impressoes_dsc',
-        'USER': 'postgres',
-        'PASSWORD': '12345678',
-        'HOST': 'localhost',
-        'PORT': '5432'
-    }
-}
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
