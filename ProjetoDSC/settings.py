@@ -103,17 +103,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-DATABASES = {
-    'default': {
-        'ENGINE' : 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'impressoes_dsc',
-        'USER': 'postgres',
-        'PASSWORD': '12345678',
-        'HOST': 'localhost',
-        'PORT': '5432'
-    }
-}
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
