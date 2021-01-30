@@ -135,3 +135,6 @@ STATIC_URL = '/static/'
 DEFAULT_FILE_STORAGE = "/files/"
 
 AUTH_USER_MODEL = "usuario.usuario"
+
+# Activate Django-Heroku.
+django_heroku.settings(locals()) 
