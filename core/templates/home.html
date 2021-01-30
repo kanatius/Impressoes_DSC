@@ -21,15 +21,36 @@
 
 <body style=" font-family: Georgia, serif">
 
-
   <!-- Modal Structure -->
   <div id="modal1" class="modal">
     <div class="modal-content">
-      <form>
-        {% csrf_token %}
-
+      <div class="row">
+        <form class="col s12">
+          {% csrf_token %}
+          <legend>Login</legend>
+          <div class="row">
+            <div class="input-field col s12">
+              <i class="material-icons prefix">account_box</i>
+              <input id="email" type="email" class="validate">
+              <label for="email">Email</label>
+              <span class="helper-text" data-error="digite um e-mail válido" data-success="">Insira o e-mail</span>
+            </div>
+            <div class="input-field col s12">
+              <i class="material-icons prefix">vpn_key</i>
+              <input id="password" minlength="8" type="password" class="validate">
+              <label for="password">Senha</label>
+              <span class="helper-text" data-error="A senha deve ter no mínimo 6 caracteres" data-success="">Insira sua senha</span>
+            </div>
+          </div>
+          <div id="login_modal">
+            <button class="btn blue darken-3 waves-effect waves-light" type="submit" name="action">Entrar
+              <i class="material-icons right">send</i>
+            </button>
+          </div>
+      </div>
       </form>
     </div>
+  </div>
   </div>
 
   <nav>
@@ -42,7 +63,8 @@
       <ul class="right hide-on-med-and-down">
         <li><a href="{% url 'comofunciona' %}">Como Funciona</a></li>
         <!-- Dropdown Trigger -->
-        <li><a id="login" class="waves-effect waves-light btn grey lighten-5 modal-trigger" href="#modal1">Login</a></li>
+        <li><a id="login" class="waves-effect waves-light btn grey lighten-5 modal-trigger" href="#modal1">Login</a>
+        </li>
       </ul>
     </div>
   </nav>
@@ -55,25 +77,22 @@
           class="material-icons right">arrow_drop_down</i></a></li>
   </ul>
   <div class="carousel carousel-slider center" style="height: 500px;">
-    {% comment %} <div class="carousel-fixed-item center">
-      <a class="btn waves-effect white grey-text darken-text-2">button</a>
-    </div> {% endcomment %}
     <div class="carousel-item light-blue accent-4 black-text carousel_slides" href="#three!"
-      style="background-image: url({% static 'images/slidebar/slide_home_4.jpg'%})">
+      style="background-image: url({% static 'images/slidebar/slide_home_4.jpg' %})">
       <h2 id="title_carrousel_3" class="titles_carrousel">Sistema de Gerenciamento de Impressões do IFRN</h2>
       <p>O melhor sistema para dar conta da papelada!</p>
     </div>
-    <div class="carousel-item lighten-5 black-text carousel_slides" href="#one!"
+    <div class="carousel-item lighten-5 black-text carousel_slides"
       style="background-image: url({% static 'images/slidebar/slide_home_2.jpg'%})">
       <h2 id="title_carrousel_1" class="titles_carrousel">Gerenciamento de Fila de Impressões</h2>
       <p>Com o nosso sistema, você tem a certeza que seu pedido será entregue dentro do prazo!</p>
     </div>
-    <div class="carousel-item light-blue accent-3 black-text carousel_slides" href="#two!"
+    <div class="carousel-item light-blue accent-3 black-text carousel_slides"
       style="background-image: url({% static 'images/slidebar/slide_home_3.jpg'%})">
       <h2 id="title_carrousel_2" class="titles_carrousel">Facilidade de uso!</h2>
       <p>Interface amigável, feita para você!</p>
     </div>
-    <div class="carousel-item light-blue accent-5 black-text carousel_slides" href="#four!"
+    <div class="carousel-item light-blue accent-5 black-text carousel_slides"
       style="background-image: url({% static 'images/slidebar/slide_home_5.jpg'%});">
       <h2 id="title_carrousel_4" class="titles_carrousel">Economize Tempo...</h2>
       <p>Nosso sistema te envia um email assim que suas impressões estiverem prontas!</p>
@@ -81,7 +100,7 @@
   </div>
   </div>
   <div>
-    {% comment %} END CAROUSEL {% endcomment %}
+    <!-- END CAROUSEL -->
 
     <footer class="page-footer grey darken-2">
       <div class="container">
@@ -122,9 +141,6 @@
         </div>
       </div>
     </footer>
-
-
-
 
     <!--JavaScript at end of body for optimized loading-->
     <script type="text/javascript" src="{% static 'materialize-v1.0.0/js/materialize.min.js' %}"></script>

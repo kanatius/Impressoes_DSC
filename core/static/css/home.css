@@ -26,3 +26,27 @@
     color: rgba(red, green, blue, 1);
     
 }
+
+/* icon prefix focus color */
+.input-field .prefix.active {
+    color: #0277bd;
+}
+
+/*label focus color */
+.input-field input:focus + label {
+    color: #0277bd !important;
+}
+
+/* label underline focus color */
+.input-field input:focus {
+    border-bottom: 1px solid  #0277bd !important;
+    box-shadow: 0 1px 0 0 #000;
+}
+
+#login_modal{
+    text-align: right;
+}
+
+#modal1 legend{
+    font-size: 25px !important;
+}
