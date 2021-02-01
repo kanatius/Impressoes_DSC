@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class ImpressoesConfig(AppConfig):
-    name = 'Impressao'
+class ImpressaoConfig(AppConfig):
+    name = 'impressao'

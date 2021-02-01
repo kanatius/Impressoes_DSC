@@ -38,10 +38,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    'django.contrib.sites',
+    #3rd
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    #my apps
     'core',
     'apps.usuario', 
-    'apps.Impressao'
+    'apps.impressao'
 ]
 
 MIDDLEWARE = [
@@ -135,3 +140,12 @@ STATIC_URL = '/static/'
 DEFAULT_FILE_STORAGE = "/files/"
 
 AUTH_USER_MODEL = "usuario.usuario"
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend'
+]
+
+SITE_ID = 1
+
+LOGIN_REDIRECT_URL = '/home'
