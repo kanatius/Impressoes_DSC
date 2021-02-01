@@ -25,7 +25,7 @@
   <div id="modal1" class="modal">
     <div class="modal-content">
       <div class="row">
-        <form class="col s12">
+        <form class="col s12" action="{% url 'login' %}" method="POST">
           {% csrf_token %}
           <legend>Login</legend>
           <div class="row">
