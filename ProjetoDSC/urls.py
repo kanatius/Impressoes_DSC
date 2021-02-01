@@ -20,7 +20,8 @@ import core.views as core_views
 
 #django calls
 urlpatterns = [
-    path('admin/', admin.site.urls)
+    path('admin/', admin.site.urls),
+    path("accounts/", include('django.contrib.auth.urls'))
 ]
 
 #core calls
@@ -28,8 +29,3 @@ urlpatterns += [
     path('', core_views.homePage, name="home"),
     path("comofunciona", core_views.comoFunciona, name="comofunciona")
 ]
-
-# #user calls
-# urlpatterns += [
-#     path('usuario/', include('apps.usuario.urls'))
-# ]

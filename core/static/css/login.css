@@ -1,0 +1,38 @@
+#login_modal {
+  text-align: right !important;
+}
+
+legend {
+  font-size: 25px !important;
+}
+
+#form_container {
+  margin-top: 60px !important;
+  margin-bottom: 60px !important;
+  padding: 30px !important;
+  background-color: white;
+}
+
+body {
+  background-color: #f5f5f5 !important;
+}
+
+/* INPUT LOGIN*/
+/* icon prefix focus color */
+.input-field .prefix.active {
+  color: #0277bd !important;
+}
+
+/*label focus color */
+.input-field input:focus + label {
+  color: #0277bd !important;
+}
+
+/* label underline focus color */
+.input-field input:focus {
+  border-bottom: 1px solid #0277bd !important;
+}
+
+/* INPUT LOGIN*/
+
+/*# sourceMappingURL=login.css.map */
