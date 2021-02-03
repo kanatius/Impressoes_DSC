@@ -31,7 +31,7 @@ class ChangeUserForm(UserChangeForm):
 
     def save(self, commit=True):
         user = super().save(commit=False)
-        user.set_password(self.cleaned_data["password1"])
+        # user.set_password(self.clean("password1"))
         user.email = self.cleaned_data["username"]
         user.funcionario= self.cleaned_data["funcionario"]
         user.cliente = self.cleaned_data["cliente"]
