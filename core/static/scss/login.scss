@@ -1,0 +1,33 @@
+@import '_templateColors.scss';
+
+$LoginPadding : 30px !important;
+$LoginMargin : 60px !important;
+
+#login_modal{
+    text-align: right !important;
+}
+
+legend{
+    font-size: 25px !important;
+}
+
+#modal1{
+    background-color: white;
+}
+
+/* INPUT LOGIN*/
+/* icon prefix focus color */
+.input-field .prefix.active {
+    color: $blue-dark;
+}
+
+/*label focus color */
+.input-field input:focus + label {
+    color: $blue-dark;
+}
+
+/* label underline focus color */
+.input-field input:focus {
+    border-bottom: 1px solid  $blue-dark;
+}
+/* INPUT LOGIN*/

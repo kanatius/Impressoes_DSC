@@ -1,5 +1,5 @@
 from django.db import models
-from usuario.models import Usuario
+from apps.usuario.models import Usuario
 
 # Create your models here.
 class TipoImpressao(models.Model):
