@@ -21,6 +21,7 @@ import core.views as core_views
 
 #--------- MAIN URLS  ----------#
 
+
 #django calls
 urlpatterns = [
     path('admin/', admin.site.urls),

@@ -13,7 +13,6 @@ class UsuarioManager(BaseUserManager):
         user = self.model(email=email, username=email, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
-
         return
 
     def create_user(self, email, password=None, **extra_fields):
@@ -32,7 +31,7 @@ class UsuarioManager(BaseUserManager):
 
 class Usuario(AbstractUser):
     USERNAME_FIELD = 'email'
-    email = models.EmailField(('email address'), unique=True)
+    email = models.EmailField("email", unique=True)
     REQUIRED_FIELDS = [] # removes email from REQUIRED_FIELDS
 
     funcionario = models.BooleanField("funcionario", null=True, blank=True)
