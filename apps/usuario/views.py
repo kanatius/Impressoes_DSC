@@ -16,12 +16,16 @@ def login(request):
         senha = request.POST["password"]
         
         usuario = authenticate(request, email=email, password=senha)
-        
-        if usuario:
-            print("login efetuado com sucesso!")
-            django_login(request, usuario)
 
-        return redirect("/")
+        if usuario is not None:
+            if usuario.funcionario or usuario.cliente:
+                django_login(request, usuario)
+                if usuario.funcionario:
+                    return HttpResponseRedirect("/usuario/funcionario/home")
+                if usuario.cliente:
+                    return HttpResponseRedirect("usuario/cliente/home")
+
+        return HttpResponseRedirect("/")
 
 
 @login_required       
