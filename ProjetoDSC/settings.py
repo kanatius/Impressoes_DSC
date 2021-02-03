@@ -133,7 +133,7 @@ AUTH_USER_MODEL = "usuario.usuario"
 
 # Activate Django-Heroku.
 django_heroku.settings(locals()) 
-=======
+
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend'
 ]
