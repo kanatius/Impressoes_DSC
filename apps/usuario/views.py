@@ -3,6 +3,7 @@ from .models import Usuario
 from django.contrib.auth import login as django_login, logout as django_logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import check_password
+from django.http import HttpResponseRedirect
 #usuario
 from .forms import CreateUserForm
 from django.views.generic.edit import CreateView
@@ -26,7 +27,7 @@ def login(request):
 @login_required       
 def logout(request):
     django_logout(request)
-    return redirect("ProjetoDSC:index")
+    return HttpResponseRedirect("/")
 
 
 
