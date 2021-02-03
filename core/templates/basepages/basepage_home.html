@@ -36,16 +36,16 @@
                 <ul class="right hide-on-med-and-down">
                     <li><a href="{% url 'comofunciona' %}">Como Funciona</a></li>
                     {% if user.is_authenticated %}
-                        {% if user.cliente %}
-                        <li>
-                            <a href="{% url 'usuario:home_cliente' %}">Área do Cliente</a>
-                        </li>
-                        {% endif %}
-                        {% if user.funcionario %}
-                        <li>
-                            <a href="{% url 'usuario:home_funcionario' %}">Área do funcionario</a>
-                        </li>
-                        {% endif %}
+                    {% if user.cliente %}
+                    <li>
+                        <a href="{% url 'usuario:home_cliente' %}">Área do Cliente</a>
+                    </li>
+                    {% endif %}
+                    {% if user.funcionario %}
+                    <li>
+                        <a href="{% url 'usuario:home_funcionario' %}">Área do funcionario</a>
+                    </li>
+                    {% endif %}
                     <li>
                         <a href="{% url 'usuario:logout' %}">Sair</a>
                     </li>
@@ -54,10 +54,39 @@
                             href="#modal1">Login</a>
                     </li>
                     {% endif %}
-
                 </ul>
             </div>
         </nav>
+
+        <ul class="sidenav" id="mobile-demo">
+            <ul>
+                <li><a href="{% url 'index' %} " class="brand-logo"
+                        style="margin-left: 15px; font-family: Georgia, serif">SGIIF</a></li>
+                <!-- link para o navbar versao mobile  -->
+                <li>
+                    <a href="{% url 'comofunciona' %}">Como Funciona</a></li>
+                {% if user.is_authenticated %}
+                {% if user.cliente %}
+                <li>
+                    <a href="{% url 'usuario:home_cliente' %}">Área do Cliente</a>
+                </li>
+                {% endif %}
+                {% if user.funcionario %}
+                <li>
+                    <a href="{% url 'usuario:home_funcionario' %}">Área do funcionario</a>
+                </li>
+                {% endif %}
+                <li>
+                    <a href="{% url 'usuario:logout' %}">Sair</a>
+                </li>
+                {% else %}
+                <li><a id="login" class="waves-effect waves-light btn grey lighten-5 modal-trigger"
+                        href="#modal1">Login</a>
+                </li>
+                {% endif %}
+            </ul>
+        </ul>
+
     </header>
 
     {% if not user.is_authenticated %}
@@ -144,6 +173,11 @@
     </footer>
     <!-- END FOOTER -->
 
+    <script>
+        $(document).ready(function () {
+            $('.sidenav').sidenav();
+        });
+    </script>
     <!--JavaScript at end of body for optimized loading-->
     <script type="text/javascript" src="{% static 'materialize-v1.0.0/js/materialize.min.js' %}"></script>
 </body>
