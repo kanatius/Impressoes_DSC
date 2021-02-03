@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     #my apps
     'core',
     'apps.usuario', 
-    'apps.impressao'
+    'apps.impressao',
 ]
 
 MIDDLEWARE = [
@@ -130,10 +130,6 @@ DEFAULT_FILE_STORAGE = "/files/"
 
 AUTH_USER_MODEL = "usuario.usuario"
 
-
-# Activate Django-Heroku.
-django_heroku.settings(locals()) 
-
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend'
 ]
@@ -147,3 +143,6 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 LOGIN_REDIRECT_URL = '/home'
 LOGOUT_REDIRECT_URL = "index"
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())
