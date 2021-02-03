@@ -1,0 +1,31 @@
+#login_modal {
+  text-align: right !important;
+}
+
+legend {
+  font-size: 25px !important;
+}
+
+#modal1 {
+  background-color: white;
+}
+
+/* INPUT LOGIN*/
+/* icon prefix focus color */
+.input-field .prefix.active {
+  color: #0277bd !important;
+}
+
+/*label focus color */
+.input-field input:focus + label {
+  color: #0277bd !important;
+}
+
+/* label underline focus color */
+.input-field input:focus {
+  border-bottom: 1px solid #0277bd !important;
+}
+
+/* INPUT LOGIN*/
+
+/*# sourceMappingURL=login.css.map */

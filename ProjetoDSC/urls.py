@@ -25,7 +25,7 @@ import core.views as core_views
 #django calls
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("usuario/", include('apps.usuario.urls'))
+    path("usuario/", include('usuario.urls'))
 ]
 
 #core calls
