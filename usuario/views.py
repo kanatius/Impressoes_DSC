@@ -21,9 +21,9 @@ def login(request):
             if usuario.funcionario or usuario.cliente:
                 django_login(request, usuario)
                 if usuario.funcionario:
-                    return HttpResponseRedirect("funcionario/home")
+                    return HttpResponseRedirect("/usuario/funcionario/home")
                 if usuario.cliente:
-                    return HttpResponseRedirect("cliente/home")
+                    return HttpResponseRedirect("/usuario/cliente/home")
 
         return HttpResponseRedirect("/")
 
