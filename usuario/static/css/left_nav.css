@@ -1,26 +1,25 @@
 #left-nav-div {
   color: black;
-  background-color: #e0e0e0 !important;
-  opacity: 80%;
   border-right: 1px solid gray;
   height: 550px;
   padding-top: 20px;
   vertical-align: center;
   min-height: 550px;
+  background-color: #0277bd !important;
+  color: white !important;
+}
+
+#left-nav-ul li a {
+  color: white !important;
+}
+
+#left-nav-ul li a {
+  color: white !important;
+  vertical-align: center;
 }
 
 #left-nav-ul li:hover {
-  background-color: #bdbdbd !important;
-  color: #0277bd !important;
-}
-
-#left-nav-ul li a {
-  color: inherit !important;
-}
-
-#left-nav-ul li a {
-  color: black !important;
-  vertical-align: center;
+  opacity: 85%;
 }
 
 #arrow-left-div a i {

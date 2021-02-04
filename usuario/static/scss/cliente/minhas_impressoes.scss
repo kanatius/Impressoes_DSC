@@ -1,0 +1,22 @@
+@import '../_templateColors.scss';
+
+.tab a{
+    color : $blue-dark;
+    background-color: transparent;
+}
+.tab a.active{
+    background-color: transparent;
+    color: $blue-dark;
+}
+.tab a{
+    border-color: $blue-dark;
+}
+.tab a:focus{
+    background-color: $blue-dark;
+    color: white !important;
+    opacity: 80%;
+}
+
+.tabs .indicator{
+    background-color : $blue-dark;
+}

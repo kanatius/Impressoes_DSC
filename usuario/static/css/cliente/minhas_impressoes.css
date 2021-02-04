@@ -1,0 +1,25 @@
+.tab a {
+  color: #0277bd !important;
+  background-color: transparent;
+}
+
+.tab a.active {
+  background-color: transparent;
+  color: #0277bd !important;
+}
+
+.tab a {
+  border-color: #0277bd !important;
+}
+
+.tab a:focus {
+  background-color: #0277bd !important;
+  color: white !important;
+  opacity: 80%;
+}
+
+.tabs .indicator {
+  background-color: #0277bd !important;
+}
+
+/*# sourceMappingURL=minhas_impressoes.css.map */

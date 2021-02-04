@@ -1,10 +1,87 @@
 {% extends 'basepage_cliente.html' %}
+{% load static %}
 
-{% block page %}
-    <h5>Minhas impressões</h2>
-
-
-    {% for impressao in impressoes %}
-        {{impressao}}
-    {% endfor %}
+{% block head2 %}
+    <link rel="stylesheet" href="{% static 'css/cliente/minhas_impressoes.css'%}">
 {% endblock %}
+{% block page %}
+<h5>Minhas impressões</h2>
+
+    <div class="row">
+        <div class="col s12">
+            <ul class="tabs">
+                <li class="tab col s4"><a class="active" href="#test1">Historico</a></li>
+                <li class="tab col s4"><a href="#test2">Em espera</a></li>
+                <li class="tab col s4"><a href="#test3">Imprimidas</a></li>
+            </ul>
+        </div>
+        <div id="test1" class="col s12">
+            <!-- HISTÓRICO -->
+
+            <table class="striped highlight">
+                <thead>
+                    <tr>
+                        <th>Cod</th>
+                        <th>Arquivo</th>
+                        <th>Cópias</th>
+                        <th>Status</th>
+                        <th>Tipo</th>
+                        <th>Coloria</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for impressao in impressoes %}
+                    <tr>
+                        <td>{{impressao.id}}</td>
+                        <td>{{impressao.uri_arquivo}}</td>
+                        <td>{{impressao.qtd_copias}}</td>
+                        <!-- STATUS -->
+                        {% if impressao.imprimida %}
+                        <td class="green lighten-3">
+                            Imprimida
+                        </td>
+                        {% elif impressao.visualizado_em %}
+                        <td class="blue lighten-3">
+                            Visualizada
+                        </td>
+                        {% else %}
+                        <td>
+                            Arguadando
+                        </td>
+                        {% endif %}
+                        <!-- STATUS -->
+                        <td>{{impressao.tipo.nome}}</td>
+
+                        <!-- COLORIDA OU NÃO -->
+                        {% if impressao.colorida == True %}
+                        <td class="blue lighten-3">
+                            Sim
+                        </td>
+                        {% else %}
+                        <td>
+                            Não
+                        </td>
+                        {% endif %}
+
+                        <!-- COLORIDA OU NÃO -->
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <!-- HISTÓRICO -->
+        <div id="test2" class="col s12">Test 2</div>
+        <div id="test3" class="col s12">Test 3</div>
+    </div>
+
+
+
+
+    <script>
+        $(document).ready(function () {
+            $('.tabs').tabs();
+        });
+    </script>
+
+    {% endblock %}
