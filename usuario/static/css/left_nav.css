@@ -1,12 +1,18 @@
 #left-nav-div {
-  color: black;
+  font-size: 16px;
   border-right: 1px solid gray;
   height: 550px;
   padding-top: 20px;
   vertical-align: center;
   min-height: 550px;
-  background-color: #0277bd !important;
+  background-image: linear-gradient(to bottom, #1565C0, #616161);
   color: white !important;
+  box-shadow: 1px 0px 0px #888888;
+  filter: grayscale(17%);
+}
+
+#left-nav-div hr {
+  color: white;
 }
 
 #left-nav-ul li a {
@@ -15,7 +21,6 @@
 
 #left-nav-ul li a {
   color: white !important;
-  vertical-align: center;
 }
 
 #left-nav-ul li:hover {

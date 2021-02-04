@@ -3,19 +3,24 @@
 $min-height : 550px;
 
 #left-nav-div{
-    color: black;
     // background-color: #f8f8f8 !important;
     // background-color: white !important;
-
+    font-size: 16px;
     border-right: 1px solid gray;
     height: $min-height;
     padding-top: 20px;
     vertical-align: center;
     min-height: $min-height;
-    background-color: $blue-dark;
+    // background-color: $blue-dark;
+    background-image: linear-gradient(to bottom,#1565C0, #616161);
     color: white !important;
+    box-shadow: 1px 0px 0px #888888;
+    filter: grayscale(17%)
     // opacity: 80%;
 }
+#left-nav-div hr{
+    color: white;
+}
 
 #left-nav-ul li a{
     color: white !important;
@@ -23,7 +28,7 @@ $min-height : 550px;
 
 #left-nav-ul li a{
     color: white !important;
-    vertical-align: center;
+    
 }
 #left-nav-ul li:hover{
     opacity: 85%;
