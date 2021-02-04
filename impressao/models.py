@@ -6,6 +6,9 @@ class TipoImpressao(models.Model):
     nome = models.CharField("nome", max_length=55)
     descricao = models.CharField("descricao", max_length=255, blank=True, null=True)
 
+    def __str__(self):
+        return self.nome
+
 
 class Impressao(models.Model):
 
@@ -14,5 +17,7 @@ class Impressao(models.Model):
     qtd_copias = models.SmallIntegerField("qtd_copias")
     visualizado_em = models.DateTimeField("visualizado_em", blank=True, null=True)
     prazo_entrega = models.DateTimeField("prazo_entrega", blank=True, null=True)
+    colorida = models.BooleanField("colorida", default=False)
     cliente = models.ForeignKey(Usuario, name="cliente", on_delete=models.CASCADE)
     tipo = models.ForeignKey(TipoImpressao, on_delete=models.SET_NULL, null=True, name="tipo")
+        

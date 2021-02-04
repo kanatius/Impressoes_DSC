@@ -10,5 +10,6 @@ urlpatterns = [
     path("login", usuario_views.login, name="login"),
     path("logout", usuario_views.logout, name="logout"),
     path("cliente/home", cliente_views.home, name="home_cliente"),
-    path("funcionario/home", func_views.home, name="home_funcionario")
+    path("funcionario/home", func_views.home, name="home_funcionario"),
+    path("cliente/soliticar_impressao", cliente_views.solicitar_impressao, name="solicitar_impressao")
 ]

@@ -1,0 +1,38 @@
+@import "_templateColors.scss";
+
+$min-height : 550px;
+
+#left-nav-div{
+    color: black;
+    background-color: #e0e0e0 !important;
+    opacity: 80%;
+    // opacity: 95%;
+    border-right: 1px solid gray;
+    height: $min-height;
+    padding-top: 20px;
+    vertical-align: center;
+    min-height: $min-height;
+}
+#left-nav-ul li:hover{
+    background-color: #bdbdbd !important;
+    color: $blue-dark;
+}
+#left-nav-ul li a{
+    color: inherit !important;
+}
+
+#left-nav-ul li a{
+    color: black !important;
+    vertical-align: center;
+}
+#arrow-left-div a i{
+    vertical-align: center;
+}
+#page{
+    margin-bottom: 0px; /* margin para o footer*/
+    min-height: $min-height;
+}
+
+#page_in{
+    padding-top: 30px;
+}

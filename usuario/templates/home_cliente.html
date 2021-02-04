@@ -1,12 +1,10 @@
-{% extends 'basepages/basepage_home.html' %}
+{% extends 'basepage_cliente.html' %}
 
-{% block title %}
-    Área do Cliente
+{% block page %}
+    <h5>Minhas impressões</h2>
+
+
+    {% for impressao in impressoes %}
+        {{impressao}}
+    {% endfor %}
 {% endblock %}
-
-
-{% block body %}
-<div class="container">
-    Seja Bem-vindo - Cliente
-</div>
-{% endblock%}

@@ -11,6 +11,6 @@ class CustomUserAdmin(UserAdmin):
     form = ChangeUserForm
     model = Usuario
     list_display = ['username', "cliente", "funcionario", "first_name", "last_name"]
-    readonly_fields = ['password']
+    # readonly_fields = ['password']
 
 admin.site.register(Usuario, CustomUserAdmin)

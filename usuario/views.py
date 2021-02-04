@@ -33,8 +33,6 @@ def logout(request):
     django_logout(request)
     return HttpResponseRedirect("/")
 
-
-
 class CreateUser(CreateView):
     model = Usuario
     form_class = CreateUserForm

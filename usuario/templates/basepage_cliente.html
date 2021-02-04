@@ -1,0 +1,43 @@
+{% extends 'basepages/basepage_home.html' %}
+
+{% load static %}
+
+{% block title %}
+Área do Cliente
+{% endblock %}
+
+{% block head %}
+<link type="text/css" rel="stylesheet" href="{% static 'css/left_nav.css' %}">
+{% endblock %}
+
+{% block body %}
+
+<!-- SIDENAV -->
+
+<!-- SIDENAV -->
+
+<div class="row" id="page">
+    <!-- MENU LATERAL -->
+    <div class="col s2 grey darken-1 large" id="left-nav-div">
+            <ul id="left-nav-ul">
+                <hr>
+                <li>
+                    <a href="{% url 'usuario:home_cliente' %}">Minhas Impressões</a>
+                    <hr>
+                </li>
+                <li>
+                    <a href="{% url 'usuario:solicitar_impressao' %}">Soliciar Impressão</a>
+                    <hr>
+                </li>
+            </ul>
+        </a>
+    </div>
+    <!-- MENU LATERAL -->
+    <div class="col s10">
+        <div class="container" id="page_in">
+            {% block page %}{% endblock %}
+        </div>
+    </div>
+</div>
+
+{% endblock%}
