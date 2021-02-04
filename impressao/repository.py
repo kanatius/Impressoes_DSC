@@ -9,3 +9,9 @@ class ImpressaoRepository:
             return Impressao.objects.filter(cliente_id=request.user.id)
         
         return []
+
+
+class TipoImpressaoRepository:
+
+    def getAll(self):
+        return TipoImpressao.objects.all()

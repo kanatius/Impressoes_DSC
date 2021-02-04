@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
+from impressao.forms import ImpressaoForm
 
 from impressao.repository import ImpressaoRepository
 
@@ -20,6 +21,6 @@ def home(request):
 
 def solicitar_impressao(request):
     if isCliente(request):
-        return render(request, "solicitar_impressao.html")
+        return render(request, "solicitar_impressao.html", context={'form' : ImpressaoForm()})
     
     return HttpResponseRedirect("/")

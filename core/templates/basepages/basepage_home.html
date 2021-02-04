@@ -90,7 +90,7 @@
     </header>
 
     {% if not user.is_authenticated %}
-    <!-- Modal Structure -->
+    <!-- MODAL--> <!--APENAS APARECE SE O USUARIO NÃO ESTIVER LOGADO-->
     <div id="modal1" class="modal">
         <div class="modal-content">
             <div class="container">
@@ -126,6 +126,7 @@
             </form>
         </div>
     </div>
+    <!-- MODAL-->
     {% endif %}
 
     {% block body %}{% endblock %}

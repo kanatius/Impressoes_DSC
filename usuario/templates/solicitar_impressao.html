@@ -1,5 +1,42 @@
 {% extends 'basepage_cliente.html' %}
+{% load static %}
+{% block head2 %}
+<link rel="stylesheet" href=" {% static 'css/cliente/solicitar_impressao.css' %}">
+{% endblock %}
 
 {% block page %}
-    <h5>Solicitar Impressão</h2>
-{% endblock %}
+<h5>Solicitar Impressão</h2>
+    <div class="container col s12">
+        <form>
+            <fieldset>
+                {% for field in form %}
+                <label>
+                    <div class="input-field col s12">
+                        {% if field.label == "colorida" %}
+                        <!-- 'colorida' is my boolean field -->
+                        {{field}}
+                        <span>{{field.label}}</span>
+                        <!-- if boolean field, span must be after input (in materialize) -->
+                        {% else %}
+                        <span>{{field.label}}</span> <!-- description before input if not boolean field -->
+                        {{field}}
+                        {% endif %}
+                    </div>
+                </label>
+                <br>
+                <br>
+                {% endfor %}
+            </fieldset>
+            <div id="enviar">
+                <button class="btn blue darken-3 waves-effect waves-light" type="submit" name="action">Enviar
+                    <i class="material-icons right">send</i>
+                </button>
+            </div>
+        </form>
+    </div>
+    <script>
+        $("input#id_colorida").addClass("filled-in");
+        $("input-field input").addClass("validate");
+    </script>
+
+    {% endblock %}

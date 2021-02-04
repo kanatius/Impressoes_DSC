@@ -1,0 +1,22 @@
+input[type=checkbox].filled-in:checked + span:not(.lever):after {
+  border: 2px solid #0277bd !important;
+  background-color: #0277bd !important;
+}
+
+.input-field input:focus {
+  border-bottom: 1px solid #0277bd !important;
+}
+
+label {
+  font-size: 16px !important;
+}
+
+fieldset {
+  border: 0px;
+}
+
+div#enviar {
+  text-align: right;
+}
+
+/*# sourceMappingURL=solicitar_impressao.css.map */

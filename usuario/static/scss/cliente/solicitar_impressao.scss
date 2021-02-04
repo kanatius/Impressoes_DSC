@@ -1,0 +1,22 @@
+@import '../templateColors';
+
+input[type="checkbox"].filled-in:checked + span:not(.lever):after{
+    border: 2px solid $blue-dark;
+    background-color: $blue-dark;
+}
+
+.input-field input:focus {
+    border-bottom: 1px solid $blue-dark;
+}
+
+label{
+    font-size: 16px !important;
+}
+
+fieldset{
+    border: 0px;
+}
+
+div#enviar{
+    text-align: right;
+}
