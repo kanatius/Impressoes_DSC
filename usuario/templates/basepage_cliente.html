@@ -22,19 +22,19 @@
 <div class="row" id="page">
     <!-- MENU LATERAL -->
     <div class="col s2 grey darken-1 large" id="left-nav-div">
-            Seja Bem-vindo! <br>
-            {{user.first_name}}
-            <ul id="left-nav-ul">
+        <div class="right-align box">Seja Bem-vindo!</div>
+        <div class="left-align box">{{user.first_name}}</div>
+        <ul id="left-nav-ul">
+            <hr>
+            <li>
+                <a href="{% url 'usuario:home_cliente' %}">Minhas Impressões</a>
                 <hr>
-                <li>
-                    <a href="{% url 'usuario:home_cliente' %}">Minhas Impressões</a>
-                    <hr>
-                </li>
-                <li>
-                    <a href="{% url 'usuario:solicitar_impressao' %}">Soliciar Impressão</a>
-                    <hr>
-                </li>
-            </ul>
+            </li>
+            <li>
+                <a href="{% url 'usuario:solicitar_impressao' %}">Soliciar Impressão</a>
+                <hr>
+            </li>
+        </ul>
         </a>
     </div>
     <!-- MENU LATERAL -->

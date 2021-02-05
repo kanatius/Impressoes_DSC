@@ -5,7 +5,7 @@ from .models import Impressao, TipoImpressao
 class ImpressaoRepository:
 
     
-    def list(self, imprimida=None, cliente_id=None):
+    def list(self, imprimida=None, cliente_id=None, order_by='id', desc=False):
         query = Impressao.objects.all()
 
         if imprimida is not None:
@@ -14,13 +14,12 @@ class ImpressaoRepository:
         if cliente_id is not None:
             query = query.filter(cliente_id=cliente_id)
 
-        return query
-    
-    def getById(self, request):
-        if request.user.is_authenticated :
-            return Impressao.objects.filter(cliente_id=request.user.id)
+        query = query.order_by(order_by)
+
+        if desc :
+            query = query.reverse()
         
-        return []
+        return query
 
 class TipoImpressaoRepository:
 

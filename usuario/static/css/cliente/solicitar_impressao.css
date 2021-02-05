@@ -11,12 +11,27 @@ label {
   font-size: 16px !important;
 }
 
+form {
+  margin-top: 30px;
+}
+
+#div-form {
+  padding: 0px;
+}
+
 fieldset {
   border: 0px;
+  margin: 0px;
+  padding: 0px;
 }
 
 div#enviar {
   text-align: right;
+}
+
+#id_comentario {
+  height: 100px;
+  font-family: "Times New Roman", Times, serif;
 }
 
 /*# sourceMappingURL=solicitar_impressao.css.map */

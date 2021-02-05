@@ -1,14 +1,15 @@
 #left-nav-div {
   font-size: 16px;
   border-right: 1px solid gray;
-  height: 550px;
+  height: 580px;
   padding-top: 20px;
   vertical-align: center;
-  min-height: 550px;
-  background-image: linear-gradient(to bottom, #1565C0, #616161);
+  min-height: 580px;
+  background-image: linear-gradient(to bottom, #1c497b, #616161);
   color: white !important;
   box-shadow: 1px 0px 0px #888888;
   filter: grayscale(17%);
+  text-shadow: 3px 3px 3px black !important;
 }
 
 #left-nav-div hr {
@@ -23,8 +24,8 @@
   color: white !important;
 }
 
-#left-nav-ul li:hover {
-  opacity: 85%;
+#left-nav-ul li a:hover {
+  color: black !important;
 }
 
 #arrow-left-div a i {
@@ -34,7 +35,7 @@
 #page {
   margin-bottom: 0px;
   /* margin para o footer*/
-  min-height: 550px;
+  min-height: 580px;
 }
 
 #page_in {

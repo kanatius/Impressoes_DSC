@@ -14,7 +14,7 @@ def isCliente(request):
 
 def home(request):
     if isCliente(request): #entra na home do cliente caso o usuario logado seja cliente
-        impressoes = ImpressaoRepository().list(cliente_id=request.user.id)
+        impressoes = ImpressaoRepository().list(cliente_id=request.user.id, desc=True)
         return render(request, "home_cliente.html", context={"impressoes": impressoes})
 
     return HttpResponseRedirect("/")
