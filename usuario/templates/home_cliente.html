@@ -16,8 +16,16 @@
         </div>
         <div id="test1" class="col s12">
             <!-- HISTÓRICO -->
-
-            <table class="striped highlight">
+            <!-- SEARCH BAR -->
+            <div class="nav-wrapper">
+                <div class="input-field">
+                    <input id="search1" onkeyup="filter('search1', 'table1')" type="search">
+                    <label class="label-icon" for="search1"><i class="material-icons">search</i></label>
+                    <i class="material-icons">close</i>
+                </div>
+            </div>
+            <!-- SEARCH BAR -->
+            <table id="table1" class="striped highlight">
                 <thead>
                     <tr>
                         <th>Cod</th>
@@ -26,6 +34,7 @@
                         <th>Status</th>
                         <th>Tipo</th>
                         <th>Coloria</th>
+                        <th></th> <!-- delete col -->
                     </tr>
                 </thead>
 
@@ -63,6 +72,17 @@
                         </td>
                         {% endif %}
                         <!-- COLORIDA OU NÃO -->
+                        <!-- DELETE COL -->
+                        <td>
+                            <form action="#" method="post">
+                                {% csrf_token %}
+                                <input name="id" type="number" value={{ impressao.id }} hidden disabled>
+                                <button class="btn red lighten-1">
+                                    <i class="material-icons">delete</i>
+                                </button>
+                            </form>
+                        </td>
+                        <!-- DELETE COL -->
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -72,7 +92,18 @@
 
         <div id="test2" class="col s12">
             <!--IMPRIMIDAS -->
-            <table class="striped highlight">
+
+            <!-- SEARCH BAR -->
+            <div class="nav-wrapper">
+                <div class="input-field">
+                    <input id="search2" onkeyup="filter('search2', 'table2')" type="search">
+                    <label class="label-icon" for="search2"><i class="material-icons">search</i></label>
+                    <i class="material-icons">close</i>
+                </div>
+            </div>
+            <!-- SEARCH BAR -->
+
+            <table id="table2" class="striped highlight">
                 <thead>
                     <tr>
                         <th>Cod</th>
@@ -81,6 +112,7 @@
                         <th>Status</th>
                         <th>Tipo</th>
                         <th>Coloria</th>
+                        <th></th> <!-- delete col -->
                     </tr>
                 </thead>
 
@@ -118,8 +150,20 @@
                             Não
                         </td>
                         {% endif %}
-                        {% endif %}
                         <!-- COLORIDA OU NÃO -->
+                        <!-- DELETE COL -->
+                        <td>
+                            <form action="#" method="post">
+                                {% csrf_token %}
+                                <input name="id" type="number" value={{ impressao.id }} hidden disabled>
+                                <button class="btn red lighten-1">
+                                    <i class="material-icons">delete</i>
+                                </button>
+                            </form>
+                        </td>
+                        <!-- DELETE COL -->
+                        {% endif %}
+                        
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -127,15 +171,25 @@
             <!--IMPRIMIDAS -->
         </div>
         <div id="test3" class="col s12">
-            <table class="striped highlight">
+            <!-- SEARCH BAR -->
+            <div class="nav-wrapper">
+                <div class="input-field">
+                    <input id="search3" onkeyup="filter('search3', 'table3')" type="search">
+                    <label class="label-icon" for="search3"><i class="material-icons">search</i></label>
+                    <i class="material-icons">close</i>
+                </div>
+            </div>
+            <!-- SEARCH BAR -->
+            <table id="table3" class="striped highlight">
                 <thead>
                     <tr>
-                        <th>Cod</th>
-                        <th>Arquivo</th>
-                        <th>Cópias</th>
-                        <th>Status</th>
-                        <th>Tipo</th>
-                        <th>Coloria</th>
+                        <th class="center-align">Cod</th>
+                        <th class="center-align">Arquivo</th>
+                        <th class="center-align">Cópias</th>
+                        <th class="center-align">Status</th>
+                        <th class="center-align">Tipo</th>
+                        <th class="center-align">Coloria</th>
+                        <th></th> <!-- delete col -->
                     </tr>
                 </thead>
 
@@ -173,8 +227,20 @@
                             Não
                         </td>
                         {% endif %}
-                        {% endif %}
                         <!-- COLORIDA OU NÃO -->
+
+                        <!-- DELETE COL -->
+                        <td>
+                            <form action="#" method="post">
+                                {% csrf_token %}
+                                <input name="id" type="number" value={{ impressao.id }} hidden disabled>
+                                <button class="btn red lighten-1">
+                                    <i class="material-icons">delete</i>
+                                </button>
+                            </form>
+                        </td>
+                        <!-- DELETE COL -->
+                        {% endif %}
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -182,13 +248,41 @@
         </div>
     </div>
 
-
-
-
     <script>
         $(document).ready(function () {
             $('.tabs').tabs();
         });
+        //Search bar code
+        function filter(id_search, id_table) {
+            // Declare variables
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById(id_search);
+            filter = input.value.toUpperCase();
+            table = document.getElementById(id_table);
+            tdbody = table.getElementsByTagName("tbody")[0];
+            tr = tdbody.getElementsByTagName("tr");
+
+            // Loop through all table rows, and hide those who don't match the search query
+            for (i = 0; i < tr.length; i++) {
+                found = false;
+
+                tds = tr[i].getElementsByTagName("td")
+
+                for (x = 0; x < tds.length; x++) {
+                    td = tds[x];
+                    if (td) {
+                        txtValue = td.textContent || td.innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            found = true;
+                        }
+                    }
+                }
+                if (found)
+                    tr[i].style.display = "";
+                else
+                    tr[i].style.display = "none";
+            }
+        }
     </script>
 
     {% endblock %}

@@ -1,19 +1,21 @@
 #left-nav-div {
-  font-size: 16px;
+  font-size: 17px;
   border-right: 1px solid gray;
   height: 580px;
   padding-top: 20px;
   vertical-align: center;
   min-height: 580px;
-  background-image: linear-gradient(to bottom, #1c497b, #616161);
+  background-image: linear-gradient(to bottom, #171717, #616161);
   color: white !important;
   box-shadow: 1px 0px 0px #888888;
   filter: grayscale(17%);
+  opacity: 90%;
   text-shadow: 3px 3px 3px black !important;
 }
 
 #left-nav-div hr {
   color: white;
+  border: 1px solid white;
 }
 
 #left-nav-ul li a {
