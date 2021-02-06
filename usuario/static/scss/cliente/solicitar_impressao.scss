@@ -24,10 +24,25 @@ fieldset{
     margin: 0px;
     padding: 0px;
 }
+#btn-enviar{
+    background-color: $blue-dark;
+}
 
 div#enviar{
     text-align: right;
 }
+
+ul.select-dropdown li span{
+    color: $blue-dark;
+}
+
+.btn#file-input{
+    background-color: $blue-dark;
+}
+.btn#file-input:hover{
+    opacity: 80%;
+}
+
 
 #id_comentario{
     height: 100px;

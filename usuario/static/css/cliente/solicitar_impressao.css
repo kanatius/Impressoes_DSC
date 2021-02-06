@@ -25,8 +25,24 @@ fieldset {
   padding: 0px;
 }
 
+#btn-enviar {
+  background-color: #0277bd !important;
+}
+
 div#enviar {
   text-align: right;
+}
+
+ul.select-dropdown li span {
+  color: #0277bd !important;
+}
+
+.btn#file-input {
+  background-color: #0277bd !important;
+}
+
+.btn#file-input:hover {
+  opacity: 80%;
 }
 
 #id_comentario {

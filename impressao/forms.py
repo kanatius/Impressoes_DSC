@@ -9,7 +9,7 @@ class ImpressaoForm(forms.Form):
     qtd_copias = forms.IntegerField(label="cópias", initial=1, min_value=1)
     colorida = forms.BooleanField(label="colorida")
     comentario = forms.CharField(max_length=255, widget=forms.Textarea(attrs={'rows': 10, 'cols': 40}), required=False)
-    tipo = forms.Select()
+    tipo = forms.IntegerField(widget=forms.Select(choices= TipoImpressaoRepository().getAll().values_list('id', 'nome')))
 
     class Meta:
         model = Impressao

@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from impressao.forms import ImpressaoForm
+from impressao.models import Impressao
+from usuario.models import Usuario
 
 from impressao.repository import ImpressaoRepository
 
@@ -24,10 +26,16 @@ def solicitar_impressao(request):
         if isCliente(request):
             return render(request, "solicitar_impressao.html", context={'form' : ImpressaoForm()})
     
-    # elif request.method == "POST":
-    #     if isCliente(request):
-    #         form = ImpressaoForm(request.POST, files=request.FILES)
-    #         if form.is_valid:
+    elif request.method == "POST":
+        if isCliente(request):
+            form = ImpressaoForm(request.POST, files=request.FILES)
+            if form.is_valid():
+                cliente = Usuario.objects.get(id=request.user.id)
+                impressao = Impressao(form.cleaned_data)
+                print(impressao)
+                impressao.save()
+            
+        return render(request, "solicitar_impressao.html", context={'form' : ImpressaoForm()})
                 
 
 
