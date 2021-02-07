@@ -55,7 +55,7 @@
                     {% for impressao in impressoes %}
                     <tr>
                         <td>{{impressao.id}}</td>
-                        <td>{{impressao.uri_arquivo}}</td>
+                        <td>{{impressao.uri_arquivo|truncatechars:50}}</td>
                         <td>{{impressao.qtd_copias}}</td>
                         <!-- STATUS -->
                         {% if impressao.imprimida %}
@@ -134,7 +134,7 @@
                     {% if not impressao.imprimida %}
                     <tr>
                         <td>{{impressao.id}}</td>
-                        <td>{{impressao.uri_arquivo}}</td>
+                        <td>{{impressao.uri_arquivo|truncatechars:50}}</td>
                         <td>{{impressao.qtd_copias}}</td>
                         <!-- STATUS -->
                         {% if impressao.imprimida %}
@@ -211,7 +211,7 @@
                     {% if impressao.imprimida %}
                     <tr>
                         <td>{{impressao.id}}</td>
-                        <td>{{impressao.uri_arquivo}}</td>
+                        <td>{{impressao.uri_arquivo|truncatechars:50}}</td>
                         <td>{{impressao.qtd_copias}}</td>
                         <!-- STATUS -->
                         {% if impressao.imprimida %}
