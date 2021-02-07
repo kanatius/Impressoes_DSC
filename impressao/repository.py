@@ -20,6 +20,12 @@ class ImpressaoRepository:
             query = query.reverse()
         
         return query
+    
+    def getById(self, id):
+        try:
+            return Impressao.objects.get(id=id)
+        except:
+            return None
 
 class TipoImpressaoRepository:
 

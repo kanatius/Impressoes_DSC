@@ -41,6 +41,36 @@ def solicitar_impressao(request):
 
         return render(request, "solicitar_impressao.html", context={'form' : ImpressaoForm()})
                 
+    return HttpResponseRedirect("/")
 
 
+def delete_impressao(request):
+    if request.method == "POST":
+        print("entrou delete")
+        if isCliente(request):
+
+            print(request.POST)
+
+            impressao = ImpressaoRepository().getById(request.POST.get("id_impressao"))
+
+            print("id impressao: " + str(request.POST.get("id_impressao")))
+            print(impressao)
+
+            if impressao is not None:
+                print("entrou not none")
+
+                if impressao.cliente_id == request.user.id:
+                    print("entoru delete")
+                    
+                    
+                    impressao.delete()
+                    
+                    messages.success(request, "Impressao removida com sucesso!")
+                    
+                    return redirect("usuario:minhas_impressoes")
+            
+            
+            messages.success(request, "Erro na solicitação")
+            return redirect("usuario:minhas_impressoes")
+    
     return HttpResponseRedirect("/")
