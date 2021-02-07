@@ -18,7 +18,7 @@ class Impressao(models.Model):
     visualizado_em = models.DateTimeField("visualizado_em", blank=True, null=True)
     prazo_entrega = models.DateTimeField("prazo_entrega", blank=True, null=True)
     colorida = models.BooleanField("colorida", default=False)
-    cliente = models.ForeignKey(Usuario, name="cliente", on_delete=models.CASCADE)
+    cliente = models.ForeignKey(Usuario, name="cliente", on_delete=models.CASCADE, null=True)
     imprimida = models.BooleanField("is_imprimida", blank=True, default=False)
     tipo = models.ForeignKey(TipoImpressao, on_delete=models.SET_NULL, null=True, name="tipo")
         

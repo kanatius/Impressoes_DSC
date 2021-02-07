@@ -17,7 +17,7 @@ def isCliente(request):
 def home(request):
     if isCliente(request): #entra na home do cliente caso o usuario logado seja cliente
         impressoes = ImpressaoRepository().list(cliente_id=request.user.id, desc=True)
-        return render(request, "home_cliente.html", context={"impressoes": impressoes})
+        return render(request, "minhas_impressoes.html", context={"impressoes": impressoes})
 
     return HttpResponseRedirect("/")
 
@@ -30,11 +30,12 @@ def solicitar_impressao(request):
         if isCliente(request):
             form = ImpressaoForm(request.POST, files=request.FILES)
             if form.is_valid():
-                cliente = Usuario.objects.get(id=request.user.id)
-                impressao = Impressao(form.cleaned_data)
-                print(impressao)
-                impressao.save()
-            
+                impressao = form.save(commit=False)
+                impressao.cliente = request.user
+                impressao.save()                
+
+                return redirect("minhas_impressoes")
+
         return render(request, "solicitar_impressao.html", context={'form' : ImpressaoForm()})
                 
 

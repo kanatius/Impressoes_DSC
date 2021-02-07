@@ -40,7 +40,7 @@
                     {% if user.is_authenticated %}
                     {% if user.cliente %}
                     <li>
-                        <a href="{% url 'usuario:home_cliente' %}">Área do Cliente</a>
+                        <a href="{% url 'usuario:minhas_impressoes' %}">Área do Cliente</a>
                     </li>
                     {% endif %}
                     {% if user.funcionario %}
@@ -70,7 +70,7 @@
                 {% if user.is_authenticated %}
                 {% if user.cliente %}
                 <li>
-                    <a href="{% url 'usuario:home_cliente' %}">Área do Cliente</a>
+                    <a href="{% url 'usuario:minhas_impressoes' %}">Área do Cliente</a>
                 </li>
                 {% endif %}
                 {% if user.funcionario %}

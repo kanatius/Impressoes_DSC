@@ -13,6 +13,12 @@ label {
 
 form {
   margin-top: 30px;
+  margin-bottom: 50px;
+}
+
+.select-dropdown {
+  color: #00897b;
+  font-family: inherit;
 }
 
 #div-form {

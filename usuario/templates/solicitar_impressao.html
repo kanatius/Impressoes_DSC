@@ -13,7 +13,7 @@
                 {% for field in form %}
                 <label>
                     <div class="input-field col s12">
-                        {% if field.label == "colorida" %}
+                        {% if field.label == "Colorida" %}
                         <!-- 'colorida' is my boolean field -->
                         {{field}}
                         <span>{{field.label}}</span>
@@ -50,9 +50,9 @@
     <script>
         $(document).ready(function(){
             $('select').formSelect();
+            $("input#id_colorida").addClass("filled-in");
           });
         $('#id_tipo').formSelect();
-        $("input#id_colorida").addClass("filled-in");
         $("input-field input").addClass("validate");
     </script>
 
