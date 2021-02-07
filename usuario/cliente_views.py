@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect
 from impressao.forms import ImpressaoForm
 from impressao.models import Impressao
 from usuario.models import Usuario
+from django.contrib import messages
 
 from impressao.repository import ImpressaoRepository
 
@@ -34,7 +35,9 @@ def solicitar_impressao(request):
                 impressao.cliente = request.user
                 impressao.save()                
 
-                return redirect("minhas_impressoes")
+                messages.success(request, 'Impressão cadastrada com sucesso!')
+
+                return redirect("usuario:minhas_impressoes")
 
         return render(request, "solicitar_impressao.html", context={'form' : ImpressaoForm()})
                 

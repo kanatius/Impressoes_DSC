@@ -6,6 +6,19 @@
 {% endblock %}
 {% block page %}
 <h5>Minhas impressões</h2>
+
+    {% if messages %}
+    <!-- MENSAGENS -->
+    <div class="card-panel teal lighten-2" id="messages">
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
+    </ul>
+    </div>
+    <!-- MENSAGENS -->
+    {% endif %}
+    
     <div class="row">
         <div class="col s12">
             <ul class="tabs">
@@ -163,7 +176,7 @@
                         </td>
                         <!-- DELETE COL -->
                         {% endif %}
-                        
+
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -251,6 +264,11 @@
     <script>
         $(document).ready(function () {
             $('.tabs').tabs();
+
+            //esconde mensagens de sucesso e erro
+            setTimeout(function(){
+                $("#messages").hide();
+            }, 2200)
         });
         //Search bar code
         function filter(id_search, id_table) {
