@@ -8,5 +8,10 @@
 {% block body %}
 <div class="container">
     Seja Bem-vindo - Func
+
+    {% for impressao in impressoes %}
+        {{impressao}}
+    {% endfor %}
+
 </div>
 {% endblock%}

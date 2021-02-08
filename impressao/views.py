@@ -37,12 +37,12 @@ class ImpressaoUpdate(UpdateView):
     # success_message = 'Impressão editada com sucesso!'
     success_url='/usuario/cliente/impressao/list'
 
-    def save_model(self, request, obj, form, change):
-        super(ImpressaoUpdate, self).save_model(request, obj, form, change)
-        if obj.status == "OK":
-            messages.success(request, "Impressão editada com sucesso!")
-        elif obj.status == "NO":
-            messages.error(request, "Erro ao Editar")
+    # def save_model(self, request, obj, form, change):
+    #     super(ImpressaoUpdate, self).save_model(request, obj, form, change)
+    #     if obj.status == "OK":
+    #         messages.success(request, "Impressão editada com sucesso!")
+    #     elif obj.status == "NO":
+    #         messages.error(request, "Erro ao Editar")
 
 
 
