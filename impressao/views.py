@@ -4,6 +4,7 @@ from impressao.forms import ImpressaoForm
 from django.views.generic import CreateView,ListView,UpdateView,DeleteView
 from django.urls import reverse_lazy
 from impressao.repository import ImpressaoRepository
+from django.contrib import messages
 
 # Create your views here.
 class ImpressaoCreate(CreateView):
@@ -32,8 +33,17 @@ class ImpressaoUpdate(UpdateView):
     ## implementacao da regra de negocio
     model = Impressao
     form_class = ImpressaoForm
-    template_name = 'solicitar_impressoes.html'
-    success_url='/paciente/listar'
+    template_name = 'edit_impressao.html'
+    # success_message = 'Impressão editada com sucesso!'
+    success_url='/usuario/cliente/impressao/list'
+
+    def save_model(self, request, obj, form, change):
+        super(ImpressaoUpdate, self).save_model(request, obj, form, change)
+        if obj.status == "OK":
+            messages.success(request, "Impressão editada com sucesso!")
+        elif obj.status == "NO":
+            messages.error(request, "Erro ao Editar")
+
 
 
 class ImpressaoDelete(DeleteView):

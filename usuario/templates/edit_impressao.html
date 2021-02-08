@@ -1,0 +1,59 @@
+{% extends 'basepage_cliente.html' %}
+{% load static %}
+{% block head2 %}
+<link rel="stylesheet" href=" {% static 'css/cliente/solicitar_impressao.css' %}">
+{% endblock %}
+
+{% block page %}
+<h5>Editar Impressão</h2>
+    <div class="container col s12" id="div-form">
+        <form enctype="multipart/form-data" method="POST">
+            {% csrf_token %}
+            <fieldset>
+                {% for field in form %}
+                <label>
+                    <div class="input-field col s12">
+                        {% if field.label == "Colorida" %}
+                        <!-- 'colorida' is my boolean field -->
+                        {{field}}
+                        <span>{{field.label}}</span>
+                        <!-- if boolean field, span must be after input (in materialize) -->
+                        
+                        {% elif field.label == "Arquivo" %}
+                        <div class="file-field input-field">
+                            <div class="btn" id="file-input">
+                              <span>Arquivo</span>
+                              {{field}}
+                            </div>
+                            <div class="file-path-wrapper">
+                              <input class="file-path validate" type="text">
+                            </div>
+                          </div>
+                        {% else %}
+                        <span>{{field.label}}</span> <!-- description before input if not boolean field -->
+                        {{field}}
+                        {{field.erros}}
+                        {% endif %}
+                    </div>
+                </label>
+                <br>
+                <br>
+                {% endfor %}
+            </fieldset>
+            <div id="enviar">
+                <button id="btn-enviar" class="btn waves-effect waves-light" type="submit" name="action">Enviar
+                    <i class="material-icons right">send</i>
+                </button>
+            </div>
+        </form>
+    </div>
+    <script>
+        $(document).ready(function(){
+            $('select').formSelect();
+            $("input#id_colorida").addClass("filled-in");
+          });
+        $('#id_tipo').formSelect();
+        $("input-field input").addClass("validate");
+    </script>
+
+    {% endblock %}

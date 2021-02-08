@@ -56,4 +56,9 @@ ul.select-dropdown li span {
   font-family: "Times New Roman", Times, serif;
 }
 
+#file-input a {
+  color: white !important;
+  opacity: 90%;
+}
+
 /*# sourceMappingURL=solicitar_impressao.css.map */

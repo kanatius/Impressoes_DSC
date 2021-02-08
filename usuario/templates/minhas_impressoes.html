@@ -48,6 +48,7 @@
                         <th>Tipo</th>
                         <th>Coloria</th>
                         <th></th> <!-- delete col -->
+                        <th></th>
                     </tr>
                 </thead>
 
@@ -85,6 +86,14 @@
                         </td>
                         {% endif %}
                         <!-- COLORIDA OU NÃO -->
+                        <!-- EDIT -->
+                        <td>
+                            <a href="/usuario/cliente/impressao/edit/{{ impressao.id }}" class="btn blue lighten-1">
+                                <i class="material-icons">edit</i>
+                            </a>
+                        </td>
+                        <!-- EDIT -->
+
                         <!-- DELETE COL -->
                         <td>
                             <form action="{% url 'usuario:delete_impressao' %}" method="POST">
@@ -126,6 +135,7 @@
                         <th>Tipo</th>
                         <th>Coloria</th>
                         <th></th> <!-- delete col -->
+                        <th></th>
                     </tr>
                 </thead>
 
@@ -164,6 +174,14 @@
                         </td>
                         {% endif %}
                         <!-- COLORIDA OU NÃO -->
+                        <!-- EDIT -->
+                        <td>
+                            <a href="/usuario/cliente/impressao/edit/{{ impressao.id }}" class="btn blue lighten-1">
+                                <i class="material-icons">edit</i>
+                            </a>
+                        </td>
+                        <!-- EDIT -->
+
                         <!-- DELETE COL -->
                         <td>
                             <form action="{% url 'usuario:delete_impressao' %}" method="POST">
@@ -241,7 +259,13 @@
                         </td>
                         {% endif %}
                         <!-- COLORIDA OU NÃO -->
-
+                        <!-- EDIT -->
+                        <td>
+                            <a href="/usuario/cliente/impressao/edit/{{ impressao.id }}" class="btn blue lighten-1">
+                                <i class="material-icons">edit</i>
+                            </a>
+                        </td>
+                        <!-- EDIT -->
                         <!-- DELETE COL -->
                         <td>
                             <form action="{% url 'usuario:delete_impressao' %}" method="POST">

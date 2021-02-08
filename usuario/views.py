@@ -23,7 +23,7 @@ def login(request):
                 if usuario.funcionario:
                     return HttpResponseRedirect("/usuario/funcionario/home")
                 if usuario.cliente:
-                    return HttpResponseRedirect("/usuario/cliente/home")
+                    return redirect("usuario:minhas_impressoes")
 
         return HttpResponseRedirect("/")
 
