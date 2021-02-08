@@ -46,3 +46,19 @@ class ImpressaoService():
                 impressao.save()
                 return True
         return False
+    
+    
+    def delete(self, request):
+
+        if isCliente(request):
+            impressao = self.impressaoRepository.getById(id=request.POST.get("id_impressao"))
+
+            # print("id impressao: " + str(request.POST.get("id_impressao")))
+            # print(impressao)
+
+            if impressao is not None:
+                if impressao.cliente_id == request.user.id:                   
+                    impressao.delete()
+                    return True
+        
+        return False

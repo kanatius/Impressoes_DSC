@@ -41,31 +41,15 @@ def solicitar_impressao(request):
 
 def delete_impressao(request):
     if request.method == "POST":
-        print("entrou delete")
-        if isCliente(request):
 
-            print(request.POST)
-
-            impressao = ImpressaoService().getById(request, id=request.POST.get("id_impressao"))
-
-            print("id impressao: " + str(request.POST.get("id_impressao")))
-            print(impressao)
-
-            if impressao is not None:
-                print("entrou not none")
-
-                if impressao.cliente_id == request.user.id:
-                    print("entoru delete")
+        if ImpressaoService().delete(request=request):
                     
-                    
-                    impressao.delete()
-                    
-                    messages.success(request, "Impressao removida com sucesso!")
-                    
-                    return redirect("usuario:minhas_impressoes")
+            messages.success(request, "Impressao removida com sucesso!")
             
-            
-            messages.success(request, "Erro na solicitação")
             return redirect("usuario:minhas_impressoes")
+            
+            
+        messages.success(request, "Erro na solicitação")
+        return redirect("usuario:minhas_impressoes")
     
     return HttpResponseRedirect("/")
