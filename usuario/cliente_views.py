@@ -8,6 +8,12 @@ from django.contrib import messages
 from impressao.service import ImpressaoService
 
 
+def isFuncionario(request):
+    if not request.user.is_anonymous and request.user is not None:
+        if request.user.funcionario:
+            return True
+    return False
+
 def isCliente(request):
     if not request.user.is_anonymous and request.user is not None:
         if request.user.cliente:
@@ -17,7 +23,7 @@ def isCliente(request):
 #Acessar home cliente
 def home(request):
     if isCliente(request): #entra na home do cliente caso o usuario logado seja cliente
-        impressoes = ImpressaoService().getImpressoes(request, desc=False)
+        impressoes = ImpressaoService().getImpressoes(request, desc=True)
         return render(request, "minhas_impressoes.html", context={"impressoes": impressoes})
 
     return HttpResponseRedirect("/")
@@ -37,6 +43,32 @@ def solicitar_impressao(request):
         return render(request, "solicitar_impressao.html", context={'form' : ImpressaoForm()})
                 
     return HttpResponseRedirect("/")
+
+def update_impressao(request, id_impressao):
+
+    if request.method == "GET":
+        impressao = ImpressaoService().getById(request, id_impressao)
+        
+        if impressao is None:
+            return HttpResponseRedirect("/")
+
+        form = ImpressaoForm(instance=impressao)
+        print(form._clean_fields)
+        return render(request, "edit_impressao.html", context={"form" : form})
+
+    if request.method == "POST":
+
+        if ImpressaoService().update(request=request ,id=id_impressao):
+            
+            if isCliente(request) :
+                messages.success(request, "Impressão editada com sucesso")
+                return redirect("usuario:minhas_impressoes")
+            
+            if isFuncionario(request):
+                messages.success(request, "Informações atualizadas com sucesso")
+                return redirect("usuario:home_func")
+        
+
 
 
 def delete_impressao(request):

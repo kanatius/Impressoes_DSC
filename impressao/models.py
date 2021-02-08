@@ -13,7 +13,7 @@ class TipoImpressao(models.Model):
 class Impressao(models.Model):
 
     comentario = models.CharField('comentario', max_length=255, blank=True, null=True)
-    arquivo = models.FileField(name='uri_arquivo')
+    arquivo = models.FileField(name='uri_arquivo', max_length=400)
     qtd_copias = models.SmallIntegerField("qtd_copias")
     visualizado_em = models.DateTimeField("visualizado_em", blank=True, null=True)
     prazo_entrega = models.DateTimeField("prazo_entrega", blank=True, null=True)

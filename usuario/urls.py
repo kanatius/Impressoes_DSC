@@ -15,6 +15,7 @@ urlpatterns = [
     path("cliente/soliticar_impressao", cliente_views.solicitar_impressao, name="solicitar_impressao"),
     # path('cliente/impressao/create', ImpressaoCreate.as_view(), name='solicitar_impressao'),
     path('cliente/impressao/list', cliente_views.home, name='minhas_impressoes'),
-    path('cliente/impressao/edit/<int:pk>/', ImpressaoUpdate.as_view(), name='edit_impressao'),
+    # path('cliente/impressao/edit/<int:pk>/', ImpressaoUpdate.as_view(), name='edit_impressao'),
+    path('cliente/impressao/edit/<int:id_impressao>/', cliente_views.update_impressao, name='edit_impressao'),
     path('cliente/impressao/delete', cliente_views.delete_impressao, name='delete_impressao')
 ]

@@ -31,3 +31,9 @@ class TipoImpressaoRepository:
 
     def getAll(self):
         return TipoImpressao.objects.all()
+
+    def getById(self, id=None):
+        try:
+            return TipoImpressao.objects.get(id=id)
+        except:
+            return None
