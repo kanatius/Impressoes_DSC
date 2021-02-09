@@ -51,6 +51,9 @@ class ImpressaoService():
             return None
         
         impressao = self.impressaoRepository.getById(id=id)
+        
+        if impressao is None:
+            return None
 
         if impressao.cliente.id == request.user.id or request.user.funcionario:
             #se a impressao for do usuario ou se o usuario for cliente
