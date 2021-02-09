@@ -59,6 +59,9 @@ def update_impressao(request, id_impressao):
         return render(request, "edit_impressao.html", context={"form" : form})
 
     if request.method == "POST":
+        
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect("/")
 
         if impressaoService.update(request=request ,id=id_impressao):
             
@@ -68,6 +71,14 @@ def update_impressao(request, id_impressao):
             
             if isFuncionario(request):
                 messages.success(request, "Informações atualizadas com sucesso")
+                return redirect("usuario:home_func")
+        else:
+            messages.error(request, "Não foi possível editar a impressão")
+
+            if isCliente(request):
+                return redirect("usuario:minhas_impressoes")
+            
+            if isFuncionario(request):
                 return redirect("usuario:home_func")
         
 
