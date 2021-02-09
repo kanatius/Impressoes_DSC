@@ -3,7 +3,7 @@
 
 {% block page %}
 <div id="test1" class="col s12">
-    <!-- HISTÓRICO -->
+    <h5>Fila de impressões pendentes</h5>
     <!-- SEARCH BAR -->
     <div class="nav-wrapper">
         <div class="input-field">
@@ -18,12 +18,12 @@
             <tr>
                 <th>Cod</th>
                 <th>Arquivo</th>
-                <th>Cópias</th>
-                <th>Status</th>
-                <th>Tipo</th>
+                <th>Cópias</th>  
                 <th>Coloria</th>
-                <th></th> <!-- delete col -->
-                <th></th>
+                <th>Tipo</th>
+                <th>Dono</th>
+                <th>Comentário</th> <!-- delete col -->
+                <th>Notificar</th>
             </tr>
         </thead>
 
@@ -34,21 +34,7 @@
                 <td><a href="/impressao/download/{{impressao.uri_arquivo}}" target="_blank">{{impressao.uri_arquivo|truncatechars:50}}</a></td>
                 <td>{{impressao.qtd_copias}}</td>
                 <!-- STATUS -->
-                {% if impressao.imprimida %}
-                <td class="green lighten-3">
-                    Imprimida
-                </td>
-                {% elif impressao.visualizado_em %}
-                <td class="blue lighten-3">
-                    Visualizada
-                </td>
-                {% else %}
-                <td>
-                    Aguardando
-                </td>
-                {% endif %}
                 <!-- STATUS -->
-                <td>{{impressao.tipo.nome}}</td>
 
                 <!-- COLORIDA OU NÃO -->
                 {% if impressao.colorida == True %}
@@ -61,21 +47,21 @@
                 </td>
                 {% endif %}
                 <!-- COLORIDA OU NÃO -->
+                <td>{{impressao.tipo.nome}}</td>
+                <td>{{impressao.cliente.first_name}} {{impressao.cliente.last_name}}</td>
                 <!-- EDIT -->
                 <td>
-                    <a href="/usuario/cliente/impressao/edit/{{ impressao.id }}" class="btn blue lighten-1">
-                        <i class="material-icons">edit</i>
-                    </a>
+                    {{impressao.comentario}}
                 </td>
                 <!-- EDIT -->
 
                 <!-- DELETE COL -->
                 <td>
-                    <form action="{% url 'usuario:delete_impressao' %}" method="POST">
+                    <form action="#" method="POST">
                         {% csrf_token %}
                         <input name="id_impressao" type="number" value={{ impressao.id }} hidden>
-                        <button class="btn red lighten-1">
-                            <i class="material-icons">delete</i>
+                        <button title="Impressão pronta!" onclick="return confirm('Notificar cliente que a impressão está pronta?')" class="btn red lighten-1 green darken-1">
+                            <i class="material-icons">check</i>
                         </button>
                     </form>
                 </td>

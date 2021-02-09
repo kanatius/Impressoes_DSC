@@ -26,4 +26,9 @@ input[type=search]:focus {
   background-color: #0277bd !important;
 }
 
+.arquivo {
+  width: 600px !important;
+  max-width: 500px !important;
+}
+
 /*# sourceMappingURL=minhas_impressoes.css.map */

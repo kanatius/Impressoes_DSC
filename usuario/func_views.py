@@ -13,7 +13,7 @@ def is_funcionario(request):
 def home(request):
 
     if is_funcionario(request): #entra na home do cliente caso o usuario logado seja cliente
-        impressoes = impressaoService.getImpressoes(request, desc=True)
+        impressoes = impressaoService.getImpressoes(request, desc=False)
         return render(request, "home_func.html", context={'impressoes' : impressoes})
 
     return HttpResponseRedirect("/")
