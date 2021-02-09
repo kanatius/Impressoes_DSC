@@ -16,6 +16,11 @@ def isCliente(request):
             return True
     return False
 
+def isFuncionario(request):
+    if not request.user.is_anonymous and request.user is not None:
+        if request.user.funcionario:
+            return True
+    return False
 
 
 class ImpressaoService():
@@ -142,11 +147,30 @@ class ImpressaoService():
 
     #DOWNLOAD FILES
     def download(self, request, path):
+        
+        if not request.user.is_authenticated:
+            raise Http404  #retorna erro se o usuário não estiver autenticado
+        
+        impressao = self.impressaoRepository.getByPath(path)
+
+        #----- NÃO MUDE SE NÃO SOUBER O QUE ESTÁ FAZENDO -----#
+
+        if impressao is None:
+            raise Http404 #retorna erro se a impressao não existe
+
+        if not isCliente(request) and not isFuncionario(request):
+            raise Http404 #retorna erro se não for funcionário ou cliente
+
+        if (isCliente(request) and impressao.cliente_id != request.user.id) and not isFuncionario(request):
+            raise Http404 #retorna erro se o cliente não for dono da impressao e tbm não é funcionario
+        
+        #----- NÃO MUDE SE NÃO SOUBER O QUE ESTÁ FAZENDO -----#
+
 
         file_path = os.path.join(settings.MEDIA_ROOT, path)
         if os.path.exists(file_path):
             with open(file_path, 'rb') as fh:
-                response = HttpResponse(fh.read(), content_type="application/vnd.ms-excel")
+                response = HttpResponse(fh.read(), content_type="application/default")
                 response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
                 return response
         raise Http404

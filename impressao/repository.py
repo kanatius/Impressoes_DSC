@@ -27,6 +27,12 @@ class ImpressaoRepository:
         except:
             return None
 
+    def getByPath(self, path):
+        try:
+            return Impressao.objects.get(uri_arquivo=path)
+        except:
+            return None
+
 class TipoImpressaoRepository:
 
     def getAll(self):
