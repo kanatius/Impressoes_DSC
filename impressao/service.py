@@ -76,7 +76,7 @@ class ImpressaoService():
         data = request.POST
         up_data = {}
         
-        if request.user.cliente:
+        if request.user.cliente and impressao.imprimida != True: #cliente só pode editar se a impressão ainda não foi imprimida
             
             if "colorida" in data:
                 colorida = True if data["colorida"] == 'on' else False
@@ -108,12 +108,10 @@ class ImpressaoService():
 
             return True
 
-
-
         if request.user.funcionario:
             #campos que o funcionario pode editar
-            if "vizualizao_em" in data:
-                impressao.vizualizao_em = data["vizualizao_em"]
+            # if "vizualizao_em" in data:
+            #     impressao.vizualizao_em = data["vizualizao_em"]
 
             if "imprimida" in data:
                 impressao.imprimida : data["imprimida"]
@@ -125,15 +123,12 @@ class ImpressaoService():
 
             return True
 
-        return None
+        return False
     
     def delete(self, request):
 
         if isCliente(request):
             impressao = self.impressaoRepository.getById(id=request.POST.get("id_impressao"))
-
-            # print("id impressao: " + str(request.POST.get("id_impressao")))
-            # print(impressao)
 
             if impressao is not None:
                 if impressao.cliente_id == request.user.id:                   
@@ -141,3 +136,18 @@ class ImpressaoService():
                     return True
         
         return False
+
+
+#DOWNLOAD FILES
+# import os
+# from django.conf import settings
+# from django.http import HttpResponse, Http404
+
+# def download(request, path):
+#     file_path = os.path.join(settings.MEDIA_ROOT, path)
+#     if os.path.exists(file_path):
+#         with open(file_path, 'rb') as fh:
+#             response = HttpResponse(fh.read(), content_type="application/vnd.ms-excel")
+#             response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+#             return response
+#     raise Http404
