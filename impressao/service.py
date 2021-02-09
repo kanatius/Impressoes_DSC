@@ -1,3 +1,4 @@
+import os
 from .repository import ImpressaoRepository
 from .repository import TipoImpressaoRepository
 from impressao.forms import ImpressaoForm
@@ -5,6 +6,8 @@ from ProjetoDSC.settings import MEDIA_ROOT
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from datetime import datetime
+from django.conf import settings
+from django.http import HttpResponse, Http404
 
 
 def isCliente(request):
@@ -137,17 +140,13 @@ class ImpressaoService():
         
         return False
 
+    #DOWNLOAD FILES
+    def download(self, request, path):
 
-#DOWNLOAD FILES
-# import os
-# from django.conf import settings
-# from django.http import HttpResponse, Http404
-
-# def download(request, path):
-#     file_path = os.path.join(settings.MEDIA_ROOT, path)
-#     if os.path.exists(file_path):
-#         with open(file_path, 'rb') as fh:
-#             response = HttpResponse(fh.read(), content_type="application/vnd.ms-excel")
-#             response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
-#             return response
-#     raise Http404
+        file_path = os.path.join(settings.MEDIA_ROOT, path)
+        if os.path.exists(file_path):
+            with open(file_path, 'rb') as fh:
+                response = HttpResponse(fh.read(), content_type="application/vnd.ms-excel")
+                response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+                return response
+        raise Http404
