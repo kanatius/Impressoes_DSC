@@ -1,3 +1,7 @@
+.tab a {
+  color: #0277bd !important;
+  background-color: transparent;
+}
 
 .tab a.active {
   background-color: transparent;

@@ -6,6 +6,8 @@ from django.urls import reverse_lazy
 from impressao.repository import ImpressaoRepository
 from django.contrib import messages
 from .service import ImpressaoService
+from django.http import HttpResponseRedirect
+from django.shortcuts import redirect
 
 
 impressaoService = ImpressaoService()
@@ -13,6 +15,15 @@ impressaoService = ImpressaoService()
 
 def downloadFile(request, filename):
     return impressaoService.download(request, filename)
+
+def setImprimida(request):
+    if request.method == "POST":
+        response = impressaoService.setImprimida(request=request)
+        if response:
+            messages.success(request, "Impressão definida como imprimida com sucesso!<br>O cliente já consegue visualizar a modificação.")
+            return redirect("usuario:home_funcionario")
+    else:
+        return HttpResponseRedirect("/")
 
 # Create your views here.
 class ImpressaoCreate(CreateView):

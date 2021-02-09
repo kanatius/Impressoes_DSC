@@ -4,5 +4,6 @@ from impressao import views as impressao_views
 app_name = "impressao"
 
 urlpatterns = [
-    path("download/<str:filename>", impressao_views.downloadFile, name="download")
+    path("download/<str:filename>", impressao_views.downloadFile, name="download"),
+    path("setImprimida", impressao_views.setImprimida, name="set_imprimida")
 ]

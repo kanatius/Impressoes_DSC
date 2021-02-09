@@ -6,348 +6,356 @@
 <script src="{% static 'js/confirmForm.js' %}"></script>
 {% endblock %}
 {% block page %}
-<h5>Minhas impressões</h2>
+<h5>Minhas impressões</h5>
 
-    {% if messages %}
-    <!-- MENSAGENS -->
-    <div class="card-panel teal lighten-2" id="messages">
-        <ul class="messages">
-            {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
-                {% endfor %}
+<br>
+
+{% if messages %}
+<!-- MENSAGENS -->
+<div class="card-panel teal lighten-2" id="messages">
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
+    </ul>
+</div>
+<!-- MENSAGENS -->
+{% endif %}
+<div class="row">
+    <div class="col s12">
+        <ul class="tabs">
+            <li class="tab col s4"><a class="active" href="#test1">Historico</a></li>
+            <li class="tab col s4"><a href="#test2">Em espera</a></li>
+            <li class="tab col s4"><a href="#test3">Imprimidas</a></li>
         </ul>
     </div>
-    <!-- MENSAGENS -->
-    {% endif %}
-
-    <div class="row">
-        <div class="col s12">
-            <ul class="tabs">
-                <li class="tab col s4"><a class="active" href="#test1">Historico</a></li>
-                <li class="tab col s4"><a href="#test2">Em espera</a></li>
-                <li class="tab col s4"><a href="#test3">Imprimidas</a></li>
-            </ul>
-        </div>
-        <div id="test1" class="col s12">
-            <!-- HISTÓRICO -->
-            <!-- SEARCH BAR -->
-            <div class="nav-wrapper">
-                <div class="input-field">
-                    <input id="search1" onkeyup="filter('search1', 'table1')" type="search">
-                    <label class="label-icon" for="search1"><i class="material-icons">search</i></label>
-                    <i class="material-icons">close</i>
-                </div>
+    <div id="test1" class="col s12">
+        <!-- HISTÓRICO -->
+        <!-- SEARCH BAR -->
+        <div class="nav-wrapper">
+            <div class="input-field">
+                <input id="search1" onkeyup="filter('search1', 'table1')" type="search">
+                <label class="label-icon" for="search1"><i class="material-icons">search</i></label>
+                <i class="material-icons">close</i>
             </div>
-            <!-- SEARCH BAR -->
-            <table id="table1" class="striped highlight">
-                <thead>
-                    <tr>
-                        <th class="center-align">Cod</th>
-                        <th class="center-align">Arquivo</th>
-                        <th class="center-align">Cópias</th>
-                        <th class="center-align">Status</th>
-                        <th class="center-align">Tipo</th>
-                        <th class="center-align">Coloria</th>
-                        <th></th> <!-- delete col -->
-                        <th></th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    {% for impressao in impressoes %}
-                    <tr>
-                        <td>{{impressao.id}}</td>
-                        <td class="arquivo"><a href="/impressao/download/{{impressao.uri_arquivo}}" target="_blank">{{impressao.uri_arquivo|truncatechars:35}}</a></td>
-                        <td>{{impressao.qtd_copias}}</td>
-                        <!-- STATUS -->
-                        {% if impressao.imprimida %}
-                        <td class="green lighten-3">
-                            Imprimida
-                        </td>
-                        {% elif impressao.visualizado_em %}
-                        <td class="blue lighten-3">
-                            Visualizada
-                        </td>
-                        {% else %}
-                        <td>
-                            Aguardando
-                        </td>
-                        {% endif %}
-                        <!-- STATUS -->
-                        <td>{{impressao.tipo.nome}}</td>
-
-                        <!-- COLORIDA OU NÃO -->
-                        {% if impressao.colorida == True %}
-                        <td class="blue lighten-3">
-                            Sim
-                        </td>
-                        {% else %}
-                        <td>
-                            Não
-                        </td>
-                        {% endif %}
-                        <!-- COLORIDA OU NÃO -->
-                        <!-- EDIT -->
-                        {% if not impressao.imprimida %}
-                        <td>
-                            <a href="/usuario/cliente/impressao/edit/{{ impressao.id }}" class="btn blue lighten-1">
-                                <i class="material-icons">edit</i>
-                            </a>
-                        </td>
-                        {% else %}
-                        <td>
-                            <a href="/usuario/cliente/impressao/edit/{{ impressao.id }}" disabled class="btn blue lighten-1">
-                                <i class="material-icons">edit</i>
-                            </a>
-                        </td>
-                        {% endif %}
-                        <!-- EDIT -->
-
-                        <!-- DELETE COL -->
-                        {% if not impressao.imprimida %}
-                        <td>
-                            <form action="{% url 'usuario:delete_impressao' %}" method="POST">
-                                {% csrf_token %}
-                                <input name="id_impressao" type="number" value={{ impressao.id }} hidden>
-                                <button class="btn red lighten-1" onclick="return confirm('Tem certeza que deseja excluir a impressão?')">
-                                    <i class="material-icons">delete</i>
-                                </button>
-                            </form>
-                        </td>
-                        {% else %}
-                        <td>
-                            <form action="{% url 'usuario:delete_impressao' %}" method="POST">
-                                {% csrf_token %}
-                                <input name="id_impressao" type="number" value={{ impressao.id }} hidden>
-                                <button class="btn red lighten-1" disabled>
-                                    <i class="material-icons">delete</i>
-                                </button>
-                            </form>
-                        </td>
-                        {% endif %}
-                        <!-- DELETE COL -->
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <!-- HISTÓRICO -->
         </div>
+        <!-- SEARCH BAR -->
+        <table id="table1" class="striped highlight">
+            <thead>
+                <tr>
+                    <th class="center-align">Cod</th>
+                    <th class="center-align">Arquivo</th>
+                    <th class="center-align">Cópias</th>
+                    <th class="center-align">Status</th>
+                    <th class="center-align">Tipo</th>
+                    <th class="center-align">Coloria</th>
+                    <th></th> <!-- delete col -->
+                    <th></th>
+                </tr>
+            </thead>
 
-        <div id="test2" class="col s12">
-            <!--IMPRIMIDAS -->
-
-            <!-- SEARCH BAR -->
-            <div class="nav-wrapper">
-                <div class="input-field">
-                    <input id="search2" onkeyup="filter('search2', 'table2')" type="search">
-                    <label class="label-icon" for="search2"><i class="material-icons">search</i></label>
-                    <i class="material-icons">close</i>
-                </div>
-            </div>
-            <!-- SEARCH BAR -->
-
-            <table id="table2" class="striped highlight">
-                <thead>
-                    <tr>
-                        <th class="center-align">Cod</th>
-                        <th class="center-align">Arquivo</th>
-                        <th class="center-align">Cópias</th>
-                        <th class="center-align">Status</th>
-                        <th class="center-align">Tipo</th>
-                        <th class="center-align">Coloria</th>
-                        <th></th> <!-- delete col -->
-                        <th></th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    {% for impressao in impressoes %}
-                    {% if not impressao.imprimida %}
-                    <tr>
-                        <td>{{impressao.id}}</td>
-                        <td class="arquivo"><a href="/impressao/download/{{impressao.uri_arquivo}}" target="_blank">{{impressao.uri_arquivo|truncatechars:35}}</a></td>
-                        <td>{{impressao.qtd_copias}}</td>
-                        <!-- STATUS -->
-                        {% if impressao.imprimida %}
-                        <td class="green lighten-3">
-                            Imprimida
-                        </td>
-                        {% elif impressao.visualizado_em %}
-                        <td class="blue lighten-3">
-                            Visualizada
-                        </td>
-                        {% else %}
-                        <td>
-                            Aguardando
-                        </td>
-                        {% endif %}
-                        <!-- STATUS -->
-                        <td>{{impressao.tipo.nome}}</td>
-
-                        <!-- COLORIDA OU NÃO -->
-                        {% if impressao.colorida == True %}
-                        <td class="blue lighten-3">
-                            Sim
-                        </td>
-                        {% else %}
-                        <td>
-                            Não
-                        </td>
-                        {% endif %}
-                        <!-- COLORIDA OU NÃO -->
-                        <!-- EDIT -->
-                        <td>
-                            <a href="/usuario/cliente/impressao/edit/{{ impressao.id }}" class="btn blue lighten-1">
-                                <i class="material-icons">edit</i>
-                            </a>
-                        </td>
-                        <!-- EDIT -->
-
-                        <!-- DELETE COL -->
-                        <td>
-                            <form action="{% url 'usuario:delete_impressao' %}" method="POST">
-                                {% csrf_token %}
-                                <input name="id_impressao" type="number" value={{ impressao.id }} hidden>
-                                <button class="btn red lighten-1" onclick="return confirm('Tem certeza que deseja excluir a impressão?')">
-                                    <i class="material-icons">delete</i>
-                                </button>
-                            </form>
-                        </td>
-                        <!-- DELETE COL -->
-                        {% endif %}
-
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <!--IMPRIMIDAS -->
-        </div>
-        <div id="test3" class="col s12">
-            <!-- SEARCH BAR -->
-            <div class="nav-wrapper">
-                <div class="input-field">
-                    <input id="search3" onkeyup="filter('search3', 'table3')" type="search">
-                    <label class="label-icon" for="search3"><i class="material-icons">search</i></label>
-                    <i class="material-icons">close</i>
-                </div>
-            </div>
-            <!-- SEARCH BAR -->
-            <table id="table3" class="striped highlight">
-                <thead>
-                    <tr>
-                        <th class="center-align">Cod</th>
-                        <th class="center-align">Arquivo</th>
-                        <th class="center-align">Cópias</th>
-                        <th class="center-align">Status</th>
-                        <th class="center-align">Tipo</th>
-                        <th class="center-align">Coloria</th>
-                        <th></th> <!-- delete col -->
-                    </tr>
-                </thead>
-
-                <!-- IMPRIMIDAS -->
-                <tbody>
-                    {% for impressao in impressoes %}
+            <tbody>
+                {% for impressao in impressoes %}
+                <tr>
+                    <td>{{impressao.id}}</td>
+                    <td class="arquivo"><a href="/impressao/download/{{impressao.uri_arquivo}}"
+                            target="_blank">{{impressao.uri_arquivo|truncatechars:35}}</a></td>
+                    <td>{{impressao.qtd_copias}}</td>
+                    <!-- STATUS -->
                     {% if impressao.imprimida %}
-                    <tr>
-                        <td>{{impressao.id}}</td>
-                        <td class="arquivo"><a href="/impressao/download/{{impressao.uri_arquivo}}" target="_blank">{{impressao.uri_arquivo|truncatechars:35}}</a></td>
-                        <td>{{impressao.qtd_copias}}</td>
-                        <!-- STATUS -->
-                        {% if impressao.imprimida %}
-                        <td class="green lighten-3">
-                            Imprimida
-                        </td>
-                        {% elif impressao.visualizado_em %}
-                        <td class="blue lighten-3">
-                            Visualizada
-                        </td>
-                        {% else %}
-                        <td>
-                            Aguardando
-                        </td>
-                        {% endif %}
-                        <!-- STATUS -->
-                        <td>{{impressao.tipo.nome}}</td>
+                    <td class="green lighten-3">
+                        Imprimida
+                    </td>
+                    {% elif impressao.visualizado_em %}
+                    <td class="blue lighten-3">
+                        Visualizada
+                    </td>
+                    {% else %}
+                    <td>
+                        Aguardando
+                    </td>
+                    {% endif %}
+                    <!-- STATUS -->
+                    <td>{{impressao.tipo.nome}}</td>
 
-                        <!-- COLORIDA OU NÃO -->
-                        {% if impressao.colorida == True %}
-                        <td class="blue lighten-3">
-                            Sim
-                        </td>
-                        {% else %}
-                        <td>
-                            Não
-                        </td>
-                        {% endif %}
-                        <!-- COLORIDA OU NÃO -->
-                        <!-- EDIT -->
-                        <td>
-                            <a href="/usuario/cliente/impressao/edit/{{ impressao.id }}" disabled class="btn blue lighten-1">
-                                <i class="material-icons">edit</i>
-                            </a>
-                        </td>
-                        <!-- EDIT -->
-                        <!-- DELETE COL -->
-                        <td>
-                            <form action="{% url 'usuario:delete_impressao' %}" method="POST">
-                                {% csrf_token %}
-                                <input name="id_impressao" type="number" value={{ impressao.id }} hidden>
-                                <button class="btn red lighten-1" disabled>
-                                    <i class="material-icons">delete</i>
-                                </button>
-                            </form>
-                        </td>
-                        <!-- DELETE COL -->
-                        {% endif %}
-                    </tr>
-                    {% endfor %}
-                </tbody>
-                <!-- IMPRIMIDAS -->
-            </table>
-        </div>
+                    <!-- COLORIDA OU NÃO -->
+                    {% if impressao.colorida == True %}
+                    <td class="blue lighten-3">
+                        Sim
+                    </td>
+                    {% else %}
+                    <td>
+                        Não
+                    </td>
+                    {% endif %}
+                    <!-- COLORIDA OU NÃO -->
+                    <!-- EDIT -->
+                    {% if not impressao.imprimida %}
+                    <td>
+                        <a href="/usuario/cliente/impressao/edit/{{ impressao.id }}" class="btn blue lighten-1">
+                            <i class="material-icons">edit</i>
+                        </a>
+                    </td>
+                    {% else %}
+                    <td>
+                        <a href="/usuario/cliente/impressao/edit/{{ impressao.id }}" disabled
+                            class="btn blue lighten-1">
+                            <i class="material-icons">edit</i>
+                        </a>
+                    </td>
+                    {% endif %}
+                    <!-- EDIT -->
+
+                    <!-- DELETE COL -->
+                    {% if not impressao.imprimida %}
+                    <td>
+                        <form action="{% url 'usuario:delete_impressao' %}" method="POST">
+                            {% csrf_token %}
+                            <input name="id_impressao" type="number" value={{ impressao.id }} hidden>
+                            <button class="btn red lighten-1"
+                                onclick="return confirm('Tem certeza que deseja excluir a impressão?')">
+                                <i class="material-icons">delete</i>
+                            </button>
+                        </form>
+                    </td>
+                    {% else %}
+                    <td>
+                        <form action="{% url 'usuario:delete_impressao' %}" method="POST">
+                            {% csrf_token %}
+                            <input name="id_impressao" type="number" value={{ impressao.id }} hidden>
+                            <button class="btn red lighten-1" disabled>
+                                <i class="material-icons">delete</i>
+                            </button>
+                        </form>
+                    </td>
+                    {% endif %}
+                    <!-- DELETE COL -->
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <!-- HISTÓRICO -->
     </div>
 
-    <script>
-        $(document).ready(function () {
-            $('.tabs').tabs();
+    <div id="test2" class="col s12">
+        <!--IMPRIMIDAS -->
 
-            //esconde mensagens de sucesso e erro
-            setTimeout(function () {
-                $("#messages").hide();
-            }, 2200)
-        });
-        //Search bar code
-        function filter(id_search, id_table) {
-            // Declare variables
-            var input, filter, table, tr, td, i, txtValue;
-            input = document.getElementById(id_search);
-            filter = input.value.toUpperCase();
-            table = document.getElementById(id_table);
-            tdbody = table.getElementsByTagName("tbody")[0];
-            tr = tdbody.getElementsByTagName("tr");
+        <!-- SEARCH BAR -->
+        <div class="nav-wrapper">
+            <div class="input-field">
+                <input id="search2" onkeyup="filter('search2', 'table2')" type="search">
+                <label class="label-icon" for="search2"><i class="material-icons">search</i></label>
+                <i class="material-icons">close</i>
+            </div>
+        </div>
+        <!-- SEARCH BAR -->
 
-            // Loop through all table rows, and hide those who don't match the search query
-            for (i = 0; i < tr.length; i++) {
-                found = false;
+        <table id="table2" class="striped highlight">
+            <thead>
+                <tr>
+                    <th class="center-align">Cod</th>
+                    <th class="center-align">Arquivo</th>
+                    <th class="center-align">Cópias</th>
+                    <th class="center-align">Status</th>
+                    <th class="center-align">Tipo</th>
+                    <th class="center-align">Coloria</th>
+                    <th></th> <!-- delete col -->
+                    <th></th>
+                </tr>
+            </thead>
 
-                tds = tr[i].getElementsByTagName("td")
+            <tbody>
+                {% for impressao in impressoes %}
+                {% if not impressao.imprimida %}
+                <tr>
+                    <td>{{impressao.id}}</td>
+                    <td class="arquivo"><a href="/impressao/download/{{impressao.uri_arquivo}}"
+                            target="_blank">{{impressao.uri_arquivo|truncatechars:35}}</a></td>
+                    <td>{{impressao.qtd_copias}}</td>
+                    <!-- STATUS -->
+                    {% if impressao.imprimida %}
+                    <td class="green lighten-3">
+                        Imprimida
+                    </td>
+                    {% elif impressao.visualizado_em %}
+                    <td class="blue lighten-3">
+                        Visualizada
+                    </td>
+                    {% else %}
+                    <td>
+                        Aguardando
+                    </td>
+                    {% endif %}
+                    <!-- STATUS -->
+                    <td>{{impressao.tipo.nome}}</td>
 
-                for (x = 0; x < tds.length; x++) {
-                    td = tds[x];
-                    if (td) {
-                        txtValue = td.textContent || td.innerText;
-                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                            found = true;
-                        }
+                    <!-- COLORIDA OU NÃO -->
+                    {% if impressao.colorida == True %}
+                    <td class="blue lighten-3">
+                        Sim
+                    </td>
+                    {% else %}
+                    <td>
+                        Não
+                    </td>
+                    {% endif %}
+                    <!-- COLORIDA OU NÃO -->
+                    <!-- EDIT -->
+                    <td>
+                        <a href="/usuario/cliente/impressao/edit/{{ impressao.id }}" class="btn blue lighten-1">
+                            <i class="material-icons">edit</i>
+                        </a>
+                    </td>
+                    <!-- EDIT -->
+
+                    <!-- DELETE COL -->
+                    <td>
+                        <form action="{% url 'usuario:delete_impressao' %}" method="POST">
+                            {% csrf_token %}
+                            <input name="id_impressao" type="number" value={{ impressao.id }} hidden>
+                            <button class="btn red lighten-1"
+                                onclick="return confirm('Tem certeza que deseja excluir a impressão?')">
+                                <i class="material-icons">delete</i>
+                            </button>
+                        </form>
+                    </td>
+                    <!-- DELETE COL -->
+                    {% endif %}
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <!--IMPRIMIDAS -->
+    </div>
+    <div id="test3" class="col s12">
+        <!-- SEARCH BAR -->
+        <div class="nav-wrapper">
+            <div class="input-field">
+                <input id="search3" onkeyup="filter('search3', 'table3')" type="search">
+                <label class="label-icon" for="search3"><i class="material-icons">search</i></label>
+                <i class="material-icons">close</i>
+            </div>
+        </div>
+        <!-- SEARCH BAR -->
+        <table id="table3" class="striped highlight">
+            <thead>
+                <tr>
+                    <th class="center-align">Cod</th>
+                    <th class="center-align">Arquivo</th>
+                    <th class="center-align">Cópias</th>
+                    <th class="center-align">Status</th>
+                    <th class="center-align">Tipo</th>
+                    <th class="center-align">Coloria</th>
+                    <th></th> <!-- delete col -->
+                </tr>
+            </thead>
+
+            <!-- IMPRIMIDAS -->
+            <tbody>
+                {% for impressao in impressoes %}
+                {% if impressao.imprimida %}
+                <tr>
+                    <td>{{impressao.id}}</td>
+                    <td class="arquivo"><a href="/impressao/download/{{impressao.uri_arquivo}}"
+                            target="_blank">{{impressao.uri_arquivo|truncatechars:35}}</a></td>
+                    <td>{{impressao.qtd_copias}}</td>
+                    <!-- STATUS -->
+                    {% if impressao.imprimida %}
+                    <td class="green lighten-3">
+                        Imprimida
+                    </td>
+                    {% elif impressao.visualizado_em %}
+                    <td class="blue lighten-3">
+                        Visualizada
+                    </td>
+                    {% else %}
+                    <td>
+                        Aguardando
+                    </td>
+                    {% endif %}
+                    <!-- STATUS -->
+                    <td>{{impressao.tipo.nome}}</td>
+
+                    <!-- COLORIDA OU NÃO -->
+                    {% if impressao.colorida == True %}
+                    <td class="blue lighten-3">
+                        Sim
+                    </td>
+                    {% else %}
+                    <td>
+                        Não
+                    </td>
+                    {% endif %}
+                    <!-- COLORIDA OU NÃO -->
+                    <!-- EDIT -->
+                    <td>
+                        <a href="/usuario/cliente/impressao/edit/{{ impressao.id }}" disabled
+                            class="btn blue lighten-1">
+                            <i class="material-icons">edit</i>
+                        </a>
+                    </td>
+                    <!-- EDIT -->
+                    <!-- DELETE COL -->
+                    <td>
+                        <form action="{% url 'usuario:delete_impressao' %}" method="POST">
+                            {% csrf_token %}
+                            <input name="id_impressao" type="number" value={{ impressao.id }} hidden>
+                            <button class="btn red lighten-1" disabled>
+                                <i class="material-icons">delete</i>
+                            </button>
+                        </form>
+                    </td>
+                    <!-- DELETE COL -->
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+            <!-- IMPRIMIDAS -->
+        </table>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.tabs').tabs();
+
+        //esconde mensagens de sucesso e erro
+        setTimeout(function () {
+            $("#messages").hide();
+        }, 2200)
+    });
+    //Search bar code
+    function filter(id_search, id_table) {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById(id_search);
+        filter = input.value.toUpperCase();
+        table = document.getElementById(id_table);
+        tdbody = table.getElementsByTagName("tbody")[0];
+        tr = tdbody.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            found = false;
+
+            tds = tr[i].getElementsByTagName("td")
+
+            for (x = 0; x < tds.length; x++) {
+                td = tds[x];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        found = true;
                     }
                 }
-                if (found)
-                    tr[i].style.display = "";
-                else
-                    tr[i].style.display = "none";
             }
+            if (found)
+                tr[i].style.display = "";
+            else
+                tr[i].style.display = "none";
         }
-    </script>
+    }
+</script>
 
-    {% endblock %}
+{% endblock %}

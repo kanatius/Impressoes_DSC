@@ -136,6 +136,22 @@ class ImpressaoService():
 
         return False
     
+    def setImprimida(self, request):
+        if not request.user.is_authenticated:
+            return False
+
+        if not isFuncionario(request):
+            return False
+    
+        impressao = self.impressaoRepository.getById(request.POST.get("id_impressao"))
+
+        if impressao is None:
+            return False
+
+        impressao.imprimida = True
+        impressao.save()
+        return True
+
     def delete(self, request):
 
         if isCliente(request):
