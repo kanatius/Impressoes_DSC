@@ -8,6 +8,7 @@ from django.core.files.base import ContentFile
 from datetime import datetime
 from django.conf import settings
 from django.http import HttpResponse, Http404
+from django.db.models import Q
 
 
 def isCliente(request):
@@ -28,17 +29,24 @@ class ImpressaoService():
     def __init__(self):
         super().__init__()
         self.impressaoRepository = ImpressaoRepository() 
+        self.tipoRepository = TipoImpressaoRepository()
 
     def getImpressoes(self, request, desc=False):
         if not request.user.is_authenticated:
             return None
             
-        if request.user.cliente:
+        if isCliente(request):
             return self.impressaoRepository.list(cliente_id=request.user.id, desc=desc)
-        
-        if request.user.funcionario:
+        if isFuncionario(request):
             impressoes = self.impressaoRepository.list(imprimida=False, desc=desc)
-            
+            if request.user.funcionario_aluno: #se o funcionario for aluno
+                
+                prova = self.tipoRepository.getByNameEquals("Prova")
+                teste = self.tipoRepository.getByNameEquals("Teste")
+
+                impressoes = impressoes.filter(~Q(tipo=prova)) #remove Provas
+                impressoes = impressoes.filter(~Q(tipo=teste)) #remove Testes
+
             for impressao in impressoes:
                 impressao.visualizado_em = datetime.now() #set visualizado_em nas impressões que foram selecionadas
                 impressao.save()
@@ -57,6 +65,13 @@ class ImpressaoService():
 
         if impressao.cliente.id == request.user.id or request.user.funcionario:
             #se a impressao for do usuario ou se o usuario for cliente
+            if request.user.funcionario_aluno and (impressao.tipo.nome.lower() == "prova" or impressao.tipo.nome.lower == "teste"):
+                return None #se o usuario for aluno e impressao for prova ou teste, retorna None
+
+            #retorna impressao se:
+            #1 - usuario logado for funcionario
+            #2 - se o funcionario for aluno e a impressao não for prova ou teste
+            #3 - se o usuario for cliente e a impressao for dele
             return impressao
         
         return None
@@ -184,6 +199,11 @@ class ImpressaoService():
         if (isCliente(request) and impressao.cliente_id != request.user.id) and not isFuncionario(request):
             raise Http404 #retorna erro se o cliente não for dono da impressao e tbm não é funcionario
         
+        prova = self.tipoRepository.getByNameEquals("Prova")
+        teste = self.tipoRepository.getByNameEquals("Teste")
+
+        if request.user.funcionario_aluno and (impressao.tipo == prova or impressao.tipo == teste):
+            raise Http404 #retorna erro se o funcionario aluno tentar baixar uma prova ou teste
         #----- NÃO MUDE SE NÃO SOUBER O QUE ESTÁ FAZENDO -----#
 
 

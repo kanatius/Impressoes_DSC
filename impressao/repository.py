@@ -43,3 +43,9 @@ class TipoImpressaoRepository:
             return TipoImpressao.objects.get(id=id)
         except:
             return None
+    
+    def getByNameEquals(self, name):
+        try:
+            return TipoImpressao.objects.get(nome=name)
+        except:
+            None

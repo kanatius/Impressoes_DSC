@@ -35,6 +35,7 @@ class Usuario(AbstractUser):
     REQUIRED_FIELDS = [] # removes email from REQUIRED_FIELDS
 
     funcionario = models.BooleanField("funcionario", null=True, blank=True)
+    funcionario_aluno = models.BooleanField("funcionario_aluno", null=True, blank=True)
     cliente = models.BooleanField("cliente", null=True, blank=True)
 
     def __str__(self):
