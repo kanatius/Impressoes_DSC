@@ -4,6 +4,7 @@ from impressao.forms import ImpressaoForm
 from ProjetoDSC.settings import MEDIA_ROOT
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
+from datetime import datetime
 
 
 def isCliente(request):
@@ -28,7 +29,14 @@ class ImpressaoService():
             return self.impressaoRepository.list(cliente_id=request.user.id, desc=desc)
         
         if request.user.funcionario:
-            return self.impressaoRepository.list(imprimida=False, desc=desc)
+            impressoes = self.impressaoRepository.list(imprimida=False, desc=desc)
+            
+            for impressao in impressoes:
+                impressao.visualizado_em = datetime.now() #set visualizado_em nas impressões que foram selecionadas
+                impressao.save()
+            
+            return impressoes
+
 
     def getById(self, request, id):
         if not request.user.is_authenticated:
@@ -68,9 +76,6 @@ class ImpressaoService():
         data = request.POST
         up_data = {}
         
-        print(request.FILES)
-        print(data)
-
         if request.user.cliente:
             
             if "colorida" in data:
