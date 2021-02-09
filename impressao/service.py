@@ -139,7 +139,8 @@ class ImpressaoService():
             impressao = self.impressaoRepository.getById(id=request.POST.get("id_impressao"))
 
             if impressao is not None:
-                if impressao.cliente_id == request.user.id:                   
+                if impressao.cliente_id == request.user.id and not impressao.imprimida:
+                    default_storage.delete(str(impressao.uri_arquivo)) #delete old file                   
                     impressao.delete()
                     return True
         
