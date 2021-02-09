@@ -1,10 +1,20 @@
+#page {
+  margin-bottom: 0px;
+  /* margin para o footer*/
+  min-height: 650px;
+  display: flex;
+}
+
+#page_in {
+  padding-top: 30px;
+}
+
 #left-nav-div {
   font-size: 17px;
   border-right: 1px solid gray;
-  height: 650px;
+  min-height: 100% !important;
   padding-top: 20px;
   vertical-align: center;
-  min-height: 650px;
   background-image: linear-gradient(to bottom, #171717, #616161);
   color: white !important;
   box-shadow: 1px 0px 0px #888888;
@@ -32,16 +42,6 @@
 
 #arrow-left-div a i {
   vertical-align: center;
-}
-
-#page {
-  margin-bottom: 0px;
-  /* margin para o footer*/
-  min-height: 650px;
-}
-
-#page_in {
-  padding-top: 30px;
 }
 
 /*# sourceMappingURL=left_nav.css.map */

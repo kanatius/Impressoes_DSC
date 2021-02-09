@@ -23,66 +23,68 @@
         </div>
     </div>
     <!-- SEARCH BAR -->
-    <table id="table1" class="striped highlight">
-        <thead>
-            <tr>
-                <th>Cod</th>
-                <th>Arquivo</th>
-                <th>Cópias</th>
-                <th>Coloria</th>
-                <th>Tipo</th>
-                <th>Dono</th>
-                <th>Comentário</th> <!-- delete col -->
-                <th>Notificar</th>
-            </tr>
-        </thead>
+    <div style="overflow-x: auto;">
+        <table id="table1" class="striped highlight">
+            <thead>
+                <tr>
+                    <th>Cod</th>
+                    <th>Arquivo</th>
+                    <th>Cópias</th>
+                    <th>Coloria</th>
+                    <th>Tipo</th>
+                    <th>Dono</th>
+                    <th>Comentário</th> <!-- delete col -->
+                    <th>Notificar</th>
+                </tr>
+            </thead>
 
-        <tbody>
-            {% for impressao in impressoes %}
-            <tr>
-                <td>{{impressao.id}}</td>
-                <td><a href="/impressao/download/{{impressao.uri_arquivo}}"
-                        target="_blank">{{impressao.uri_arquivo|truncatechars:35}}</a></td>
-                <td>{{impressao.qtd_copias}}</td>
-                <!-- STATUS -->
-                <!-- STATUS -->
+            <tbody>
+                {% for impressao in impressoes %}
+                <tr>
+                    <td>{{impressao.id}}</td>
+                    <td><a href="/impressao/download/{{impressao.uri_arquivo}}"
+                            target="_blank">{{impressao.uri_arquivo|truncatechars:35}}</a></td>
+                    <td>{{impressao.qtd_copias}}</td>
+                    <!-- STATUS -->
+                    <!-- STATUS -->
 
-                <!-- COLORIDA OU NÃO -->
-                {% if impressao.colorida == True %}
-                <td class="blue lighten-3">
-                    Sim
-                </td>
-                {% else %}
-                <td>
-                    Não
-                </td>
-                {% endif %}
-                <!-- COLORIDA OU NÃO -->
-                <td>{{impressao.tipo.nome}}</td>
-                <td>{{impressao.cliente.first_name}} {{impressao.cliente.last_name}}</td>
-                <!-- EDIT -->
-                <td>
-                    {{impressao.comentario}}
-                </td>
-                <!-- EDIT -->
+                    <!-- COLORIDA OU NÃO -->
+                    {% if impressao.colorida == True %}
+                    <td class="blue lighten-3">
+                        Sim
+                    </td>
+                    {% else %}
+                    <td>
+                        Não
+                    </td>
+                    {% endif %}
+                    <!-- COLORIDA OU NÃO -->
+                    <td>{{impressao.tipo.nome}}</td>
+                    <td>{{impressao.cliente.first_name}} {{impressao.cliente.last_name}}</td>
+                    <!-- EDIT -->
+                    <td>
+                        {{impressao.comentario}}
+                    </td>
+                    <!-- EDIT -->
 
-                <!-- DELETE COL -->
-                <td>
-                    <form action="{% url 'impressao:set_imprimida' %}" method="POST">
-                        {% csrf_token %}
-                        <input name="id_impressao" type="number" value={{ impressao.id }} hidden>
-                        <button title="Impressão pronta!"
-                            onclick="return confirm('Notificar cliente que a impressão está pronta?')"
-                            class="btn red lighten-1 green darken-1">
-                            <i class="material-icons">check</i>
-                        </button>
-                    </form>
-                </td>
-                <!-- DELETE COL -->
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+                    <!-- DELETE COL -->
+                    <td>
+                        <form action="{% url 'impressao:set_imprimida' %}" method="POST">
+                            {% csrf_token %}
+                            <input name="id_impressao" type="number" value={{ impressao.id }} hidden>
+                            <button title="Impressão pronta!"
+                                onclick="return confirm('Notificar cliente que a impressão está pronta?')"
+                                class="btn red lighten-1 green darken-1">
+                                <i class="material-icons">check</i>
+                            </button>
+                        </form>
+                    </td>
+                    <!-- DELETE COL -->
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
     <!-- HISTÓRICO -->
 </div>
 <script>

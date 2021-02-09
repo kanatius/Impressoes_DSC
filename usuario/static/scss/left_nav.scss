@@ -2,13 +2,22 @@
 
 $min-height : 650px;
 
+#page{
+    margin-bottom: 0px; /* margin para o footer*/
+    min-height: $min-height;
+    display: flex;
+}
+
+#page_in{
+    padding-top: 30px;
+}
+
 #left-nav-div{
     font-size: 17px;
     border-right: 1px solid gray;
-    height: $min-height;
+    min-height: 100% !important;
     padding-top: 20px;
     vertical-align: center;
-    min-height: $min-height;
     background-image: linear-gradient(to bottom,#171717, #616161);
     color: white !important;
     box-shadow: 1px 0px 0px #888888;
@@ -35,12 +44,4 @@ $min-height : 650px;
 
 #arrow-left-div a i{
     vertical-align: center;
-}
-#page{
-    margin-bottom: 0px; /* margin para o footer*/
-    min-height: $min-height;
-}
-
-#page_in{
-    padding-top: 30px;
 }
