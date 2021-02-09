@@ -33,3 +33,7 @@ urlpatterns += [
     path('', core_views.homePage, name="index"),
     path("comofunciona", core_views.comoFunciona, name="comofunciona")
 ]
+
+urlpatterns +=[
+    path("impressao/", include("impressao.urls"))
+]

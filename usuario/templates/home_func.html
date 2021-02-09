@@ -1,17 +1,114 @@
-{% extends 'basepages/basepage_home.html' %}
-
-{% block title %}
-    Área do funcionario
-{% endblock %}
+{% extends 'basepage_func.html' %}
 
 
-{% block body %}
-<div class="container">
-    Seja Bem-vindo - Func
+{% block page %}
+<div id="test1" class="col s12">
+    <h5>Fila de impressões pendentes</h5>
+    <!-- SEARCH BAR -->
+    <div class="nav-wrapper">
+        <div class="input-field">
+            <input id="search1" onkeyup="filter('search1', 'table1')" type="search">
+            <label class="label-icon" for="search1"><i class="material-icons">search</i></label>
+            <i class="material-icons">close</i>
+        </div>
+    </div>
+    <!-- SEARCH BAR -->
+    <table id="table1" class="striped highlight">
+        <thead>
+            <tr>
+                <th>Cod</th>
+                <th>Arquivo</th>
+                <th>Cópias</th>  
+                <th>Coloria</th>
+                <th>Tipo</th>
+                <th>Dono</th>
+                <th>Comentário</th> <!-- delete col -->
+                <th>Notificar</th>
+            </tr>
+        </thead>
 
-    {% for impressao in impressoes %}
-        {{impressao}}
-    {% endfor %}
+        <tbody>
+            {% for impressao in impressoes %}
+            <tr>
+                <td>{{impressao.id}}</td>
+                <td><a href="/impressao/download/{{impressao.uri_arquivo}}" target="_blank">{{impressao.uri_arquivo|truncatechars:50}}</a></td>
+                <td>{{impressao.qtd_copias}}</td>
+                <!-- STATUS -->
+                <!-- STATUS -->
 
+                <!-- COLORIDA OU NÃO -->
+                {% if impressao.colorida == True %}
+                <td class="blue lighten-3">
+                    Sim
+                </td>
+                {% else %}
+                <td>
+                    Não
+                </td>
+                {% endif %}
+                <!-- COLORIDA OU NÃO -->
+                <td>{{impressao.tipo.nome}}</td>
+                <td>{{impressao.cliente.first_name}} {{impressao.cliente.last_name}}</td>
+                <!-- EDIT -->
+                <td>
+                    {{impressao.comentario}}
+                </td>
+                <!-- EDIT -->
+
+                <!-- DELETE COL -->
+                <td>
+                    <form action="#" method="POST">
+                        {% csrf_token %}
+                        <input name="id_impressao" type="number" value={{ impressao.id }} hidden>
+                        <button title="Impressão pronta!" onclick="return confirm('Notificar cliente que a impressão está pronta?')" class="btn red lighten-1 green darken-1">
+                            <i class="material-icons">check</i>
+                        </button>
+                    </form>
+                </td>
+                <!-- DELETE COL -->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <!-- HISTÓRICO -->
 </div>
+<script>
+    $(document).ready(function () {
+        //esconde mensagens de sucesso e erro
+        setTimeout(function () {
+            $("#messages").hide();
+        }, 2200)
+    });
+    //Search bar code
+    function filter(id_search, id_table) {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById(id_search);
+        filter = input.value.toUpperCase();
+        table = document.getElementById(id_table);
+        tdbody = table.getElementsByTagName("tbody")[0];
+        tr = tdbody.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            found = false;
+
+            tds = tr[i].getElementsByTagName("td")
+
+            for (x = 0; x < tds.length; x++) {
+                td = tds[x];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        found = true;
+                    }
+                }
+            }
+            if (found)
+                tr[i].style.display = "";
+            else
+                tr[i].style.display = "none";
+        }
+    }
+</script>
 {% endblock%}

@@ -5,6 +5,14 @@ from django.views.generic import CreateView,ListView,UpdateView,DeleteView
 from django.urls import reverse_lazy
 from impressao.repository import ImpressaoRepository
 from django.contrib import messages
+from .service import ImpressaoService
+
+
+impressaoService = ImpressaoService()
+
+
+def downloadFile(request, filename):
+    return impressaoService.download(request, filename)
 
 # Create your views here.
 class ImpressaoCreate(CreateView):
@@ -43,8 +51,6 @@ class ImpressaoUpdate(UpdateView):
     #         messages.success(request, "Impressão editada com sucesso!")
     #     elif obj.status == "NO":
     #         messages.error(request, "Erro ao Editar")
-
-
 
 class ImpressaoDelete(DeleteView):
     model = Impressao

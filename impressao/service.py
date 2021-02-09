@@ -1,9 +1,13 @@
+import os
 from .repository import ImpressaoRepository
 from .repository import TipoImpressaoRepository
 from impressao.forms import ImpressaoForm
 from ProjetoDSC.settings import MEDIA_ROOT
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
+from datetime import datetime
+from django.conf import settings
+from django.http import HttpResponse, Http404
 
 
 def isCliente(request):
@@ -12,6 +16,11 @@ def isCliente(request):
             return True
     return False
 
+def isFuncionario(request):
+    if not request.user.is_anonymous and request.user is not None:
+        if request.user.funcionario:
+            return True
+    return False
 
 
 class ImpressaoService():
@@ -28,13 +37,23 @@ class ImpressaoService():
             return self.impressaoRepository.list(cliente_id=request.user.id, desc=desc)
         
         if request.user.funcionario:
-            return self.impressaoRepository.list(imprimida=False, desc=desc)
+            impressoes = self.impressaoRepository.list(imprimida=False, desc=desc)
+            
+            for impressao in impressoes:
+                impressao.visualizado_em = datetime.now() #set visualizado_em nas impressões que foram selecionadas
+                impressao.save()
+            
+            return impressoes
+
 
     def getById(self, request, id):
         if not request.user.is_authenticated:
             return None
         
         impressao = self.impressaoRepository.getById(id=id)
+        
+        if impressao is None:
+            return None
 
         if impressao.cliente.id == request.user.id or request.user.funcionario:
             #se a impressao for do usuario ou se o usuario for cliente
@@ -68,10 +87,7 @@ class ImpressaoService():
         data = request.POST
         up_data = {}
         
-        print(request.FILES)
-        print(data)
-
-        if request.user.cliente:
+        if request.user.cliente and impressao.imprimida != True: #cliente só pode editar se a impressão ainda não foi imprimida
             
             if "colorida" in data:
                 colorida = True if data["colorida"] == 'on' else False
@@ -103,12 +119,10 @@ class ImpressaoService():
 
             return True
 
-
-
         if request.user.funcionario:
             #campos que o funcionario pode editar
-            if "vizualizao_em" in data:
-                impressao.vizualizao_em = data["vizualizao_em"]
+            # if "vizualizao_em" in data:
+            #     impressao.vizualizao_em = data["vizualizao_em"]
 
             if "imprimida" in data:
                 impressao.imprimida : data["imprimida"]
@@ -120,19 +134,47 @@ class ImpressaoService():
 
             return True
 
-        return None
+        return False
     
     def delete(self, request):
 
         if isCliente(request):
             impressao = self.impressaoRepository.getById(id=request.POST.get("id_impressao"))
 
-            # print("id impressao: " + str(request.POST.get("id_impressao")))
-            # print(impressao)
-
             if impressao is not None:
-                if impressao.cliente_id == request.user.id:                   
+                if impressao.cliente_id == request.user.id and not impressao.imprimida:
+                    default_storage.delete(str(impressao.uri_arquivo)) #delete old file                   
                     impressao.delete()
                     return True
         
         return False
+
+    #DOWNLOAD FILES
+    def download(self, request, path):
+        
+        if not request.user.is_authenticated:
+            raise Http404  #retorna erro se o usuário não estiver autenticado
+        
+        impressao = self.impressaoRepository.getByPath(path)
+
+        #----- NÃO MUDE SE NÃO SOUBER O QUE ESTÁ FAZENDO -----#
+
+        if impressao is None:
+            raise Http404 #retorna erro se a impressao não existe
+
+        if not isCliente(request) and not isFuncionario(request):
+            raise Http404 #retorna erro se não for funcionário ou cliente
+
+        if (isCliente(request) and impressao.cliente_id != request.user.id) and not isFuncionario(request):
+            raise Http404 #retorna erro se o cliente não for dono da impressao e tbm não é funcionario
+        
+        #----- NÃO MUDE SE NÃO SOUBER O QUE ESTÁ FAZENDO -----#
+
+
+        file_path = os.path.join(settings.MEDIA_ROOT, path)
+        if os.path.exists(file_path):
+            with open(file_path, 'rb') as fh:
+                response = HttpResponse(fh.read(), content_type="application/default")
+                response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+                return response
+        raise Http404

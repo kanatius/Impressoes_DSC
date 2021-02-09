@@ -1,0 +1,48 @@
+{% extends 'basepages/basepage_home.html' %}
+
+{% load static %}
+
+{% block title %}
+Área do Funcionário
+{% endblock %}
+
+{% block head %}
+<link type="text/css" rel="stylesheet" href="{% static 'css/left_nav.css' %}">
+
+{% block head2 %}{% endblock %}
+
+{% endblock %}
+
+{% block body %}
+
+<!-- SIDENAV -->
+
+<!-- SIDENAV -->
+
+<div class="row" id="page">
+    <!-- MENU LATERAL -->
+    <div class="col s2 grey darken-1 large" id="left-nav-div">
+        <div class="right-align box">Seja Bem-vindo!</div>
+        <div class="left-align box">{{user.first_name}}</div>
+        <ul id="left-nav-ul">
+            <hr>
+            <li>
+                <a href="{% url 'usuario:home_funcionario' %}">Impressões em espera</a>
+                <hr>
+            </li>
+            <li>
+                <a href="#">Histórico</a>
+                <hr>
+            </li>
+        </ul>
+        </a>
+    </div>
+    <!-- MENU LATERAL -->
+    <div class="col s10">
+        <div class="container" id="page_in">
+            {% block page %}{% endblock %}
+        </div>
+    </div>
+</div>
+
+{% endblock%}
