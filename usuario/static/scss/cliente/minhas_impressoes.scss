@@ -9,9 +9,9 @@
     color: $blue-dark;
 }
 .tab a:focus{
-    background-color: $blue-dark;
-    color: white !important;
-    opacity: 80%;
+    background-color: white !important;
+    // color: white !important;
+    // opacity: 80%;
 }
 input[type="search"]:focus{
     border-bottom: 0px;

@@ -1,11 +1,12 @@
 @import "_templateColors.scss";
 
-$min-height : 650px;
+$min-height : 800px;
 
 #page{
     margin-bottom: 0px; /* margin para o footer*/
     min-height: $min-height;
     display: flex;
+    flex-wrap: wrap;
 }
 
 #page_in{

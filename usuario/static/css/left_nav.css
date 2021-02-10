@@ -1,8 +1,9 @@
 #page {
   margin-bottom: 0px;
   /* margin para o footer*/
-  min-height: 650px;
+  min-height: 800px;
   display: flex;
+  flex-wrap: wrap;
 }
 
 #page_in {
