@@ -37,8 +37,11 @@ class ImpressaoService():
             
         if isCliente(request):
             return self.impressaoRepository.list(cliente_id=request.user.id, desc=desc)
-        if isFuncionario(request):
+
+        if isFuncionario(request) or request.user.funcionario_aluno:
+            
             impressoes = self.impressaoRepository.list(imprimida=False, desc=desc)
+
             if request.user.funcionario_aluno: #se o funcionario for aluno
                 
                 prova = self.tipoRepository.getByNameEquals("Prova")
@@ -155,13 +158,19 @@ class ImpressaoService():
         if not request.user.is_authenticated:
             return False
 
-        if not isFuncionario(request):
+        if not isFuncionario(request) and not request.user.funcionario_aluno:
             return False
     
         impressao = self.impressaoRepository.getById(request.POST.get("id_impressao"))
 
         if impressao is None:
             return False
+        
+        prova = self.tipoRepository.getByNameEquals("Prova")
+        teste = self.tipoRepository.getByNameEquals("Teste")
+
+        if request.user.funcionario_aluno and (impressao.tipo == prova or impressao.tipo == teste):
+            return False #retorna false se a impressão for prova ou teste e o funcionario for aluno
 
         impressao.imprimida = True
         impressao.save()
@@ -193,20 +202,21 @@ class ImpressaoService():
         if impressao is None:
             raise Http404 #retorna erro se a impressao não existe
 
-        if not isCliente(request) and not isFuncionario(request):
-            raise Http404 #retorna erro se não for funcionário ou cliente
+        if not isCliente(request) and not isFuncionario(request) and not request.user.funcionario_aluno:
+            raise Http404 #retorna erro se não for funcionário, cliente ou funcionario aluno
 
-        if (isCliente(request) and impressao.cliente_id != request.user.id) and not isFuncionario(request):
+        if (isCliente(request) and impressao.cliente.id != request.user.id) and not isFuncionario(request):
             raise Http404 #retorna erro se o cliente não for dono da impressao e tbm não é funcionario
         
         prova = self.tipoRepository.getByNameEquals("Prova")
         teste = self.tipoRepository.getByNameEquals("Teste")
 
+
         if request.user.funcionario_aluno and (impressao.tipo == prova or impressao.tipo == teste):
             raise Http404 #retorna erro se o funcionario aluno tentar baixar uma prova ou teste
         #----- NÃO MUDE SE NÃO SOUBER O QUE ESTÁ FAZENDO -----#
 
-
+        
         file_path = os.path.join(settings.MEDIA_ROOT, path)
         if os.path.exists(file_path):
             with open(file_path, 'rb') as fh:

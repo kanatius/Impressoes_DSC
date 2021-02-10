@@ -18,9 +18,9 @@ def login(request):
         usuario = authenticate(request, email=email, password=senha)
 
         if usuario is not None:
-            if usuario.funcionario or usuario.cliente:
+            if usuario.funcionario or usuario.cliente or usuario.funcionario_aluno:
                 django_login(request, usuario)
-                if usuario.funcionario:
+                if usuario.funcionario or usuario.funcionario_aluno:
                     return redirect("usuario:home_funcionario")
                 if usuario.cliente:
                     return redirect("usuario:minhas_impressoes")

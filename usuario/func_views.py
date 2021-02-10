@@ -12,7 +12,7 @@ def is_funcionario(request):
 
 def home(request):
 
-    if is_funcionario(request): #entra na home do cliente caso o usuario logado seja cliente
+    if is_funcionario(request) or request.user.funcionario_aluno: #entra na home do funcionario caso o usuario logado seja funcionario
         impressoes = impressaoService.getImpressoes(request, desc=False)
         return render(request, "home_func.html", context={'impressoes' : impressoes})
 

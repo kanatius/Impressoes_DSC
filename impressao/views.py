@@ -20,7 +20,7 @@ def setImprimida(request):
     if request.method == "POST":
         response = impressaoService.setImprimida(request=request)
         if response:
-            messages.success(request, "Impressão definida como imprimida com sucesso!<br>O cliente já consegue visualizar a modificação.")
+            messages.success(request, "Impressão definida como imprimida com sucesso!")
             return redirect("usuario:home_funcionario")
     else:
         return HttpResponseRedirect("/")
