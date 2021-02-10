@@ -5,7 +5,7 @@ from .models import Impressao, TipoImpressao
 class ImpressaoRepository:
 
     
-    def list(self, imprimida=None, cliente_id=None, order_by='id', desc=False):
+    def list(self, imprimida=None, cliente_id=None, order_by='id', limit=0, offset=0, desc=False):
         query = Impressao.objects.all()
 
         if imprimida is not None:
@@ -16,8 +16,11 @@ class ImpressaoRepository:
 
         query = query.order_by(order_by)
 
+        if limit == 0:
+            limit = len(query)
+
         if desc :
-            query = query.reverse()
+            query = query.reverse()[offset:(offset+limit)]
         
         return query
     
