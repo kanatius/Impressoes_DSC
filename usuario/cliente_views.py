@@ -26,7 +26,18 @@ def isCliente(request):
 #Acessar home cliente
 def home(request):
     if isCliente(request): #entra na home do cliente caso o usuario logado seja cliente
-        impressoes = impressaoService.getImpressoes(request, desc=True)
+
+        page = 1
+
+        if 'page' in request.GET:
+            page = int(request.GET.get('page'))
+
+        qtd_impressoes = 10
+
+        offset = (page - 1) * qtd_impressoes
+        limit = offset + qtd_impressoes
+
+        impressoes = impressaoService.getImpressoes(request, offset=offset, limit=limit, desc=True)
         return render(request, "minhas_impressoes.html", context={"impressoes": impressoes})
 
     return HttpResponseRedirect("/")
