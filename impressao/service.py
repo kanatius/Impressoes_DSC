@@ -31,12 +31,12 @@ class ImpressaoService():
         self.impressaoRepository = ImpressaoRepository() 
         self.tipoRepository = TipoImpressaoRepository()
 
-    def getImpressoes(self, request, desc=False):
+    def getImpressoes(self, request, offset=0, limit=0, desc=False):
         if not request.user.is_authenticated:
             return None
             
         if isCliente(request):
-            return self.impressaoRepository.list(cliente_id=request.user.id, desc=desc)
+            return self.impressaoRepository.list(cliente_id=request.user.id, offset=offset, limit=limit, desc=desc)
 
         if isFuncionario(request) or request.user.funcionario_aluno:
             
@@ -137,20 +137,21 @@ class ImpressaoService():
 
             return True
 
-        if request.user.funcionario:
-            #campos que o funcionario pode editar
-            # if "vizualizao_em" in data:
-            #     impressao.vizualizao_em = data["vizualizao_em"]
+        #Não está sendo usado
+        # if request.user.funcionario:
+        #     #campos que o funcionario pode editar
+        #     # if "vizualizao_em" in data:
+        #     #     impressao.vizualizao_em = data["vizualizao_em"]
 
-            if "imprimida" in data:
-                impressao.imprimida : data["imprimida"]
+        #     if "imprimida" in data:
+        #         impressao.imprimida : data["imprimida"]
             
-            if "prazo_entrega" in data:
-                impressao.prazo_entrega : data["prazo_entrega"]
+        #     if "prazo_entrega" in data:
+        #         impressao.prazo_entrega : data["prazo_entrega"]
             
-            impressao.save()
+        #     impressao.save()
 
-            return True
+        #     return True
 
         return False
     
