@@ -27,14 +27,15 @@
         <table id="table1" class="striped highlight">
             <thead>
                 <tr>
-                    <th>Cod</th>
-                    <th>Arquivo</th>
-                    <th>Cópias</th>
-                    <th>Coloria</th>
-                    <th>Tipo</th>
-                    <th>Dono</th>
-                    <th>Comentário</th> <!-- delete col -->
-                    <th>Notificar</th>
+                    <th class="center-align">Cod</th>
+                    <th class="center-align">Arquivo</th>
+                    <th class="center-align">Cópias</th>
+                    <th class="center-align">Coloria</th>
+                    <th class="center-align">Tipo</th>
+                    <th class="center-align">Dono</th>
+                    <th class="center-align">Comentário</th> <!-- delete col -->
+                    <th class="center-align">Download</th>
+                    <th class="center-align">Notificar</th>
                 </tr>
             </thead>
 
@@ -42,15 +43,14 @@
                 {% for impressao in impressoes %}
                 <tr>
                     <td>{{impressao.id}}</td>
-                    <td><a href="/impressao/download/{{impressao.uri_arquivo}}"
-                            target="_blank">{{impressao.uri_arquivo|truncatechars:35}}</a></td>
+                    <td>{{impressao.uri_arquivo|truncatechars:35}}</td>
                     <td>{{impressao.qtd_copias}}</td>
                     <!-- STATUS -->
                     <!-- STATUS -->
 
                     <!-- COLORIDA OU NÃO -->
                     {% if impressao.colorida == True %}
-                    <td class="blue lighten-3">
+                    <td>
                         Sim
                     </td>
                     {% else %}
@@ -66,8 +66,15 @@
                         {{impressao.comentario}}
                     </td>
                     <!-- EDIT -->
-
-                    <!-- DELETE COL -->
+                    <!-- DOWNLOAD COL -->
+                    <td>
+                        <!-- Download File Col -->
+                        <a class="btn download" href="/impressao/download/{{impressao.uri_arquivo}}" target="_blank">
+                            <i class="material-icons">download</i>
+                        </a>
+                    </td>
+                    <!-- DOWNLOAD COL -->
+                    <!-- NOTIFY CLIENT COL -->
                     <td>
                         <form action="{% url 'impressao:set_imprimida' %}" method="POST">
                             {% csrf_token %}
@@ -79,7 +86,7 @@
                             </button>
                         </form>
                     </td>
-                    <!-- DELETE COL -->
+                    <!-- NOTIFY CLIENT COL -->
                 </tr>
                 {% endfor %}
             </tbody>

@@ -50,8 +50,9 @@
                         <th class="center-align">Status</th>
                         <th class="center-align">Tipo</th>
                         <th class="center-align">Coloria</th>
+                        <th></th> <!-- edit col -->
                         <th></th> <!-- delete col -->
-                        <th></th>
+                        <th></th> <!-- download file col -->
                     </tr>
                 </thead>
 
@@ -59,8 +60,7 @@
                     {% for impressao in impressoes %}
                     <tr>
                         <td>{{impressao.id}}</td>
-                        <td class="arquivo"><a href="/impressao/download/{{impressao.uri_arquivo}}"
-                                target="_blank">{{impressao.uri_arquivo|truncatechars:35}}</a></td>
+                        <td class="arquivo">{{impressao.uri_arquivo|truncatechars:35}}</td>
                         <td>{{impressao.qtd_copias}}</td>
                         <!-- STATUS -->
                         {% if impressao.imprimida %}
@@ -68,7 +68,7 @@
                             Imprimida
                         </td>
                         {% elif impressao.visualizado_em %}
-                        <td class="blue lighten-3">
+                        <td>
                             Visualizada
                         </td>
                         {% else %}
@@ -81,7 +81,7 @@
 
                         <!-- COLORIDA OU NÃO -->
                         {% if impressao.colorida == True %}
-                        <td class="blue lighten-3">
+                        <td>
                             Sim
                         </td>
                         {% else %}
@@ -130,7 +130,15 @@
                             </form>
                         </td>
                         {% endif %}
-                        <!-- DELETE COL -->
+                        <!-- DOWNLOAD COL -->
+                        <td>
+                            <!-- Download File Col -->
+                            <a class="btn download" href="/impressao/download/{{impressao.uri_arquivo}}"
+                            target="_blank">
+                                <i class="material-icons">download</i>
+                            </a>
+                        </td>
+                        <!-- DOWNLOAD COL -->
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -163,6 +171,7 @@
                         <th class="center-align">Coloria</th>
                         <th></th> <!-- delete col -->
                         <th></th>
+                        <th></th>
                     </tr>
                 </thead>
 
@@ -171,8 +180,7 @@
                     {% if not impressao.imprimida %}
                     <tr>
                         <td>{{impressao.id}}</td>
-                        <td class="arquivo"><a href="/impressao/download/{{impressao.uri_arquivo}}"
-                                target="_blank">{{impressao.uri_arquivo|truncatechars:35}}</a></td>
+                        <td class="arquivo">{{impressao.uri_arquivo|truncatechars:35}}</td>
                         <td>{{impressao.qtd_copias}}</td>
                         <!-- STATUS -->
                         {% if impressao.imprimida %}
@@ -180,7 +188,7 @@
                             Imprimida
                         </td>
                         {% elif impressao.visualizado_em %}
-                        <td class="blue lighten-3">
+                        <td>
                             Visualizada
                         </td>
                         {% else %}
@@ -193,7 +201,7 @@
 
                         <!-- COLORIDA OU NÃO -->
                         {% if impressao.colorida == True %}
-                        <td class="blue lighten-3">
+                        <td>
                             Sim
                         </td>
                         {% else %}
@@ -222,8 +230,16 @@
                             </form>
                         </td>
                         <!-- DELETE COL -->
+                        <!-- DOWNLOAD COL -->
+                        <td>
+                            <!-- Download File Col -->
+                            <a class="btn download" href="/impressao/download/{{impressao.uri_arquivo}}"
+                            target="_blank">
+                                <i class="material-icons">download</i>
+                            </a>
+                        </td>
+                        <!-- DOWNLOAD COL -->
                         {% endif %}
-
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -261,8 +277,7 @@
                     {% if impressao.imprimida %}
                     <tr>
                         <td>{{impressao.id}}</td>
-                        <td class="arquivo"><a href="/impressao/download/{{impressao.uri_arquivo}}"
-                                target="_blank">{{impressao.uri_arquivo|truncatechars:35}}</a></td>
+                        <td class="arquivo">{{impressao.uri_arquivo|truncatechars:35}}</td>
                         <td>{{impressao.qtd_copias}}</td>
                         <!-- STATUS -->
                         {% if impressao.imprimida %}
@@ -270,7 +285,7 @@
                             Imprimida
                         </td>
                         {% elif impressao.visualizado_em %}
-                        <td class="blue lighten-3">
+                        <td>
                             Visualizada
                         </td>
                         {% else %}
@@ -283,7 +298,7 @@
 
                         <!-- COLORIDA OU NÃO -->
                         {% if impressao.colorida == True %}
-                        <td class="blue lighten-3">
+                        <td>
                             Sim
                         </td>
                         {% else %}
@@ -311,7 +326,16 @@
                             </form>
                         </td>
                         <!-- DELETE COL -->
-                        {% endif %}
+                        <!-- DOWNLOAD COL -->
+                        <td>
+                            <!-- Download File Col -->
+                            <a class="btn download" href="/impressao/download/{{impressao.uri_arquivo}}"
+                            target="_blank">
+                                <i class="material-icons">download</i>
+                            </a>
+                        </td>
+                        <!-- DOWNLOAD COL -->
+                        {% endif %}         
                     </tr>
                     {% endfor %}
                 </tbody>

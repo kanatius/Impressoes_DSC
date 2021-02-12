@@ -1,30 +1,33 @@
 @import '../_templateColors.scss';
 
-.tab a{
-    color : $blue-dark;
+.tab a {
+    color: $blue-dark;
     background-color: transparent;
+    font-family: inherit;
 }
-.tab a.active{
+
+.tab a.active {
     background-color: transparent;
     color: $blue-dark;
 }
-.tab a:focus{
+
+.tab a:focus {
     background-color: white !important;
-    // color: white !important;
-    // opacity: 80%;
 }
-input[type="search"]:focus{
+
+input[type="search"]:focus {
     border-bottom: 0px;
 }
 
-.nav-wrapper{
+.nav-wrapper {
     border-bottom: 1px solid gray;
 }
 
-.tabs .indicator{
-    background-color : $blue-dark;
+.tabs .indicator {
+    background-color: $blue-dark;
 }
-.arquivo{
-    width: 600px !important;
-    max-width: 500px !important;
+
+.arquivo {
+    width: 400px !important;
+    max-width: 400px !important;
 }
