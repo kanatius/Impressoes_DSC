@@ -11,6 +11,12 @@ class TipoImpressao(models.Model):
         return self.nome
 
 
+class Turma(models.Model):
+    nome = models.CharField("nome", max_length=255, unique=True)
+
+    def __str__(self):
+        return self.nome
+
 class Impressao(models.Model):
 
     comentario = models.CharField('comentario', max_length=255, blank=True, null=True)
@@ -25,4 +31,4 @@ class Impressao(models.Model):
     cliente = models.ForeignKey(Usuario, name="cliente", on_delete=models.CASCADE, null=True)
     imprimida = models.BooleanField("is_imprimida", blank=True, default=False)
     tipo = models.ForeignKey(TipoImpressao, on_delete=models.SET_NULL, null=True, name="tipo")
-        
+    turma = models.ForeignKey(Turma, on_delete=models.SET_NULL, null=True, blank=True)

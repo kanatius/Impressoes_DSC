@@ -41,4 +41,7 @@ class Usuario(AbstractUser):
     def __str__(self):
         return super().first_name + " " + super().last_name
     
+    def getFullName(self):
+        return super().first_name + " " + super().last_name
+        
     objects = UsuarioManager()

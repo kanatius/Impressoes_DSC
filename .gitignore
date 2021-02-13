@@ -114,3 +114,5 @@ media/
 
 # CUSTOM
 files/*
+
+ProjetoDSC/email_data.py

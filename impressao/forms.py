@@ -12,4 +12,4 @@ class ImpressaoForm(forms.ModelForm):
 
     class Meta:
         model = Impressao
-        fields = ['uri_arquivo', 'qtd_copias', 'colorida', 'comentario', 'tipo']
+        fields = ['uri_arquivo', 'qtd_copias', 'colorida', 'comentario', 'tipo', 'turma']

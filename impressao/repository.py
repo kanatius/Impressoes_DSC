@@ -1,4 +1,4 @@
-from .models import Impressao, TipoImpressao
+from .models import Impressao, TipoImpressao, Turma
 
 #IMPRESSÃO REPOSITORY
 
@@ -52,3 +52,11 @@ class TipoImpressaoRepository:
             return TipoImpressao.objects.get(nome=name)
         except:
             None
+
+class TurmaRepository:
+    
+    def getById(self, id):
+        try:
+            return Turma.objects.get(id=id)
+        except:
+            return None

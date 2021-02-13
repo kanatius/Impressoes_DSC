@@ -1,14 +1,22 @@
 import os
-from .repository import ImpressaoRepository
-from .repository import TipoImpressaoRepository
+
+from impressao.repository import ImpressaoRepository
+from impressao.repository import TipoImpressaoRepository
+from impressao.repository import TurmaRepository
+
 from impressao.forms import ImpressaoForm
+
 from ProjetoDSC.settings import MEDIA_ROOT
+
+from datetime import datetime
+
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
-from datetime import datetime
 from django.conf import settings
 from django.http import HttpResponse, Http404
 from django.db.models import Q
+from django.core.mail import send_mail
+from ProjetoDSC.email_data import EMAIL_HOST_USER
 
 
 def isCliente(request):
@@ -30,6 +38,7 @@ class ImpressaoService():
         super().__init__()
         self.impressaoRepository = ImpressaoRepository() 
         self.tipoRepository = TipoImpressaoRepository()
+        self.turmaRepository = TurmaRepository()
 
     def getImpressoes(self, request, offset=0, limit=0, desc=False):
         if not request.user.is_authenticated:
@@ -103,8 +112,7 @@ class ImpressaoService():
             return None
     
         data = request.POST
-        up_data = {}
-        
+
         if request.user.cliente and impressao.imprimida != True: #cliente só pode editar se a impressão ainda não foi imprimida
             
             if "colorida" in data:
@@ -115,6 +123,12 @@ class ImpressaoService():
 
             if 'comentario' in data:
                 impressao.comentario = data["comentario"]
+            
+            if 'turma' in data:
+                turma = self.turmaRepository.getById(data["turma"])
+                print(turma)
+                impressao.turma = turma
+                
 
             if request.FILES.get("uri_arquivo"):
 
@@ -174,7 +188,17 @@ class ImpressaoService():
             return False #retorna false se a impressão for prova ou teste e o funcionario for aluno
 
         impressao.imprimida = True
-        impressao.save()
+        impressao.set_imprimida_em = datetime.now()
+        # impressao.save()
+
+        # send_mail(
+        #     'Sua Impressão está pronta!',
+        #     'Olá ' + request.user.getFullName() + ", sua impressão : " + impressao.uri_arquivo.name + " está pronta!",
+        #     EMAIL_HOST_USER,
+        #     ['natankwo@gmail.com'],
+        #     fail_silently=False,
+        # )
+
         return True
 
     def delete(self, request):
