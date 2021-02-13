@@ -189,11 +189,11 @@ class ImpressaoService():
 
         impressao.imprimida = True
         impressao.set_imprimida_em = datetime.now()
-        # impressao.save()
+        impressao.save()
 
         # send_mail(
         #     'Sua Impressão está pronta!',
-        #     'Olá ' + request.user.getFullName() + ", sua impressão : " + impressao.uri_arquivo.name + " está pronta!",
+        #     'Olá ' + request.user.getFullName() + ", sua impressão : cod-" + str(impressao.id) + " " + impressao.uri_arquivo.name + " está pronta!",
         #     EMAIL_HOST_USER,
         #     ['natankwo@gmail.com'],
         #     fail_silently=False,
