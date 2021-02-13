@@ -1,5 +1,6 @@
 from django.db import models
 from usuario.models import Usuario
+from datetime import datetime
 
 # Create your models here.
 class TipoImpressao(models.Model):
@@ -16,6 +17,9 @@ class Impressao(models.Model):
     arquivo = models.FileField(name='uri_arquivo', max_length=400)
     qtd_copias = models.SmallIntegerField("qtd_copias")
     visualizado_em = models.DateTimeField("visualizado_em", blank=True, null=True)
+    set_imprimida_em = models.DateTimeField("set_imprimida_em", blank=True, null=True)
+    data_pedido = models.DateTimeField("data_pedido", auto_now_add=True)
+    qtd_laudas_imprimidas = models.IntegerField("qtd_laudas_imprimidas", blank=True, null=True)
     prazo_entrega = models.DateTimeField("prazo_entrega", blank=True, null=True)
     colorida = models.BooleanField("colorida", default=False)
     cliente = models.ForeignKey(Usuario, name="cliente", on_delete=models.CASCADE, null=True)
