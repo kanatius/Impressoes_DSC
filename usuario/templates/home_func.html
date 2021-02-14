@@ -1,5 +1,12 @@
 {% extends 'basepage_func.html' %}
 
+{% load static %}
+
+{% block head2 %}
+<script src="{% static 'js/home_func.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css/funcionario/home.css' %}">
+{% endblock %}
+
 {% block page %}
 <div id="test1" class="col s12">
     <h5>Fila de impressões pendentes</h5>
@@ -43,7 +50,7 @@
                 {% for impressao in impressoes %}
                 <tr>
                     <td>{{impressao.id}}</td>
-                    <td>{{impressao.uri_arquivo|truncatechars:35}}</td>
+                    <td class="nome_impressao">{{impressao.uri_arquivo|truncatechars:35}}</td>
                     <td>{{impressao.qtd_copias}}</td>
                     <!-- STATUS -->
                     <!-- STATUS -->
@@ -76,15 +83,12 @@
                     <!-- DOWNLOAD COL -->
                     <!-- NOTIFY CLIENT COL -->
                     <td>
-                        <form action="{% url 'impressao:set_imprimida' %}" method="POST">
-                            {% csrf_token %}
-                            <input name="id_impressao" type="number" value={{ impressao.id }} hidden>
-                            <button title="Impressão pronta!"
-                                onclick="return confirm('Notificar cliente que a impressão está pronta?')"
-                                class="btn red lighten-1 green darken-1">
-                                <i class="material-icons">check</i>
-                            </button>
-                        </form>
+                        <input class="id_impressao" type="number" value={{ impressao.id }} hidden>
+                        <input type="number" name="qtd_laudas" hidden>
+                        <a title="Impressão pronta!" href="#setPrintedModal" onclick="openModalCorfimPrinted(this)"
+                            class="btn red modal-trigger green darken-1">
+                            <i class="material-icons">check</i>
+                        </a>
                     </td>
                     <!-- NOTIFY CLIENT COL -->
                 </tr>
@@ -93,9 +97,38 @@
         </table>
     </div>
     <!-- HISTÓRICO -->
+    <!-- Modal Trigger -->
+    <!-- Modal Structure -->
+    <div id="setPrintedModal" class="modal">
+        <form action="{% url 'impressao:set_imprimida' %}" method="POST">
+            {% csrf_token %}
+            <div class="modal-content">
+                <h5>Confirmação da quantidade de laudas imprimidas</h5>
+                <h6>Insira a quantidade <b>total</b> de laudas que foram imprimidas para o arquivo:</h6>
+                <div class="col l9">
+                    <br>
+                    cod: <span id="cod_text_in_modal"></span><br>
+                    Arquivo: <span id="arquivo_text_in_modal"></span>
+                </div>
+                <div class="col l3">
+                    <input type="number" id="id_impressao_modal" name="id_impressao" hidden>
+                    <label>Quantidade: <input type="number" name="qtd_laudas_imprimidas" id="qtd_laudas_modal" value="1"
+                            min=1 name=""></label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btn_enviar_modal"
+                    onclick="return confirm('Deseja mesmo confirmar a impressão?\nNão será mais possível realizar alterações.')"
+                    class="btn waves-effect waves-green btn-flat green darken-2">Confirmar
+                    Impressão</a>
+            </div>
+        </form>
+    </div>
+
 </div>
 <script>
     $(document).ready(function () {
+        $('.modal').modal();
         //esconde mensagens de sucesso e erro
         setTimeout(function () {
             $("#messages").hide();

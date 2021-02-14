@@ -1,0 +1,20 @@
+#setPrintedModal{
+    max-width: 550px;
+    min-height: 320px;
+    padding: 20px !important;
+    padding-top: 0px !important;
+    padding-bottom: 40px !important;
+    // font-family: Lato, serif;
+
+    h6{
+        text-align: justify;
+    }
+    div.col{
+        padding-left: 0px !important;
+    }
+
+    #btn_enviar_modal{
+        color: white;
+        margin-top: 20px;
+    }
+}

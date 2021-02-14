@@ -175,7 +175,9 @@ class ImpressaoService():
 
         if not isFuncionario(request) and not request.user.funcionario_aluno:
             return False
-    
+        
+        print(request.POST)
+
         impressao = self.impressaoRepository.getById(request.POST.get("id_impressao"))
 
         if impressao is None:
@@ -189,6 +191,9 @@ class ImpressaoService():
 
         impressao.imprimida = True
         impressao.set_imprimida_em = datetime.now()
+
+        impressao.qtd_laudas_imprimidas = int(request.POST.get("qtd_laudas_imprimidas"))
+
         impressao.save()
 
         # send_mail(

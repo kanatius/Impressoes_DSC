@@ -1,3 +1,19 @@
-
+#setPrintedModal {
+  max-width: 550px;
+  min-height: 320px;
+  padding: 20px !important;
+  padding-top: 0px !important;
+  padding-bottom: 40px !important;
+}
+#setPrintedModal h6 {
+  text-align: justify;
+}
+#setPrintedModal div.col {
+  padding-left: 0px !important;
+}
+#setPrintedModal #btn_enviar_modal {
+  color: white;
+  margin-top: 20px;
+}
 
 /*# sourceMappingURL=home.css.map */
