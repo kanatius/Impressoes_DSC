@@ -40,8 +40,8 @@
                     <th class="center-align">Coloria</th>
                     <th class="center-align">Tipo</th>
                     <th class="center-align">Dono</th>
-                    <th class="center-align">Comentário</th> <!-- delete col -->
                     <th class="center-align">Download</th>
+                    <th class="center-align">Detalhes</th>
                     <th class="center-align">Notificar</th>
                 </tr>
             </thead>
@@ -49,6 +49,17 @@
             <tbody>
                 {% for impressao in impressoes %}
                 <tr>
+                    <td class="dados_impressao" hidden>
+                            <input type="text" class="impressao_comentario" value="{{impressao.comentario}}">
+                            {% if impressao.turma is not None %}
+                            <input type="text" class="impressao_turma" value="{{impressao.turma.nome}}">
+                            {% else %}
+                            <input type="text" class="impressao_turma" value="Sem turma">
+                            {% endif %}
+                            <input type="text" class="nome_impressao" value="{{impressao.uri_arquivo}}">
+                            <input type="text" class="cliente_nome" value="{{impressao.cliente.getFullName}}">
+                            <input type="text" class="data_pedido" value="{{impressao.data_pedido}}">
+                    </td>
                     <td>{{impressao.id}}</td>
                     <td class="nome_impressao">{{impressao.uri_arquivo|truncatechars:35}}</td>
                     <td>{{impressao.qtd_copias}}</td>
@@ -68,11 +79,6 @@
                     <!-- COLORIDA OU NÃO -->
                     <td>{{impressao.tipo.nome}}</td>
                     <td>{{impressao.cliente.first_name}} {{impressao.cliente.last_name}}</td>
-                    <!-- EDIT -->
-                    <td>
-                        {{impressao.comentario}}
-                    </td>
-                    <!-- EDIT -->
                     <!-- DOWNLOAD COL -->
                     <td>
                         <!-- Download File Col -->
@@ -81,6 +87,13 @@
                         </a>
                     </td>
                     <!-- DOWNLOAD COL -->
+                    <!-- DETAILS -->
+                    <td>
+                        <a class="btn orange darken-2 modal-trigger" onclick="fillDetailsModalData(this)" href="#detailsModal">
+                            <i class="large material-icons">eject</i>
+                        </a>
+                    </td>
+                    <!-- DETAILS -->
                     <!-- NOTIFY CLIENT COL -->
                     <td>
                         <input class="id_impressao" type="number" value={{ impressao.id }} hidden>
@@ -97,8 +110,8 @@
         </table>
     </div>
     <!-- HISTÓRICO -->
-    <!-- Modal Trigger -->
-    <!-- Modal Structure -->
+
+    <!-- SET PRINTED MODAL -->
     <div id="setPrintedModal" class="modal">
         <form action="{% url 'impressao:set_imprimida' %}" method="POST">
             {% csrf_token %}
@@ -124,6 +137,22 @@
             </div>
         </form>
     </div>
+    <!-- SET PRINTED MODAL -->
+
+    <!-- DETAILS MODAL -->
+    <!-- Modal Structure -->
+    <div id="detailsModal" class="modal">
+        <div class="modal-content">
+            <h5>Detalhes da impressão</h5>
+            <br>
+            <b>Arquivo: </b><span id="filename_details_modal"></span><br>
+            <b>Data do Pedido: </b><span id="data_pedido_details_modal"></span><br>
+            <b>Cliente: </b><span id="cliente_details_modal"></span><br>
+            <b>Turma: </b><span id="turma_details_modal"></span><br>
+            <b>Comentários:</b><span id="comentario_details_modal"></span>
+        </div>
+    </div>
+    <!-- DETAILS MODAL -->
 
 </div>
 <script>
