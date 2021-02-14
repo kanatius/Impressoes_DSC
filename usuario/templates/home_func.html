@@ -116,7 +116,7 @@
         <form action="{% url 'impressao:set_imprimida' %}" method="POST">
             {% csrf_token %}
             <div class="modal-content">
-                <h5>Confirmação da quantidade de laudas imprimidas</h5>
+                <h5 class="modal_title">Confirmação da quantidade de laudas imprimidas</h5>
                 <h6>Insira a quantidade <b>total</b> de laudas que foram imprimidas para o arquivo:</h6>
                 <div class="col l9">
                     <br>
@@ -131,7 +131,7 @@
             </div>
             <div class="modal-footer">
                 <button id="btn_enviar_modal"
-                    onclick="return confirm('Deseja mesmo confirmar a impressão?\nNão será mais possível realizar alterações.')"
+                    onclick="return confirm('Deseja mesmo confirmar a impressão?\nNão será mais possível fazer alterações.')"
                     class="btn waves-effect waves-green btn-flat green darken-2">Confirmar
                     Impressão</a>
             </div>
@@ -143,13 +143,13 @@
     <!-- Modal Structure -->
     <div id="detailsModal" class="modal">
         <div class="modal-content">
-            <h5>Detalhes da impressão</h5>
-            <br>
+            <h5 class="modal_title">Detalhes da impressão</h5>
             <b>Arquivo: </b><span id="filename_details_modal"></span><br>
             <b>Data do Pedido: </b><span id="data_pedido_details_modal"></span><br>
             <b>Cliente: </b><span id="cliente_details_modal"></span><br>
             <b>Turma: </b><span id="turma_details_modal"></span><br>
-            <b>Comentários:</b><span id="comentario_details_modal"></span>
+            <br>
+            <b>Comentários: </b><pre id="comentario_details_modal"></pre>
         </div>
     </div>
     <!-- DETAILS MODAL -->

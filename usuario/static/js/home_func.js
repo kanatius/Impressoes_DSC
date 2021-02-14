@@ -21,6 +21,9 @@ function fillDetailsModalData(object){
     td_data = $(tr).children(".dados_impressao")[0];
 
     comentario = $(td_data).children(".impressao_comentario")[0].value;
+    if (!comentario){
+        comentario = "Sem comentário";
+    }
     turma = $(td_data).children(".impressao_turma")[0].value;
     filename = $(td_data).children(".nome_impressao")[0].value;
     cliente = $(td_data).children(".cliente_nome")[0].value;
