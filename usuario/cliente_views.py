@@ -34,7 +34,7 @@ def home(request):
             page = int(request.GET.get('page'))
         
         impressoes = impressaoService.getImpressoes(request, desc=True)
-        paginator = Paginator(impressoes, 10)
+        paginator = Paginator(impressoes, 8)
         page_obj = paginator.page(page) 
 
         return render(request, "minhas_impressoes.html", context={"page_obj" : page_obj})
