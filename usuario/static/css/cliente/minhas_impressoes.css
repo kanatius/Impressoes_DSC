@@ -22,6 +22,10 @@ table {
   color: #0277bd !important;
 }
 
+div#tabs-parent {
+  min-height: 600px;
+}
+
 .tab a:focus {
   background-color: white !important;
 }
@@ -41,6 +45,11 @@ input[type=search]:focus {
 .arquivo {
   width: 400px !important;
   max-width: 400px !important;
+}
+
+.pagination .active {
+  background-color: #0277bd !important;
+  opacity: 80%;
 }
 
 /*# sourceMappingURL=minhas_impressoes.css.map */

@@ -4,6 +4,7 @@ from impressao.forms import ImpressaoForm
 from impressao.models import Impressao
 from usuario.models import Usuario
 from django.contrib import messages
+from django.core.paginator import Paginator
 
 from impressao.service import ImpressaoService
 
@@ -31,14 +32,12 @@ def home(request):
 
         if 'page' in request.GET:
             page = int(request.GET.get('page'))
+        
+        impressoes = impressaoService.getImpressoes(request, desc=True)
+        paginator = Paginator(impressoes, 10)
+        page_obj = paginator.page(page) 
 
-        qtd_impressoes = 10
-
-        offset = (page - 1) * qtd_impressoes
-        limit = offset + qtd_impressoes
-
-        impressoes = impressaoService.getImpressoes(request, offset=offset, limit=limit, desc=True)
-        return render(request, "minhas_impressoes.html", context={"impressoes": impressoes})
+        return render(request, "minhas_impressoes.html", context={"page_obj" : page_obj})
 
     return HttpResponseRedirect("/")
 

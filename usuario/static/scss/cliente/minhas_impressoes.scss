@@ -11,6 +11,10 @@
     color: $blue-dark;
 }
 
+div#tabs-parent{
+    min-height: 600px;
+}
+
 .tab a:focus {
     background-color: white !important;
 }
@@ -30,4 +34,9 @@ input[type="search"]:focus {
 .arquivo {
     width: 400px !important;
     max-width: 400px !important;
+}
+
+.pagination .active{
+    background-color: $blue-dark;
+    opacity: 80%;
 }
