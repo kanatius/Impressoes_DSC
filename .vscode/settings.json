@@ -1,3 +1,4 @@
 {
-    "html.format.contentUnformatted": ""
+    "html.format.contentUnformatted": "",
+    "python.pythonPath": "venv\\Scripts\\python.exe"
 }

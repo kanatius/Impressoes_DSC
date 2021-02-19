@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'rest_framework',
+    'rest_framework_swagger',
     #3rd
     'allauth',
     'allauth.account',
@@ -48,7 +50,8 @@ INSTALLED_APPS = [
     #my apps
     'core',
     'usuario', 
-    'impressao'
+    'impressao',
+    'api',
 ]
 
 MIDDLEWARE = [
@@ -81,6 +84,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ProjetoDSC.wsgi.application'
 
+
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+
+    'DEFAULT_PARSER_CLASSES': [
+        'rest_framework.parsers.FormParser',
+        'rest_framework.parsers.MultiPartParser',
+        'rest_framework.parsers.JSONParser',
+    ]
+}
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases

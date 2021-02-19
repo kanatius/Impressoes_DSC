@@ -37,3 +37,9 @@ urlpatterns += [
 urlpatterns +=[
     path("impressao/", include("impressao.urls"))
 ]
+
+#API
+
+urlpatterns +=[
+    path("api/", include("api.urls"))
+]

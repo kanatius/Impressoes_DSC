@@ -17,6 +17,13 @@ class Turma(models.Model):
     def __str__(self):
         return self.nome
 
+
+    # def toDict(self):
+    #     return { 
+    #         "id" : self.id,
+    #         "nome" : self.nome
+    #     }
+
 class Impressao(models.Model):
 
     comentario = models.CharField('comentario', max_length=255, blank=True, null=True)
@@ -32,3 +39,19 @@ class Impressao(models.Model):
     imprimida = models.BooleanField("is_imprimida", blank=True, default=False)
     tipo = models.ForeignKey(TipoImpressao, on_delete=models.SET_NULL, null=True, name="tipo")
     turma = models.ForeignKey(Turma, on_delete=models.SET_NULL, null=True, blank=True)
+
+    # def toDict(self):
+    #     return { 
+    #         "comentario" : self.id,
+    #         "uri_arquivo" : self.nome,
+    #         "qtd_copias" : self.qtd_copias ,
+    #         "visualizado_em" : self.visualizado_em,
+    #         "set_imprimida_em" : self.set_imprimida_em,
+    #         "data_pedido" : self.data_pedido,
+    #         "qtd_laudas_imprimidas" : self.qtd_laudas_imprimidas,
+    #         "prazo_entrega" : self.prazo_entrega,
+    #         "colorida" : self.colorida,
+    #         "cliente" : self.,
+    #         "imprimida" : ,
+
+    #     }
