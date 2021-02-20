@@ -111,23 +111,33 @@ class ImpressaoService():
         
         if impressao is None:
             return None
-    
-        data = request.POST
+        
+        request_from = ""
+
+        try: #for api
+            data = request.data
+            request_from = "api"
+        except: #for form
+            data = request.POST
+            request_from = "website"
 
         if request.user.cliente and impressao.imprimida != True: #cliente só pode editar se a impressão ainda não foi imprimida
             
             if "colorida" in data:
-                colorida = True if data["colorida"] == 'on' else False
+                colorida = True if (data["colorida"] == 'on' or data["colorida"] == 'true') else False
                 impressao.colorida = colorida
-            else:
-                impressao.colorida = False #set False se não vier no formulário
+            elif request_from == "website":
+                #se não vier no form e vier do website
 
+                #se a requisição vier do website, o campo "colorida" não vem com o form caso não estiver marcado
+                #se não vier com o form é pq é False
+                impressao.colorida = False
+            
             if 'comentario' in data:
                 impressao.comentario = data["comentario"]
             
             if 'turma' in data:
                 turma = self.turmaRepository.getById(data["turma"])
-                print(turma)
                 impressao.turma = turma
                 
 
@@ -257,3 +267,26 @@ class ImpressaoService():
                 response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
                 return response
         raise Http404
+
+
+class TipoImpressaoService:
+
+    def __init__(self):
+        super().__init__()
+        self.tipoImpressaoRepository = TipoImpressaoRepository()
+    
+    def getAllTipos(self, request):
+        return self.tipoImpressaoRepository.getAll()
+
+
+class TurmaService:
+
+    def __init__(self):
+        super().__init__()
+        self.turmaRepository = TurmaRepository()
+    
+    def getById(self, request, id):
+        return self.turmaRepository.getById(id)
+
+    def getAllTurmas(self, request):
+        return self.turmaRepository.getAll()

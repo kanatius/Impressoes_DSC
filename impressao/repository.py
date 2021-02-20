@@ -62,3 +62,6 @@ class TurmaRepository:
             return Turma.objects.get(id=id)
         except:
             return None
+    
+    def getAll(self):
+        return Turma.objects.all()
