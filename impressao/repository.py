@@ -21,7 +21,9 @@ class ImpressaoRepository:
 
         if desc :
             query = query.reverse()[offset:(offset+limit)]
-        
+        else:
+            query = query[offset:(offset+limit)]
+
         return query
     
     def getById(self, id):
