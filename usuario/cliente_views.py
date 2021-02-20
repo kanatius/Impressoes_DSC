@@ -97,7 +97,7 @@ def update_impressao(request, id_impressao):
 def delete_impressao(request):
     if request.method == "POST":
 
-        if ImpressaoService().delete(request=request):
+        if ImpressaoService().delete(request=request, id=request.POST.get("id_impressao")):
                     
             messages.success(request, "Impressao removida com sucesso!")
             

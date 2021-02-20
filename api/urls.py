@@ -10,7 +10,7 @@ from drf_yasg import openapi
 app_name = "api"
 
 urlpatterns = [
-   path("impressao/<int:id>" , api_views.get_impressao_by_id, name = "get_impressao_by_id"),
+   path("impressao/<int:id>" , api_views.impressao_by_id, name = "impressao_by_id"),
    path("impressao/list", api_views.minhas_impressoes, name = "get_impressoes"), 
    path("impressao/solicitar", api_views.solicitar_impressao, name = "solicitar_impressao")
 ]

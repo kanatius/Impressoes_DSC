@@ -48,23 +48,30 @@ def minhas_impressoes(request):
 
 
 @swagger_auto_schema(method='get')
-@api_view(["GET"])
-def get_impressao_by_id(request, id):
+@api_view(["GET", "DELETE"])
+def impressao_by_id(request, id):
     '''
-    Solicita dados da impressão pelo id
-    Só disponibiliza os dadis caso o usuário tenha permissão de acesso
+    Acesso à impressão pelo id
     '''
+    if request.method == "GET":
+        impressao = impressaoService.getById(request=request, id=id)
 
-    impressao = impressaoService.getById(request=request, id=id)
+        if impressao is not None:
+            data = serializers.serialize("json", [impressao])
+        else:
+            data = json.dumps(None)
 
-    if impressao is not None:
-        data = serializers.serialize("json", [impressao])
-    else:
-        data = json.dumps(None)
+        return HttpResponse(data, content_type='application/json')
 
-    return HttpResponse(data, content_type='application/json')
+    if request.method == "DELETE":
+        deleted = impressaoService.delete(request=request, id=id)
 
-
+        if deleted:
+            data = json.dumps("impressão removida com sucesso")
+        else:
+            data = json.dumps("erro na solicitação")
+        
+        return HttpResponse(data, content_type='application/json')
 
 uri_arquivo = openapi.Parameter('uri_arquivo', openapi.IN_FORM, required=True, description="Arquivo a ser imprimido", type=openapi.TYPE_FILE)
 qtd_copias = openapi.Parameter('qtd_copias', openapi.IN_FORM, default=1, required=True, description="Quantidade de cópias a serem impressas", type=openapi.TYPE_INTEGER)
