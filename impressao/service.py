@@ -92,6 +92,7 @@ class ImpressaoService():
         if isCliente(request):
             form = ImpressaoForm(request.POST, files=request.FILES)
             if form.is_valid():
+                print("Formulário válido")
                 impressao = form.save(commit=False)
                 impressao.cliente = request.user
                 impressao.save()
