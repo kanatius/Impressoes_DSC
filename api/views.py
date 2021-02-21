@@ -2,9 +2,11 @@ from django.http import JsonResponse, HttpResponse
 from impressao.service import ImpressaoService, TipoImpressaoService, TurmaService
 from usuario.service import UsuarioService
 from django.core import serializers
+from rest_framework import permissions
+
 # from django.http import multipartparser
 
-from rest_framework.decorators import api_view, parser_classes
+from rest_framework.decorators import api_view, parser_classes, permission_classes
 from rest_framework.parsers import FormParser, MultiPartParser
 
 from drf_yasg.utils import swagger_auto_schema
@@ -24,6 +26,7 @@ limit= openapi.Parameter('limit', openapi.IN_QUERY, default=0, description="Limi
 
 @swagger_auto_schema(method='get', manual_parameters=[offset, limit])
 @api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
 def minhas_impressoes(request):
     '''
     Serviço para pegar impressões do usuário logado
@@ -60,6 +63,7 @@ tipo = openapi.Parameter('tipo', openapi.IN_FORM, description="id do tipo da imp
 
 @swagger_auto_schema(method='post', manual_parameters=[uri_arquivo, qtd_copias, colorida, comentario, turma, tipo])
 @api_view(["POST"])
+@permission_classes([permissions.IsAuthenticated])
 @parser_classes([FormParser, MultiPartParser])
 def solicitar_impressao(request):
     # print(request.data)
@@ -75,6 +79,7 @@ def solicitar_impressao(request):
 #----------------------------------------------------------#
 @swagger_auto_schema(method='PATCH', manual_parameters=[uri_arquivo, qtd_copias, colorida, comentario, turma, tipo])
 @api_view(["GET", "DELETE", "PATCH"])
+@permission_classes([permissions.IsAuthenticated])
 @parser_classes([FormParser, MultiPartParser])
 def impressao_by_id(request, id):
     '''
@@ -114,6 +119,7 @@ def impressao_by_id(request, id):
 #----------------------------------------------------------#
 #----------------------------------------------------------#
 @api_view(["GET"])
+@permission_classes([permissions.IsAuthenticated])
 def tipos_de_impressoes(request):
 
     tipos_model = tipoImpressaoService.getAllTipos(request)
@@ -127,6 +133,13 @@ def tipos_de_impressoes(request):
 #----------------------------------------------------------#
 #----------------------------------------------------------#
 @api_view(["GET"])
+@permission_classes([permissions.IsAuthenticated])
+def download_impressao(request, filename):
+    return impressaoService.download(request, filename)
+#----------------------------------------------------------#
+#----------------------------------------------------------#
+@api_view(["GET"])
+@permission_classes([permissions.IsAuthenticated])
 def list_turmas(request):
 
     turmas = turmaService.getAllTurmas(request)
@@ -140,6 +153,7 @@ def list_turmas(request):
 #----------------------------------------------------------#
 #----------------------------------------------------------#
 @api_view(["GET"])
+@permission_classes([permissions.IsAuthenticated])
 def turma_by_id(request, id):
 
     turma = turmaService.getById(request=request, id=id)
@@ -154,6 +168,7 @@ def turma_by_id(request, id):
 #----------------------------------------------------------#
 
 @api_view(["GET"])
+@permission_classes([permissions.IsAuthenticated])
 def user_name(request, id):
     
     user_name = usuarioService.getUserName(request, id)
