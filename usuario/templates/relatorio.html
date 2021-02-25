@@ -1,4 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt">
 
-<div>
-Teste Relatório
-</div>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório</title>
+</head>
+
+<body>
+
+    <h2>Relatório de Impressões</h2>
+    <div><b>Usuário: </b>{{cliente_nome}}</div>
+    <div><b>Total laudas: </b>{{total_laudas}} </div>
+    <div><b>Turma: </b>{{turma_nome}}</div>
+    <div><b>Período:</b> De {{data_inicio}} a {{data_fim}}</div>
+    <br>
+    <table>
+        <tr>
+            <th>cod</th>
+            <th>arquivo</th>
+            <th>Laudas Imprimidas</th>
+            <th>Turma</th>
+            <th>Data Pedido</th>
+            <th>Data Impressao</th>
+        </tr>
+        {% for impressao in impressoes %}
+        <tr>
+            <td class="impressao_id">{{impressao.id}}</td>
+            <td class="impressao_uri">
+                {{impressao.uri_arquivo|truncatechars:60}}
+            </td>
+            <td class="impressao_laudas">{{impressao.qtd_laudas_imprimidas}}</td>
+            <td class="impressao_turma">{{impressao.turma.nome}}</td>
+            <td class="impressao_data">{{impressao.data_pedido|date:"d/m/Y H:i"}}</td>
+            <td class="impressao_data">{{impressao.set_imprimida_em|date:"d/m/Y H:i"}}</td>
+        </tr>
+        {% endfor %}
+
+    </table>
+
+    <style type="text/css">
+
+        h2{
+            text-align: center;
+        }
+        table{
+            border-bottom: 1px solid black;
+        }
+
+        td{
+            text-align: center;
+            padding: 3px;
+        }
+        td.impressao_id {
+            width: 45px;
+        }
+
+        td.impressao_uri {
+            text-align: left;
+            width: 350px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        td.impressao_data{
+            width: 70px;
+        }
+        td.impressao_turma{
+            width: 80px;
+        }
+    </style>
+
+</body>
+
+</html>

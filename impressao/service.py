@@ -1,8 +1,7 @@
 import os
 
-from impressao.repository import ImpressaoRepository
-from impressao.repository import TipoImpressaoRepository
-from impressao.repository import TurmaRepository
+from impressao.repository import ImpressaoRepository, TipoImpressaoRepository, TurmaRepository
+from usuario.repository import UsuarioRepository
 
 from impressao.forms import ImpressaoForm
 
@@ -27,7 +26,7 @@ def isCliente(request):
 
 def isFuncionario(request):
     if not request.user.is_anonymous and request.user is not None:
-        if request.user.funcionario:
+        if request.user.funcionario or request.user.funcionario_aluno:
             return True
     return False
 
@@ -39,6 +38,7 @@ class ImpressaoService():
         self.impressaoRepository = ImpressaoRepository() 
         self.tipoRepository = TipoImpressaoRepository()
         self.turmaRepository = TurmaRepository()
+        self.usuarioRepository = UsuarioRepository()
 
     def getImpressoes(self, request, offset=0, limit=0, desc=False):
         if not request.user.is_authenticated:
@@ -267,6 +267,41 @@ class ImpressaoService():
                 response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
                 return response
         raise Http404
+
+    def getReportData(self, request, cliente_id, data_inicio, data_fim, turma_id=None):
+
+        if not isFuncionario(request):
+            return None
+        
+        cliente_nome = self.usuarioRepository.getById(cliente_id).getFullName()
+
+        impressoes = self.impressaoRepository.list(
+            imprimida=True, 
+            cliente_id=cliente_id, 
+            order_by="set_imprimida_em",
+            imprimida_min_date= data_inicio,
+            imprimida_max_date= data_fim,
+            turma_id= turma_id
+            )
+        
+        turma_nome = ""
+
+        if turma_id is not None:
+            turma_nome = self.turmaRepository.getById(turma_id)
+        else:
+            turma_nome = "Todas"
+
+        total_laudas = 0
+
+        for impressao in impressoes:
+            total_laudas += impressao.qtd_laudas_imprimidas
+
+        return {
+            "cliente_nome" : cliente_nome,
+            "impressoes" : impressoes,
+            "total_laudas" : total_laudas,
+            "turma_nome" : turma_nome
+            }
 
 
 class TipoImpressaoService:

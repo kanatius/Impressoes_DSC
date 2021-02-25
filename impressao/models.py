@@ -32,7 +32,7 @@ class Impressao(models.Model):
     visualizado_em = models.DateTimeField("visualizado_em", blank=True, null=True)
     set_imprimida_em = models.DateTimeField("set_imprimida_em", blank=True, null=True)
     data_pedido = models.DateTimeField("data_pedido", auto_now_add=True)
-    qtd_laudas_imprimidas = models.IntegerField("qtd_laudas_imprimidas", blank=True, null=True)
+    qtd_laudas_imprimidas = models.IntegerField("qtd_laudas_imprimidas", blank=True, null=False, default=0)
     prazo_entrega = models.DateTimeField("prazo_entrega", blank=True, null=True)
     colorida = models.BooleanField("colorida", default=False)
     cliente = models.ForeignKey(Usuario, name="cliente", on_delete=models.CASCADE, null=True)

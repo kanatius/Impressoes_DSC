@@ -194,6 +194,5 @@ ACCOUNT_UNIQUE_EMAIL = True
 LOGIN_REDIRECT_URL = '/home'
 LOGOUT_REDIRECT_URL = "index"
 
-
 # Activate Django-Heroku.
 django_heroku.settings(locals())

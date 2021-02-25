@@ -19,7 +19,7 @@
         </div>
     </div>
     <div class="col s12 m12 l12">
-        <div class="input-field col s12 m10 l8">
+        <div class="input-field col s12 m10 l8" id="select-turma">
             {{ form.turma }}
             <label>Turma</label>
         </div>
@@ -27,13 +27,13 @@
     <div>
         <div class="col s12 m12 l12">
             <div class="input-field col s12 m10 l8">
-                <input type="text" id="data_inicio" name="data_inicio" class="datepicker">
+                <input type="text" id="data_inicio" required name="data_inicio" class="datepicker">
                 <label for="data_inicio">Data Inicial</label>
             </div>
         </div>
         <div class="col s12 m12 l12">
             <div class="input-field col s12 m10 l8">
-                <input type="text" id="data_fim" name="data_fim" class="datepicker">
+                <input type="text" id="data_fim" required name="data_fim" class="datepicker">
                 <label for="data_fim">Data Final</label>
             </div>
         </div>
@@ -47,6 +47,7 @@
 <script>
     $(document).ready(function () {
         $('select').formSelect();
+        
         $('.datepicker').datepicker({
             format: "dd/mm/yyyy",
             i18n: {
