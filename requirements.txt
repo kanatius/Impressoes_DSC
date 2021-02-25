@@ -50,6 +50,7 @@ pyparsing==2.4.7
 PyPDF2==1.26.0
 python-bidi==0.4.2
 python3-openid==3.2.0
+python==3.9.0
 pytz==2020.4
 reportlab==3.5.59
 requests==2.25.1
