@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'rest_framework',
     'drf_yasg',
-    'wkhtmltopdf',
     #3rd
     'allauth',
     'allauth.account',
