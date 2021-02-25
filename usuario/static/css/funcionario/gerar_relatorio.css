@@ -1,0 +1,48 @@
+table {
+  font-family: Lato, sans-serif !important;
+  font-size: 14px !important;
+}
+
+.btn.download {
+  background-color: black;
+  opacity: 73%;
+}
+.btn.download i {
+  color: white;
+}
+
+.dropdown-content li > a, .dropdown-content li > span {
+  color: #0277bd !important;
+}
+
+#gerar-relatorio {
+  background-color: #0277bd !important;
+}
+
+.datepicker-date-display {
+  background-color: #0277bd !important;
+}
+
+.datepicker-cancel, .datepicker-done {
+  color: #0277bd !important;
+  font-weight: bold !important;
+}
+
+.is-selected {
+  background-color: #0277bd !important;
+}
+
+.is-selected button {
+  color: white !important;
+}
+
+.is-today {
+  color: #0277bd !important;
+  font-weight: bolder !important;
+}
+
+fieldset {
+  border: 0px;
+}
+
+/*# sourceMappingURL=gerar_relatorio.css.map */

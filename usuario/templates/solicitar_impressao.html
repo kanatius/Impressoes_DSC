@@ -18,17 +18,17 @@
                         {{field}}
                         <span>{{field.label}}</span>
                         <!-- if boolean field, span must be after input (in materialize) -->
-                        
+
                         {% elif field.label == "Arquivo" %}
                         <div class="file-field input-field">
                             <div class="btn" id="file-input">
-                              <span>Arquivo</span>
-                              {{field}}
+                                <span>Arquivo</span>
+                                {{field}}
                             </div>
                             <div class="file-path-wrapper">
-                              <input class="file-path validate" type="text">
+                                <input class="file-path validate" type="text">
                             </div>
-                          </div>
+                        </div>
                         {% else %}
                         <span>{{field.label}}</span> <!-- description before input if not boolean field -->
                         {{field}}
@@ -48,12 +48,12 @@
         </form>
     </div>
     <script>
-        $(document).ready(function(){
+        $(document).ready(function () {
             $('select').formSelect();
             $("input#id_colorida").addClass("filled-in");
-          });
-        $('#id_tipo').formSelect();
-        $("input-field input").addClass("validate");
+            $('#id_tipo').formSelect();
+            $("input-field input").addClass("validate");
+        });
     </script>
 
     {% endblock %}

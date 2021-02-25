@@ -1,7 +1,12 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django import forms
 from .models import Usuario
+from .repository import UsuarioRepository
+from impressao.repository import TurmaRepository
 
+
+usuarioRepository = UsuarioRepository()
+turmaRepository = TurmaRepository()
 
 class CreateUserForm(UserCreationForm):
 
@@ -20,7 +25,6 @@ class CreateUserForm(UserCreationForm):
 
 class ChangeUserForm(UserChangeForm):
 
-
     class Meta:
         model: Usuario
 
@@ -38,3 +42,12 @@ class ChangeUserForm(UserChangeForm):
             user.save()
 
         return user
+
+
+
+class RelatorioForm(forms.Form):
+
+    cliente = forms.ModelChoiceField(usuarioRepository.getClientes(), required=True)
+    turma = forms.ModelChoiceField(turmaRepository.getAll(), required=False)
+    data_inicio = forms.DateField(required=True)
+    data_fim = forms.DateField(required=True)

@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 import django_heroku
 from .email_data import *
+import os
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'rest_framework',
     'drf_yasg',
+    'wkhtmltopdf',
     #3rd
     'allauth',
     'allauth.account',
@@ -170,7 +172,11 @@ DATABASES = {
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles/")
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'files/')
+MEDIA_URL = "/files/"
+
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
 AUTH_USER_MODEL = "usuario.usuario"
@@ -188,7 +194,6 @@ ACCOUNT_UNIQUE_EMAIL = True
 LOGIN_REDIRECT_URL = '/home'
 LOGOUT_REDIRECT_URL = "index"
 
-MEDIA_ROOT = BASE_DIR / 'files'
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())

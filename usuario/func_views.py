@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from impressao.service import ImpressaoService
+from .forms import RelatorioForm
+
 
 impressaoService = ImpressaoService()
 
@@ -17,3 +19,11 @@ def home(request):
         return render(request, "home_func.html", context={'impressoes' : impressoes})
 
     return HttpResponseRedirect("/")
+
+
+def relatorio_page(request):
+
+    if is_funcionario(request):
+        return render(request, "relatorio_page.html", context={"form" : RelatorioForm()})
+    
+    return HttpResponseRedirect(request, "/")

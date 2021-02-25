@@ -1,7 +1,6 @@
 from .models import Usuario
 
 
-
 class UsuarioRepository:
 
     def __init__(self):
@@ -13,3 +12,6 @@ class UsuarioRepository:
             return Usuario.objects.get(id=id)
         except:
             return None
+    
+    def getClientes(self):
+        return Usuario.objects.filter(cliente=True)
