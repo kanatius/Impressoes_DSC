@@ -15,7 +15,7 @@ from django.conf import settings
 from django.http import HttpResponse, Http404
 from django.db.models import Q
 from django.core.mail import send_mail
-from ProjetoDSC.email_data import EMAIL_HOST_USER
+from ProjetoDSC.settings import EMAIL_HOST_USER
 
 
 def isCliente(request):
