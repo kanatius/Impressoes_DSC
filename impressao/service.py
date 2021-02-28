@@ -186,8 +186,6 @@ class ImpressaoService():
 
         if not isFuncionario(request) and not request.user.funcionario_aluno:
             return False
-        
-        print(request.POST)
 
         impressao = self.impressaoRepository.getById(request.POST.get("id_impressao"))
 
@@ -205,13 +203,13 @@ class ImpressaoService():
 
         impressao.qtd_laudas_imprimidas = int(request.POST.get("qtd_laudas_imprimidas"))
 
-        impressao.save()
+        # impressao.save()
 
         send_mail(
             'Sua Impressão está pronta!',
-            'Olá ' + request.user.getFullName() + ", sua impressão : cod-" + str(impressao.id) + " " + impressao.uri_arquivo.name + " está pronta!",
+            'Olá ' + impressao.cliente.getFullName() + ", sua impressão : cod-" + str(impressao.id) + " " + impressao.uri_arquivo.name + " está pronta!",
             EMAIL_HOST_USER,
-            [request.user.email],
+            [impressao.cliente.email],
             fail_silently=False,
         )
 
