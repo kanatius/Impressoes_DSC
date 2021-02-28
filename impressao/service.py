@@ -207,13 +207,13 @@ class ImpressaoService():
 
         impressao.save()
 
-        # send_mail(
-        #     'Sua Impressão está pronta!',
-        #     'Olá ' + request.user.getFullName() + ", sua impressão : cod-" + str(impressao.id) + " " + impressao.uri_arquivo.name + " está pronta!",
-        #     EMAIL_HOST_USER,
-        #     ['natankwo@gmail.com'],
-        #     fail_silently=False,
-        # )
+        send_mail(
+            'Sua Impressão está pronta!',
+            'Olá ' + request.user.getFullName() + ", sua impressão : cod-" + str(impressao.id) + " " + impressao.uri_arquivo.name + " está pronta!",
+            EMAIL_HOST_USER,
+            request.user.email,
+            fail_silently=False,
+        )
 
         return True
 
