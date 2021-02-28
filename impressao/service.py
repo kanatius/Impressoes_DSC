@@ -48,20 +48,16 @@ class ImpressaoService():
             return self.impressaoRepository.list(cliente_id=request.user.id, offset=offset, limit=limit, desc=desc)
 
         if isFuncionario(request) or request.user.funcionario_aluno:
-            
-            impressoes = self.impressaoRepository.list(imprimida=False, desc=desc)
+            impressoes = []
 
-            if request.user.funcionario_aluno: #se o funcionario for aluno
-                
+            if request.user.funcionario_aluno:
+                #se o funcionario for aluno, retira as provas e testes
                 prova = self.tipoRepository.getByNameEquals("Prova")
                 teste = self.tipoRepository.getByNameEquals("Teste")
-
-                try:
-                    #solta erro caso venha a lista vazia
-                    impressoes = impressoes.filter(~Q(tipo=prova)) #remove Provas
-                    impressoes = impressoes.filter(~Q(tipo=teste)) #remove Testes
-                except:
-                    pass
+                impressoes = self.impressaoRepository.list(imprimida=False, desc=desc, no_tipo=[prova, teste])
+            else:
+                impressoes = self.impressaoRepository.list(imprimida=False, desc=desc)
+                
         
             for impressao in impressoes:
                 impressao.visualizado_em = datetime.now() #set visualizado_em nas impressões que foram selecionadas

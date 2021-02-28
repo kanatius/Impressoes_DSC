@@ -1,11 +1,11 @@
 from .models import Impressao, TipoImpressao, Turma
-
+from django.db.models import Q
 #IMPRESSÃO REPOSITORY
 
 class ImpressaoRepository:
 
     
-    def list(self, imprimida=None, cliente_id=None, order_by='id', limit=0, offset=0, imprimida_min_date = None, imprimida_max_date = None, turma_id = None, desc=False):
+    def list(self, imprimida=None, cliente_id=None, order_by='id', limit=0, offset=0, imprimida_min_date = None, imprimida_max_date = None, turma_id = None, desc=False, no_tipo = []):
         query = Impressao.objects.all()
 
         if imprimida is not None:
@@ -27,6 +27,9 @@ class ImpressaoRepository:
 
         if limit == 0:
             limit = len(query)
+
+        for tipo in no_tipo:
+            query = query.filter(~Q(tipo=tipo)) #remove Provas
 
         if desc :
             query = query.reverse()[offset:(offset+limit)]
