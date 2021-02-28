@@ -203,15 +203,15 @@ class ImpressaoService():
 
         impressao.qtd_laudas_imprimidas = int(request.POST.get("qtd_laudas_imprimidas"))
 
-        # impressao.save()
+        impressao.save()
 
-        send_mail(
-            'Sua Impressão está pronta!',
-            'Olá ' + impressao.cliente.getFullName() + ", sua impressão : cod-" + str(impressao.id) + " " + impressao.uri_arquivo.name + " está pronta!",
-            EMAIL_HOST_USER,
-            [impressao.cliente.email],
-            fail_silently=False,
-        )
+        # send_mail(
+        #     'Sua Impressão está pronta!',
+        #     'Olá ' + impressao.cliente.getFullName() + ", sua impressão : cod-" + str(impressao.id) + " " + impressao.uri_arquivo.name + " está pronta!",
+        #     EMAIL_HOST_USER,
+        #     [impressao.cliente.email],
+        #     fail_silently=False,
+        # )
 
         return True
 
