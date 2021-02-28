@@ -211,7 +211,7 @@ class ImpressaoService():
             'Sua Impressão está pronta!',
             'Olá ' + request.user.getFullName() + ", sua impressão : cod-" + str(impressao.id) + " " + impressao.uri_arquivo.name + " está pronta!",
             EMAIL_HOST_USER,
-            request.user.email,
+            [request.user.email],
             fail_silently=False,
         )
 
