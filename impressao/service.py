@@ -56,9 +56,13 @@ class ImpressaoService():
                 prova = self.tipoRepository.getByNameEquals("Prova")
                 teste = self.tipoRepository.getByNameEquals("Teste")
 
-                impressoes = impressoes.filter(~Q(tipo=prova)) #remove Provas
-                impressoes = impressoes.filter(~Q(tipo=teste)) #remove Testes
-
+                try:
+                    #solta erro caso venha a lista vazia
+                    impressoes = impressoes.filter(~Q(tipo=prova)) #remove Provas
+                    impressoes = impressoes.filter(~Q(tipo=teste)) #remove Testes
+                except:
+                    pass
+        
             for impressao in impressoes:
                 impressao.visualizado_em = datetime.now() #set visualizado_em nas impressões que foram selecionadas
                 impressao.save()
