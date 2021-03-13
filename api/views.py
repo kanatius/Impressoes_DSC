@@ -23,7 +23,7 @@ usuarioService = UsuarioService()
 offset = openapi.Parameter('offset', openapi.IN_QUERY, default=0, description="", type=openapi.TYPE_INTEGER)
 limit= openapi.Parameter('limit', openapi.IN_QUERY, default=0, description="Limite de impressões retornadas", type=openapi.TYPE_INTEGER)
 
-@swagger_auto_schema(method='get', manual_parameters=[offset, limit])
+@swagger_auto_schema(method='GET', manual_parameters=[offset, limit], responses={200 : ImpressaoSerializer})
 @api_view(['GET'])
 @permission_classes([permissions.IsAuthenticated])
 def minhas_impressoes(request):
@@ -83,9 +83,10 @@ def solicitar_impressao(request):
 #----------------------------------------------------------#
 #----------------------------------------------------------#
 @swagger_auto_schema(method='PATCH', manual_parameters=[uri_arquivo, qtd_copias, colorida, comentario, turma, tipo])
+@swagger_auto_schema(method='GET', responses={200 : ImpressaoSerializer})
 @api_view(["GET", "DELETE", "PATCH"])
 @permission_classes([permissions.IsAuthenticated])
-@parser_classes([FormParser, MultiPartParser])
+@parser_classes([FormParser, MultiPartParser]) 
 def impressao_by_id(request, id):
     '''
     Acesso à impressão pelo id
@@ -124,6 +125,7 @@ def impressao_by_id(request, id):
         return HttpResponse(data, content_type='application/json')
 #----------------------------------------------------------#
 #----------------------------------------------------------#
+@swagger_auto_schema(method='GET', responses={ 200 : TipoImpressaoSerializer})
 @api_view(["GET"])
 @permission_classes([permissions.IsAuthenticated])
 def tipos_de_impressoes(request):
@@ -146,6 +148,7 @@ def download_impressao(request, filename):
     return impressaoService.download(request, filename)
 #----------------------------------------------------------#
 #----------------------------------------------------------#
+@swagger_auto_schema(method='GET', responses={ 200 : TurmaSerializer})
 @api_view(["GET"])
 @permission_classes([permissions.IsAuthenticated])
 def list_turmas(request):
@@ -162,6 +165,7 @@ def list_turmas(request):
     return HttpResponse(data, content_type='application/json')
 #----------------------------------------------------------#
 #----------------------------------------------------------#
+@swagger_auto_schema(method='GET', responses={ 200 : TurmaSerializer})
 @api_view(["GET"])
 @permission_classes([permissions.IsAuthenticated])
 def turma_by_id(request, id):
