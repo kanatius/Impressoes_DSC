@@ -60,9 +60,9 @@ def minhas_impressoes(request):
 #----------------------------------------------------------#
 #----------------------------------------------------------#
 uri_arquivo = openapi.Parameter('uri_arquivo', openapi.IN_FORM, description="Arquivo a ser imprimido", type=openapi.TYPE_FILE)
-qtd_copias = openapi.Parameter('qtd_copias', openapi.IN_FORM, description="Quantidade de cópias a serem impressas", type=openapi.TYPE_INTEGER)
+qtd_copias = openapi.Parameter('qtd_copias', openapi.IN_FORM, description="Quantidade de cópias", type=openapi.TYPE_INTEGER)
 colorida = openapi.Parameter('colorida', openapi.IN_FORM, description="Se a impressão é colorida ou não", type=openapi.TYPE_BOOLEAN)
-comentario = openapi.Parameter('comentario', openapi.IN_FORM, description="Mensagem/Observação para o funcionário que irá imprimir", type=openapi.TYPE_STRING)
+comentario = openapi.Parameter('comentario', openapi.IN_FORM, description="Mensagem/Observação", type=openapi.TYPE_STRING)
 turma = openapi.Parameter('turma', openapi.IN_FORM, description="id da turma", type=openapi.TYPE_INTEGER)
 tipo = openapi.Parameter('tipo', openapi.IN_FORM, description="id do tipo da impressão", type=openapi.TYPE_INTEGER)
 
