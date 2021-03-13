@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect
 from .models import Usuario
 from django.contrib.auth import login as django_login, logout as django_logout, authenticate
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.hashers import check_password
 from django.http import HttpResponseRedirect
 #usuario
 from .forms import CreateUserForm

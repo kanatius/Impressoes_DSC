@@ -3,8 +3,7 @@ from impressao.service import ImpressaoService, TipoImpressaoService, TurmaServi
 from usuario.service import UsuarioService
 from django.core import serializers
 from rest_framework import permissions
-
-# from django.http import multipartparser
+from .serializers import ImpressaoSerializer, TipoImpressaoSerializer, TurmaSerializer
 
 from rest_framework.decorators import api_view, parser_classes, permission_classes
 from rest_framework.parsers import FormParser, MultiPartParser
@@ -48,9 +47,15 @@ def minhas_impressoes(request):
     if not impressoes_model:
         return JsonResponse({"response" : None})
 
-    data = serializers.serialize("json", impressoes_model)
-
+    data = ImpressaoSerializer(impressoes_model, many=True).data
+   
+    data = json.dumps(data)
+    
     return HttpResponse(data, content_type='application/json')
+
+    # data = serializers.serialize("json", impressoes_model)
+
+    # return HttpResponse(data, content_type='application/json')
 
 #----------------------------------------------------------#
 #----------------------------------------------------------#
@@ -89,7 +94,9 @@ def impressao_by_id(request, id):
         impressao = impressaoService.getById(request=request, id=id)
 
         if impressao is not None:
-            data = serializers.serialize("json", [impressao])
+            data = ImpressaoSerializer(impressao, many=False).data
+   
+            data = json.dumps(data)
         else:
             data = json.dumps(None)
 
@@ -107,7 +114,6 @@ def impressao_by_id(request, id):
     
     if request.method == "PATCH":
         
-        print(request.data)
 
         success = impressaoService.update(request, id)
 
@@ -125,9 +131,11 @@ def tipos_de_impressoes(request):
     tipos_model = tipoImpressaoService.getAllTipos(request)
 
     if not tipos_model:
-        return JsonResponse({"response" : None})
-
-    data = serializers.serialize("json", tipos_model)
+        return JsonResponse({})
+    
+    data = TipoImpressaoSerializer(tipos_model, many=True).data
+    
+    data = json.dumps(data)
 
     return HttpResponse(data, content_type='application/json')
 #----------------------------------------------------------#
@@ -147,7 +155,9 @@ def list_turmas(request):
     if not turmas:
         return JsonResponse({"response" : None})
 
-    data = serializers.serialize("json", turmas)
+    data = TurmaSerializer(turmas, many=True).data
+    
+    data = json.dumps(data)
 
     return HttpResponse(data, content_type='application/json')
 #----------------------------------------------------------#
@@ -161,7 +171,9 @@ def turma_by_id(request, id):
     if not turma:
         return JsonResponse({"response" : None})
     
-    data = serializers.serialize("json", [turma])
+    data = TurmaSerializer(turma, many=False).data
+    
+    data = json.dumps(data)
 
     return HttpResponse(data, content_type='application/json')
 #----------------------------------------------------------#
